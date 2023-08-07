@@ -1,0 +1,227 @@
+---
+title: "DGE_analysis_exercises_answer_key"
+output: html_document
+date: "2023-08-07"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+# Using DESeq2 for gene-level differential expression analysis
+
+- The metadata below describes an RNA-seq analysis experiment, in which the metadata table below and associated count matrix have been loaded into R as `meta` and `counts`, respectively. Additionally, all of the appropriate libraries have been loaded for you. Use the information in the table to answer the following questions.  
+
+	**meta**
+	
+	| |Genotype	|Celltype	|Batch|
+	| ------ | ------- | -------- | --- |
+	|sample1	|Wt	|typeA	|second |
+	|sample2	|Wt	|typeA	|second|
+	|sample3	|Wt	|typeA	|first|
+	|sample4	|KO	|typeA	|first|
+	|sample5	|KO	|typeA	|first|
+	|sample6	|KO	|typeA	|second|
+	|sample7	|Wt	|typeB	|second|
+	|sample8	|Wt	|typeB	|first|
+	|sample9	|Wt	|typeB	|second|
+	|sample10	|KO	|typeB	|first|
+	|sample11	|KO	|typeB	|first|
+	|sample12	|KO	|typeB	|second|
+
+
+	**NOTE: This is an exercise in thinking about running DESeq2. You do not need to run any code in R/RStudio. Refer to the materials/lessons from class to answer the following questions.**
+
+	**a.** Reorder the columns of the `counts` dataset such that `rownames(meta) == colnames(counts)`.
+	
+```{r, eval=FALSE}
+	idx <- match(rownames(meta), colnames(counts))
+	
+	counts <- counts[ , idx]
+```
+	
+	**b.** Provide the line of code used to create a DESeqDataSet object called `dds` in which `Genotype` is the factor of interest and `Celltype` and `Batch` are other contributing sources of variation in your data.
+	
+```{r, eval=FALSE}
+	dds <- DESeqDataSetFromMatrix(countData = data, colData = meta, design = ~ Celltype + Batch + Genotype)
+```
+
+	**c.** Provide the line of code required to run DESeq2 on `dds`.
+	
+```{r, eval=FALSE}
+	dds <- DESeq(dds)
+```
+	
+	**d.** Provide the line of code to create a dispersion plot.
+	
+```{r, eval=FALSE}
+	plotDispEsts(dds)
+```
+	
+	**e.** Provide the line of code to return the results of a Wald test comparison for `Celltype` categories `typeA` versus `typeB` (i.e the fold changes reported should reflect gene expression changes relative to `typeB`).
+	 	
+```{r, eval=FALSE}
+	res_tableCelltype <- results(dds, contrast = c("Celltype", "typeA" , "typeB"))
+```
+	
+	**f.** Provide the line of code to return the results with log2 fold change shrinkage performed.
+	
+```{r, eval=FALSE}
+	res_tableCelltype <- lfcShrink(dds, contrast=c("Celltype", "typeA" , "typeB"), res=res_tableCelltype)
+```
+	
+	**g.** Provide the line of code to write the results of the Wald test with shrunken log2 fold changes to file.
+	
+```{r, eval=FALSE}
+	write.table(res_tableCelltype, file="res_Celltype.txt", sep="\t", quote=F, col.names=NA)
+```
+	
+	**h.** Provide the line of code to subset the results to return those genes with adjusted p-value < 0.05 and logFold2Change > 1.
+	
+```{r, eval=FALSE}
+	filter(res_tableCelltype, padj < 0.05 & abs(log2FoldChange) > 1)
+```
+	
+# Working with the DESeq2 results table
+
+- Using the DESeq2_expression_analysis.Rmd script change the thresholds for adjusted p-value and log2 fold change to the following values:
+ 
+```{r}
+	padj.cutoff <- 0.01
+	
+	lfc.cutoff <- 1.5
+```
+	
+	Using these new cutoffs, perform the following steps:
+
+	**a.** Subset `res_tableOE` to only return those rows that meet the criteria we specified above (adjusted p-values < 0.01 and log fold changes >1.5). Save the subsetted table to a data frame called `sig_table_hw_oe`. You'll have to load the res_tableOE first. Write the code below:
+	
+```{r}
+res_tableOE = readRDS("../data/res_tableOE.rds")
+
+w = which(res_tableOE$padj < 0.01 & abs(res_tableOE$log2FoldChange) > 1.5)
+sig_table_hw_oe <- res_tableOE[w,]
+```
+	
+	**b.** There is a a DESeq2 function that summarizes how many genes are up- and down-regulated using our criteria for `alpha=0.01`. Use this on the `sig_table_hw_oe`. Write the code you would use, and also, list how many genes are up- and down- regulated.
+	
+```{r}
+summary(sig_table_hw_oe)
+		
+```
+	
+	**c.** Get the gene names from `sig_table_hw_oe` and save them to a vector called `sigOE_hw`. Write the code below:
+	
+```{r}
+sigOE_hw <- rownames(sig_table_hw_oe)
+```
+	
+	**d.** Write the `sigOE_hw` vector of gene names to a file called `sigOE_hw.txt` using the `write()` function. Ensure the genes are listed in a single column. Write the code below.
+	
+```{r}
+write(sigOE_hw, file="../results/sigOE_hw.txt", ncol=1)
+```
+
+	 
+# Visualizing Results
+
+- For the genes that are differentially expressed in the knockdown versus control comparison (`res_tableKD`), plot an expression heatmap using normalized counts and `pheatmap()` following the instructions below. Write the code you would use to create the heatmap.
+
+	**a.** The heatmap should only include control and knockdown samples. 
+	
+```{r}
+normalized_counts <- read.delim("../data/normalized_counts.txt",row.names = 1)
+meta <- read.table("../meta/Mov10_full_meta.txt", header=T, row.names=1)
+
+sigKD <- readRDS("../data/sigKD.rds")
+
+colnames(normalized_counts)
+
+## Extract normalized expression for significant genes
+norm_KDsig <- normalized_counts[sigKD$gene, c(1,2,6,7,8)]
+
+## Annotate our heatmap (optional)
+annotation <- meta[c(1,2,6,7,8), "sampletype", drop = FALSE]
+	# Or
+annotation <- meta[meta$sampletype != "MOV10_overexpression", "sampletype", drop = FALSE]
+```
+	
+	**b.** Set up a heat.colors vector using a palette of your choice from brewer.pal (make sure it is different from the one used in class).
+	
+```{r}
+library(RColorBrewer)
+heat.colors <- brewer.pal(6, "YlGnBu")
+```
+	
+	**c.** Plot the heatmap without clustering the columns. 
+	
+```{r}
+library(pheatmap)
+pheatmap(norm_KDsig, color = heat.colors, 
+				cluster_rows = T, cluster_cols = F, 
+				show_rownames=F, annotation = annotation, 
+				fontsize = 10,  fontsize_row = 10, height=20)
+```
+	
+	**d.** Scale expression values by row.
+	
+```{r}
+pheatmap(norm_KDsig, color = heat.colors, 
+				cluster_rows = T, scale="row",
+				show_rownames=F, annotation= annotation, 
+				fontsize = 10,  fontsize_row = 10, height=20)
+```
+	
+# Use significant gene lists to find overlaps between the two comparisons 
+
+- Using the original cutoff values, perform the following steps:
+
+```{r}
+	padj.cutoff <- 0.05
+
+	lfc.cutoff <- 0.58
+```
+
+	**a.** Create separate vectors with gene names for up-regulated genes and down-regulated genes from `res_tableOE` and save as `up_OE` and `down_OE`, respectively. Write the code below:
+	
+```{r}
+up_OE<- row.names(res_tableOE)[which(res_tableOE$padj < padj.cutoff & res_tableOE$log2FoldChange > lfc.cutoff)]
+
+down_OE <- row.names(res_tableOE)[which(res_tableOE$padj < padj.cutoff & res_tableOE$log2FoldChange < -lfc.cutoff)]
+```
+	
+	**b.** Create separate vectors with gene names for up-regulated genes and down-regulated genes from `res_tableKD` and save as `up_KD` and `down_KD`, respectively. Write the code below:
+	
+```{r}
+
+res_tableKD <- readRDS("../data/res_tableKD.rds")
+
+up_KD <- row.names(res_tableKD)[which(res_tableKD$padj < padj.cutoff & res_tableKD$log2FoldChange > lfc.cutoff)]
+	
+down_KD <- row.names(res_tableKD)[which(res_tableKD$padj < padj.cutoff & res_tableKD$log2FoldChange < -lfc.cutoff)]
+```
+	
+	**c.** Test for overlaps between the lists:
+	
+	- How many, and which genes in `up_OE` are also in `down_KD`?
+		
+```{r}
+		length(up_OE[up_OE %in% down_KD])
+		# Or
+		length(down_KD[down_KD %in% up_OE])
+```
+
+	- How many, and which genes in `up_KD` are also in `down_OE`?
+		
+```{r}
+		length(up_KD[up_KD %in% down_OE])
+		# Or
+		length(down_OE[down_OE %in% up_KD])
+```
+
+
+	 
+
+	
+
