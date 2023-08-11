@@ -7,11 +7,41 @@ date: "2023-08-07"
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+- The metadata tables below below describes an RNA-seq analysis experiment, in which the metadata table below and associated count matrix have been loaded into R as `meta` and `counts`, respectively. Additionally, all of the appropriate libraries have been loaded for you. Use the information in the table to answer the following questions.  
 
 
+Let's suppose our experiment has the following metadata:
+
+| | **genotype** | **treatment** |
+| :---: | :---: | :---: |
+| **sample1** | WT | ev |
+| **sample2** | WT | ev |
+| **sample3** | WT | ev |
+| **sample4** | WT | ev |
+| **sample5** | KO_geneA | ev |
+| **sample6** | KO_geneA | ev |
+| **sample7** | KO_geneA | ev |
+| **sample8** | KO_geneA | ev |
+| **sample9** | WT | treated |
+| **sample10** | WT | treated |
+| **sample11** | WT | treated |
+| **sample12** | WT | treated |
+| **sample13** | KO_geneA | treated |
+| **sample14** | KO_geneA | treated |
+| **sample15** | KO_geneA | treated |
+| **sample16** | KO_geneA | treated |
+
+How would the design formula be structured to perform the following analyses?
+
+1. Test for the effect of `treatment`.
+
+
+
+2. Test for the effect of `genotype`, while regressing out the variation due to `treatment`.
+
+3. Test for the effect of `genotype` on the `treatment` effects.
 # Using DESeq2 for gene-level differential expression analysis
 
-- The metadata below describes an RNA-seq analysis experiment, in which the metadata table below and associated count matrix have been loaded into R as `meta` and `counts`, respectively. Additionally, all of the appropriate libraries have been loaded for you. Use the information in the table to answer the following questions.  
 
 	**meta**
 	

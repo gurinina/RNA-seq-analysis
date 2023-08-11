@@ -1,0 +1,39 @@
+---
+title: "omic-sciences"
+author: "Guri Giaever"
+date: "`r Sys.Date()`"
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+cover-image: "koos1.png"
+description: Genetics and genomics are undergoing an unparalled revolution in terms of technical capabilities and their impact on human health. Similar advances are ocurring for studying all the proteins within a cell (proteomics) and in our ability to manage and analyze all of the resulting data. These increases in our understanding of biology and human health can create breakthroughs in disease treatment and brings the prospect of personalized medicine closer to practical reality. This course will, through the lens of Pharmaceutical Science, provide an introduction and review of the general principles of genomics and molecular biology. Students will then explore the key genomic technologies and computational approaches that are driving advances in prognostics, diagnostics and treatment. Students will learn how scientists sequence,assemble and analyze structure and function of genomes and explore methods for determining the heretibility of traits and diseases by studying the larger population. Students will also learn how advanced functional genomics techniques can be applied to help develop new therapeutic strategies against major diseases. Fingally, we will survey key related advances in mass spectrometry-based proteomics that are enabling rapied, highly-multiplexed characterization of protein function in health and disease. This course will give students a detailed understanding of how omics technologies and data processing methods can be harnessed for pharmaceutical research applications.
+link-citations: yes
+github-repo: gurinina/RNAseq_analysis
+url: https\://bookdown.org/ggiaever/omic-sciences/
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: book
+
+# Welcome to Omic Sciences!
+
+![](figure/koos1.png)
+
+This course will cover several of the statistical concepts and data analytic skills needed to succeed in data-driven life science research as it relates to genomics and the omic sciences.
+
+We start with one of the most important topics in statistics and in the life sciences: statistical inference. Inference is the use of probability to learn population characteristics from data to predict outcomes. A typical example is deciphering if two groups (for example, cases versus controls) are different on average. Specific topics covered include the t-test, confidence intervals, association tests, and statistical power. We make use of the Central Limit and we will learn how to compute p-values and implement basic data analyses. This will form the foundation for the analytic techniques discussed throughout the course. Throughout the course we will describe visualization techniques in the statistical computer language *R* that are useful for exploring new high throughput datasets. For example, we will use these to learn when to apply robust statistical techniques.
+
+We will then move on to an introduction to linear models and matrix algebra. We will explain why it is beneficial to use linear models to analyze differences across groups, and why matrices are useful to represent and implement linear models. We continue with a review of matrix algebra, including matrix notation and how to multiply matrices (both on paper and in R). We will then apply what we covered on matrix algebra to linear models. We will learn how to fit linear models in R, how to test the significance of differences, and how the standard errors for differences are estimated.
+
+For the bulk of the course we cover topics related to genomics and high-dimensional data. Specifically, we describe multiple testing, error rate controlling procedures, exploratory data analysis for high-throughput data, p-value corrections and the false discovery rate. Here we will cover experimental techniques used in genomics including RNA-seq, Chip-chip, variant and DNA-methylation analysis.
+
+We will cover the concepts of distance and dimension reduction. We will introduce the mathematical definition of distance and use this to motivate the singular value decomposition (SVD) for dimension reduction and multi-dimensional scaling. Once we learn this, we will be ready to cover hierarchical and k-means clustering.
+
+We end by learning about batch effects and how component and factor analysis are used to deal with this challenge. We will end with complete walk throughs of examples of the analysis of RNA-seq, chip-chip and DNA-methylation data.
+
+## How Is This Course Different?
+
+While statistics textbooks focus on mathematics, this book focuses on using a computer to perform data analysis. Instead of explaining the mathematics and theory, and then showing examples, we start by stating a practical data-related challenge. This book also includes the computer code that provides a solution to the problem and helps illustrate the concepts behind the solution. By running the code yourself, and seeing data generation and analysis happen live, you will get a better intuition for the concepts, the mathematics, and the theory. For example, this Rmd code is available [here](https://github.com/gurinina/omic_sciences/blob/main/index.Rmd).
+
+We focus on the practical challenges faced by data analysts in the life sciences and introduce mathematics as a tool that can help us achieve scientific goals. Furthermore, throughout the book we show the R code that performs this analysis and connect the lines of code to the statistical and mathematical concepts we explain. All sections of this book are reproducible as they were made using *R markdown* documents that include R code used to produce the figures, tables and results shown in the book. R Markdown is a file format for making dynamic documents with R. An R Markdown document is written in markdown (an easy-to-write plain text format) and contains chunks of embedded R code, like the one below. The notation at the beginning of each chunk gives specific instructions for the chunk. For example, "include = FALSE" in the following chunk prevents code from appearing in the finished file. Chunks need to be inserted using three single back ticks and closed parentheses, you can insert automatically by clicking on the insert chunk icon in an Rmd document.
+
+The best reference for rmarkdown documents is [R Markdown Cookbook](https://bookdown.org/yihui/rmarkdown-cookbook/).
+

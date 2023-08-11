@@ -1,5 +1,6 @@
+# 08_Functional_analysis_of_RNAseq
 ---
-title: "Functional analysis of RNAseq"
+title: "Functional-analysis-of-RNAseq"
 output: html_document
 date: "2023-08-06"
 ---

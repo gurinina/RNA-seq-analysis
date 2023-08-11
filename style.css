@@ -1,0 +1,41 @@
+p.caption {
+  color: #777;
+  margin-top: 10px;
+}
+p code {
+  white-space: inherit;
+}
+pre {
+  word-break: normal;
+  word-wrap: normal;
+}
+pre code {
+  white-space: inherit;
+}
+
+/* watermark for draft report
+.watermark {
+  opacity: 0.2;
+  position: fixed;
+  top: 45%;
+  left: 45%;
+  font-size: 500%;
+  color: #606099;
+  z-index: 1000000;
+}
+*/
+
+.book .book-body .page-wrapper .page-inner {
+  max-width: 80% !important;
+}
+
+/* Increase space to display line number in R chunks correctly */
+pre.numberSource code > span > a:first-child::before {
+  left: -0.3em;
+}
+
+/* for multi cols */
+/*.cols {display: flex; } /* uncomment for flex column size */
+.cols {display: grid; grid-template-columns: 30% 50% 20%;} /* for fixed column size */
+
+
