@@ -1,14 +1,19 @@
 ---
-title: "DESeq2_expression_analysis"
-output: html_document
-date: "2023-08-05"
+html_document:
+  df_print: kable
+  theme: cerulean
+  highlight: haddock
+  toc: yes
+  toc_depth: 2
+title: "DESeq2_expression_analysis w/ answers"
+date: "2023-08-07"
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-##### 01 DGE_setup and overview
+# 01_DGE_setup_and_overview
 
 ```{r, message=FALSE}
 ## Setup
@@ -39,7 +44,8 @@ class(data)
 View(meta)
 View(data)
 ```
-*RNA-seq count distribution*
+**RNA-seq count distribution**
+
 To determine the appropriate statistical model, we need information about the distribution of counts. To get an idea about how RNA-seq counts are distributed, let’s plot the counts for a single sample, ‘Mov10_oe_1’:
 
 ```{r}
@@ -58,7 +64,7 @@ geom_histogram(aes(x = Mov10_oe_1), stat = "bin", bins = 200) +
 ```
 These images illustrate some common features of RNA-seq count data, including a low number of counts associated with a large proportion of genes, and a long right tail due to the lack of any upper limit for expression. 
 
-*How do I know if my data should be modeled using the Poisson distribution or Negative Binomial distribution?*
+**How do I know if my data should be modeled using the Poisson distribution or Negative Binomial distribution?**
 If it’s count data, it should fit the negative binomial, as discussed previously.
 
 ```{r}
@@ -81,9 +87,9 @@ We will be using DESeq2 for the DE analysis, and the analysis steps with DESeq2 
 
 --------------------------------------
 
-##### 02 DGE count normalization with DESeq2
+# 02_DGE_count_normalization_with_DESeq2
 
-*Exercise*
+##### Exercise
 
 Determine the normalized counts for your gene of interest, PD1, given the raw counts and size factors below.
 
@@ -104,26 +110,28 @@ Normalized counts:
 ```{r}
 
 ```
-*Count normalization of Mov10 dataset using DESeq2*
+**Count normalization of Mov10 dataset using DESeq2**
 
-*1. Match the metadata and counts data*
+**1. Match the metadata and counts data**
 ```{r}
 ### Check that sample names match in both files
 all(colnames(data) %in% rownames(meta))
 all(colnames(data) == rownames(meta))
 ```
-*Exercise*
+##### Exercise
 
 Suppose we had sample names matching in the counts matrix and metadata file, but they were out of order. Write the line(s) of code required to create a new matrix with columns ordered such that they were identical to the row names of the metadata.
 
 ```{r}
-
+idx = match(rownames(meta),colnames(data))
+data = data[,idx]
 ```
 
-*2. Create DESEq2 object*
+**2. Create DESEq2 object**
 
 ```{r}
 ## Create DESeq2Dataset object
+
 dds <- DESeqDataSetFromMatrix(countData = data, colData = meta, design = ~ sampletype)
 ```
 You can use DESeq-specific functions to access the different slots and retrieve information, if you wish. For example, suppose we wanted the original count matrix we would use counts() (Note: we nested it within the View() function so that rather than getting printed in the console we can see it in the script editor):
@@ -135,7 +143,7 @@ colData(dds)
 ```
 As we go through the workflow we will use the relevant functions to check what information gets stored inside our object.
 
-*3. Generate the Mov10 normalized counts*
+**3. Generate the Mov10 normalized counts**
 
 To perform the median of ratios method of normalization, DESeq2 has a single estimateSizeFactors() function that will generate size factors for us. We will use the function in the example below, but in a typical RNA-seq analysis this step is automatically performed by the DESeq() function, which we will see later.
 
@@ -159,35 +167,49 @@ We can save this normalized data matrix to file for later use:
 write.table(normalized_counts, file="data/normalized_counts.txt", sep="\t", quote=F, col.names=NA)
 ```
 
-*NOTE:* DESeq2 doesn’t actually use normalized counts, rather it uses the raw counts and models the normalization inside the Generalized Linear Model (GLM). These normalized counts will be useful for downstream visualization of results, but cannot be used as input to DESeq2 or any other tools that peform differential expression analysis which use the negative binomial model.
+**NOTE:** DESeq2 doesn’t actually use normalized counts, rather it uses the raw counts and models the normalization inside the Generalized Linear Model (GLM). These normalized counts will be useful for downstream visualization of results, but cannot be used as input to DESeq2 or any other tools that peform differential expression analysis which use the negative binomial model.
 
 ------------------------
 
-##### 03 DGE QC analysis
+# 03_DGE_QC_analysis
 
-*Quality countrol methods for DE analysis using DESeq2*
+**Quality countrol methods for DE analysis using DESeq2**
 
 <img src="./img/deseq_workflow_qc_2018.png" width="400">
 
 When using these unsupervised clustering methods, log2-transformation of the normalized counts improves the distances/clustering for visualization. DESeq2 uses a regularized log transform (rlog) of the normalized counts for sample-level QC as it moderates the variance across the mean, improving the clustering.
 
-*Principal Component Analysis (PCA)*
+**Principal Component Analysis (PCA)**
 
 Principal Component Analysis (PCA) is a technique used to emphasize variation and bring out strong patterns in a dataset (dimensionality reduction). 
 
-*If two samples have similar levels of expression for the genes that contribute significantly to the variation represented by PC1, they will be plotted close together on the PC1 axis.* Therefore, we would expect that biological replicates to have similar scores (since the same genes are changing) and cluster together on PC1 and/or PC2, and the samples from different treatment groups to have different score. This is easiest to understand by visualizing example PCA plots.
+**If two samples have similar levels of expression for the genes that contribute significantly to the variation represented by PC1, they will be plotted close together on the PC1 axis.** Therefore, we would expect that biological replicates to have similar scores (since the same genes are changing) and cluster together on PC1 and/or PC2, and the samples from different treatment groups to have different score. This is easiest to understand by visualizing example PCA plots.
 
 Depending on how much variation is explained by the first few principal components, you may want to explore more (i.e consider more components and plot pairwise combinations). Even if your samples do not separate clearly by the experimental variable, you may still get biologically relevant results from the DE analysis. If you are expecting very small effect sizes, then it’s possible the signal is drowned out by extraneous sources of variation. In situations where you can identify those sources, it is important to account for these in your model, as it provides more power to the tool for detecting DE genes.
 
-**Exercise**
+##### Exercise
 
 The figure below was generated from a time course experiment with sample groups ‘Ctrl’ and ‘Sci’ and the following timepoints: 0h, 2h, 8h, and 16h.
 
-Determine the sources explaining the variation represented by PC1 and PC2.
-Do the sample groups separate well?
-Do the replicates cluster together for each sample group?
-Are there any outliers in the data?
-Should we have any other concerns regarding the samples in the dataset?
+- Determine the sources explaining the variation represented by PC1 and PC2.
+
+  - Ans: 
+
+- Do the sample groups separate well?
+
+  - Ans: 
+ 
+- Do the replicates cluster together for each sample group?
+
+  - Ans: 
+
+- Are there any outliers in the data?
+
+  - Ans: 
+ 
+- Should we have any other concerns regarding the samples in the dataset?
+
+  - Ans: 
 
 <img src="./img/PCA_example3.png" width="600">
 
@@ -209,7 +231,8 @@ Genes with a low mean normalized counts
 
 **Mov10 quality assessment and exploratory analysis using DESeq2**
 
-*Transform normalized counts using the rlog transformation*
+**Transform normalized counts using the rlog transformation*
+
 To improve the distances/clustering for the PCA and heirarchical clustering visualization methods, we need to moderate the variance across the mean by applying the rlog transformation to the normalized counts.
 
 The rlog transformation of the normalized counts is only necessary for these visualization methods during this quality assessment. We will not be using these tranformed counts downstream.
@@ -264,7 +287,7 @@ And now to plot the correlation values as a heatmap:
 ### Plot heatmap
 pheatmap(rld_cor)
 ```
-*NOTE:* The pheatmap function has a number of different arguments that we can alter from default values to enhance the aesthetics of the plot. If you are curious and want to explore more, try running the code below. How does your plot change? Take a look through the help pages (?pheatmap) and identify what each of the added arguments is contributing to the plot.
+**NOTE:** The pheatmap function has a number of different arguments that we can alter from default values to enhance the aesthetics of the plot. If you are curious and want to explore more, try running the code below. How does your plot change? Take a look through the help pages (?pheatmap) and identify what each of the added arguments is contributing to the plot.
 
 ```{r}
 heat.colors <- brewer.pal(6, "Blues")
@@ -275,7 +298,7 @@ display.brewer.all()
 ```
 ----------------------
 
-##### 04 DGE DESeq2 analysis part I
+# 04_DGE_DESeq2_analysis_part_I
 
 **Gene-level differential expression analysis with DESeq2**
 
@@ -286,21 +309,38 @@ Differential expression analysis with DESeq2 involves multiple steps as displaye
 **Running DESeq2**
 
 **Design formula**
+
 A design formula tells the statistical software the known sources of variation to control for, as well as, the factor of interest to test for during differential expression testing. After performing the QC analysis (or based on your experimental design) you should have a good idea of the sources of variation.
 
-**Exercises**
+For example, suppose you have the following metadata:
 
-Suppose you wanted to study the expression differences between the two age groups in the metadata shown above, and major sources of variation were sex and treatment, how would the design formula be written?
+<img src="img/meta_example.png" width="300">
 
-Ans:
+If you want to examine the expression differences between treatments, and you know that major sources of variation include `sex` and `age`, then your design formula would be:
 
+```{r, eval=FALSE}
+design <- ~ sex + age + treatment
+
+```
+The tilde (`~`) should always proceed your factors and tells DESeq2 to model the counts using the following formula. Note the **factors included in the design formula need to match the column names in the metadata**. 
+
+
+##### Exercise
+
+Suppose you wanted to study the expression differences between the two age groups in the metadata shown above, and major sources of variation were `sex` and `treatment`, how would the design formula be written?
+
+```{r, eval=FALSE}
+
+```
 Based on our Mov10 metadata dataframe, which factors could we include in our design formula?
 
-Ans:
+ - Ans:
 
 What would you do if you wanted to include a factor in your design formula that is not in your metadata?
 
-Ans:
+ - Ans: 
+ 
+ 
 
 **MOV10 DE analysis**
 
@@ -340,7 +380,7 @@ These numbers should be identical to those we generated initially when we had ru
 colSums(counts(dds))
 ```
 
-*How do the numbers correlate with the size factor?*
+**How do the numbers correlate with the size factor?**
 
 Now take a look at the total depth after normalization using:
 ```{r}
@@ -387,7 +427,7 @@ plotDispEsts(dds)
 ```
 Since we have a small sample size, for many genes we see quite a bit of shrinkage. Do you think our data are a good fit for the model?
 
-##### 05 DGE DESeq2 analysis partII
+# 05_DGE_DESeq2_analysis_partII
 
 **Hypothesis testing using the Wald test**
 
@@ -408,6 +448,7 @@ results(dds, contrast = contrast, alpha = alpha_threshold)
 ```
 
 **MOV10 DE analysis: contrasts and Wald tests**
+
 We have three sample classes so we can make three possible pairwise comparisons:
 
 Control vs. Mov10 overexpression
@@ -517,7 +558,15 @@ res_tableOE_tb <- res_tableOE %>%
 sigOE <- res_tableOE_tb %>%
         filter(padj < padj.cutoff & abs(log2FoldChange) > lfc.cutoff)
 ```
-How many genes are differentially expressed in the Overexpression compared to Control, given our criteria specified above? Does this reduce our results?
+How many genes are differentially expressed in the Overexpression compared to Control, given our criteria specified above? 
+
+```{r}
+nrow(sigOE)
+```
+
+Does this reduce our results?
+
+ -Ans: Yes -- from 23368 to 951
 
 ```{r}
 res_tableKD_tb <- res_tableKD %>%
@@ -532,9 +581,16 @@ sigKD <- res_tableKD_tb %>%
 # 
 saveRDS(sigKD,"data/sigKD.rds")
 ```
+##### Exercise
+
 How many genes are differentially expressed in the Knockdown compared to Control?
 
-##### 06 DGE visualizing results
+```{r}
+
+```
+
+
+# 06_DGE_visualizing_results
 
 **Advanced visualizations**
 
@@ -556,13 +612,13 @@ normalized_counts <- normalized_counts %>%
 
 **Plotting significant differentially expresssed genes**
 
-*Plotting single genes using plotCounts*
+**Plotting single genes using plotCounts**
 
 ```{r}
 # Plot expression for single gene
 plotCounts(dds, gene="MOV10", intgroup="sampletype",pch=19,col=as.numeric(as.factor(meta$sampletype))) 
 ```
-*Plotting single genes using ggplot2*
+**Plotting single genes using ggplot2**
 
 If you wish to change the appearance of this plot, we can save the output of plotCounts() to a variable specifying the returnData=TRUE argument, then use ggplot():
 
@@ -577,7 +633,7 @@ ggplot(d, aes(x = sampletype, y = count, color = sampletype)) +   geom_point(pos
   ggtitle("MOV10") +
   theme(plot.title = element_text(hjust = 0.5))
 ```
-*Multiple genes*
+**Multiple genes**
 
 ```{r}
 ## Order results by padj values
