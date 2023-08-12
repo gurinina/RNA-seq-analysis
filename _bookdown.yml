@@ -1,5 +1,4 @@
----
-book_filename: omic-sciences
+book_filename: RNAseq_analysis
 new_session: yes
 rmd_files:
   - index.Rmd
