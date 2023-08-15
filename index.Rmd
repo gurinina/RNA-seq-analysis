@@ -11,7 +11,7 @@ github-repo: gurinina/genomics/RNAseq_analysis
 url: https\://bookdown.org/ggiaever/RNAseq_analysis 
 site: bookdown::bookdown_site 
 documentclass: book
-favicon: header.html
+favicon: "img/icons8-biotech-64.png"
 cover-image: "img/koos10.png"
 --- 
 
