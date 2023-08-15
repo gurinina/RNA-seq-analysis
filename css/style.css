@@ -1,0 +1,192 @@
+/*@import url('https://fonts.googleapis.com/css2?family=Cabin&display=swap');*/
+
+p.caption {
+  color: #777;
+  margin-top: 10px;
+}
+p code {
+  white-space: inherit;
+}
+pre {
+  word-break: normal;
+  word-wrap: normal;
+}
+pre code {
+  white-space: inherit;
+}
+
+.book .book-body .page-wrapper .page-inner {
+  max-width: 85%;
+}
+
+/* Increase space to display line number in R chunks correctly */
+pre.numberSource code > span > a:first-child::before {
+  left: -0.3em;
+}
+
+/* for multi cols */
+/*.cols {display: flex; } /* uncomment for flex column size */
+.cols {display: grid; grid-template-columns: 30% 50% 20%;} /* for fixed column size */
+
+h1, h2, h3, h4 {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #000080;
+}
+
+.title {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.3em !important;
+
+  color: #000080;
+ }
+
+.subtitle {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #000080;
+  font-size: 1em !important;
+}
+
+
+a { 
+color: #000080;
+}
+
+dt {
+  color:  #000080;
+}
+
+.book.font-family-0 {
+  font-family: Georgia, serif;
+}
+.book.font-family-1 {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+/* this is paragraph text */
+.book .book-body .page-wrapper .page-inner section.normal p {
+
+    font-size: 1em
+}
+
+
+
+
+.book .book-body .page-wrapper .page-inner section.normal h1{
+    font-size: 1.1em; 
+    margin-top: 1em }
+
+.book .book-body .page-wrapper .page-inner section.normal h2 {
+    font-size: 1em
+}
+
+.book .book-body .page-wrapper .page-inner section.normal h3 {
+    font-size: 1em
+}
+.book .book-body .page-wrapper .page-inner section.normal h4 {
+    font-size: 1em
+}
+
+.book .book-body .page-wrapper .page-inner section.normal h5 {
+    font-size: 1em
+}
+
+.book .book-summary ul.summary li a {
+  color: #FFFFFF;
+}
+
+.book .book-summary ul.summary li.active>a {
+  color: #ffffff;
+}
+
+
+
+.book .book-summary ul.summary li a {
+  color: #FFFFFF;
+}
+
+/* this is the sidebar hover */
+.book .book-summary ul.summary li a:hover {
+  background-color: #ffffff;
+  color: #000080;
+}
+
+body {
+    text-rendering: optimizeLegibility;
+    font-smoothing: antialiased;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    letter-spacing: .2px;
+    text-size-adjust: 100%
+}
+
+.book .book-summary ul.summary li a,.book .book-summary ul.summary li span {
+    display: block;
+    padding: 10px 15px;
+    border-bottom: none;
+    color: #FFFFFF;
+    background: 0 0;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: wrap;
+    position: relative;
+    font-weight: bold;
+    
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif !important;
+    font-size: 18px;
+}
+
+
+book.with-summary .book-header.fixed {
+    left: 400px;
+  }
+
+  @media (min-width: 600px) {
+    .book.with-summary .book-body {
+        left:400px
+    }
+}
+
+
+/* this is the sidebar width and font family */
+.book .book-summary {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  width: 350px;
+  position:absolute;
+  font-weight: bold;
+  top:0;
+  left:-350px;
+  background-color: #000080;
+  color: #FFFFFF;
+}
+
+
+.book.with-summary .book-header.fixed {
+    left: 350px;
+}
+
+.book.with-summary .book-body {
+    left: 350px;
+}
+
+/*____Code Chunks____*/
+
+.sourceCode pre {
+  margin: 0 !important; /* makes space above and below symmetrical*/
+}
+
+.sourceCode {
+  margin-bottom: 0.85em; /* adds same amount of margin as a <p> would */
+}
+
+/* The next two rules make the horizontal line go straight across in top navbar */
+
+.summary > li:first-child {
+    height: 50px;
+    padding-top: 10px;
+    border-bottom: 1px solid rgba(0,0,0,.07);
+}
+
+.book .book-summary ul.summary li.divider {
+    height: 0px;
+}

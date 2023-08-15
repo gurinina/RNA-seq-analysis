@@ -1,11 +1,18 @@
 # Differential gene expression (DGE) analysis overview 
 
+## Learning Objectives 
+
+* Explain the experiment and its objectives
+* Describe how to set up an RNA-seq project in R 
+* Describe the RNA-seq and the differential gene expression analysis workflow
+* Explain why negative binomial distribution is used to model RNA-seq count data
+
 The goal of RNA-seq is often to perform differential expression testing to determine which genes are expressed at different levels between conditions. These genes can offer biological insight into the processes affected by the condition(s) of interest. 
 
 To determine the expression levels of genes, our RNA-seq workflow followed the steps detailed in the image below. All steps were performed on the command line (Linux/Unix) through the generation of the read counts per gene. The differential expression analysis and any downstream functional analysis are generally performed in R using R packages specifically designed for the complex statistical analyses required to determine whether genes are differentially expressed.
 
 
-<img src="../img/rnaseq_full_workflow.png" width="400">
+<img src="img/rnaseq_full_workflow.png" width="400">
 
 In the next few lessons, we will walk you through an **end-to-end gene-level RNA-seq differential expression workflow** using various R packages. We will start with the count matrix, perform exploratory data analysis for quality assessment and to explore the relationship between samples, perform differential expression analysis, and visually explore the results prior to performing downstream functional analysis.
 
@@ -18,7 +25,7 @@ The RNA-Seq was performed on HEK293F cells that were either transfected with a M
 
 Using these data, we will evaluate transcriptional patterns associated with perturbation of MOV10 expression. Please note that the irrelevant siRNA will be treated as our control condition.
 
-<img src="../img/dataset.png" width="400">
+<img src="img/dataset.png" width="400">
 
 
 
@@ -32,7 +39,7 @@ The authors are investigating interactions between various genes involved in Fra
 
 **The hypothesis [the paper](http://www.ncbi.nlm.nih.gov/pubmed/25464849) is testing is that FMRP and MOV10 associate and regulate the translation of a subset of RNAs.**
 
-<img src="../img/mov10-model.png" width="400">
+<img src="img/mov10-model.png" width="400">
 
 **Our questions:**
 * What patterns of expression can we identify with the loss or gain of MOV10? 
@@ -40,9 +47,9 @@ The authors are investigating interactions between various genes involved in Fra
 
 ## Setting up
 
-Go to the `File` menu and open `DNASeq2_expression_analysis.Rmd`. This should open up a script editor in the top left hand corner. This is where we will be running and all commands required for this analysis. Your working directory should look similar to this:
+Go to the `File` menu and open `09-DGE_code_book_answers.Rmd`. This should open up a script editor in the top left hand corner. This is where we will be running and all commands required for this analysis. Your working directory should have these folders: data, meta and results:
 
-![setup](../img/settingup.png)
+![setup](img/settingup.png)
 
 ### Loading libraries
 
@@ -89,7 +96,7 @@ View(data)
 
 So what does this count data actually represent? The count data used for differential expression analysis represents the number of sequence reads that originated from a particular gene. The higher the number of counts, the more reads associated with that gene, and the assumption that there was a higher level of expression of that gene in the sample. 
 
-<img src="../img/deseq_counts_overview.png" width="600">
+<img src="img/deseq_counts_overview.png" width="600">
 
 With differential expression analysis, we are looking for genes that change in expression between two or more groups (defined in the metadata)
 - case vs. control
@@ -98,15 +105,15 @@ With differential expression analysis, we are looking for genes that change in e
 **Why does it not work to identify differentially expressed gene by ranking the genes by how different they are between the two groups (based on fold change values)?**
 
 
-<img src="../img/foldchange_heatmap.png" width="200">
+<img src="img/foldchange_heatmap.png" width="200">
 
 More often than not, there is much more going on with your data than what you are anticipating. Genes that vary in expression level between samples is a consequence of not only the experimental variables of interest but also due to extraneous sources. The goal of differential expression analysis to determine the relative role of these effects, and to separate the “interesting” from the “uninteresting”.
 
-<img src="../img/de_variation.png" width="500">
+<img src="img/de_variation.png" width="500">
 
 The "uninteresting" presents as sources of variation in your data, and so even though the mean expression levels between sample groups may appear to be quite different, it is possible that the difference is not actually significant. This is illustrated for 'GeneA' expression between 'untreated' and 'treated' groups in the figure below. The mean expression level of geneA for the 'treated' group is twice as large as for the 'untreated' group, but the variation between replicates indicates that this may not be a significant difference. **We need to take into account the variation in the data (and where it might be coming from) when determining whether genes are differentially expressed.**
 
-<img src="../img/de_norm_counts_var.png" width="400">
+<img src="img/de_norm_counts_var.png" width="400">
 
 
 The goal of differential expression analysis is to determine, for each gene, whether the differences in expression (counts) **between groups** is significant given the amount of variation observed **within groups** (replicates). To test for significance, we need an appropriate statistical model that accurately performs normalization (to account for differences in sequencing depth, etc.) and variance modeling (to account for few numbers of replicates and large dynamic expression range).
@@ -123,7 +130,7 @@ ggplot(data) +
   ylab("Number of genes")
 ```
 
-<img src="../img/deseq_counts_distribution.png" width="400">
+<img src="img/deseq_counts_distribution.png" width="400">
 
 If we zoom in close to zero, we can see a large number of genes with counts of zero:
 
@@ -135,7 +142,7 @@ ggplot(data) +
    ylab("Number of genes")
 ```
 
-<img src="../img/deseq_counts_distribution_zoomed.png" width="400">
+<img src="img/deseq_counts_distribution_zoomed.png" width="400">
 
 These images illustrate some common features of RNA-seq count data, including a **low number of counts associated with a large proportion of genes**, and a long right tail due to the **lack of any upper limit for expression**. 
 
@@ -151,7 +158,7 @@ If the proportions of mRNA stayed exactly constant between the biological replic
 
 The model that fits best, given this type of variability between replicates, is the Negative Binomial (NB) model. Essentially, **the NB model is a good approximation for data where the mean < variance**, as is the case with RNA-Seq count data.
 
-<img src="../img/deseq_nb.png" width="400">
+<img src="img/deseq_nb.png" width="400">
 
 
 >**NOTE:** 
@@ -182,7 +189,7 @@ ggplot(df) +
         scale_x_log10()
 ```
 
-<img src="../img/deseq_mean_vs_variance.png" width="600">
+<img src="img/deseq_mean_vs_variance.png" width="600">
 
 Note that in the above figure, the variance across replicates tends to be greater than the mean (red line), especially for genes with large mean expression levels. *This is a good indication that our data do not fit the Poisson distribution and we need to account for this increase in variance using the Negative Binomial model (i.e. Poisson will underestimate variability leading to an increase in false positive DE genes).*
 
@@ -192,7 +199,7 @@ The variance or scatter tends to reduce as we increase the number of biological 
 
 The figure below illustrates the relationship between sequencing depth and number of replicates on the number of differentially expressed genes identified [[1](https://academic.oup.com/bioinformatics/article/30/3/301/228651/RNA-seq-differential-expression-studies-more)]. Note that an **increase in the number of replicates tends to return more DE genes than increasing the sequencing depth**. Therefore, generally more replicates are better than higher sequencing depth, with the caveat that higher depth is required for detection of lowly expressed DE genes and for performing isoform-level differential expression. Generally, the minimum sequencing depth recommended is 20-30 million reads per sample, but we have seen good RNA-seq experiments with 10 million reads if there are a good number of replicates.
 
-<img src="../img/de_replicates_img.png" width="500">
+<img src="img/de_replicates_img.png" width="500">
 
 ### Differential expression analysis workflow
 
@@ -203,14 +210,14 @@ To model counts appropriately when performing a differential expression analysis
 Many studies describing comparisons between these methods show that while there is some agreement, there is also much variability between tools. **Additionally, there is no one method that performs optimally under all conditions ([Soneson and Dleorenzi, 2013](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-14-91)).**
 
 
-![deg1](../img/deg_methods1.png) 
+![deg1](img/deg_methods1.png) 
 
-![deg1](../img/deg_methods2.png) 
+![deg1](img/deg_methods2.png) 
 
 
 **We will be using [DESeq2](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-014-0550-8) for the DE analysis, and the analysis steps with DESeq2 are shown in the flowchart below in green**. DESeq2 first normalizes the count data to account for differences in library sizes and RNA composition between samples. Then, we will use the normalized counts to make some plots for QC at the gene and sample level. The final step is to use the appropriate functions from the DESeq2 package to perform the differential expression analysis. 
 
-<img src="../img/deseq_workflow_full_2018.png" width="500">
+<img src="img/deseq_workflow_full_2018.png" width="500">
 
 We will go in-depth into each of these steps in the following lessons, but additional details and helpful suggestions regarding DESeq2 can be found in the [DESeq2 vignette](http://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html). As you go through this workflow and questions arise, you can reference the vignette from within RStudio:
 
