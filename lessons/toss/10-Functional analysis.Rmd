@@ -1,15 +1,12 @@
-# 08_Functional_analysis_of_RNAseq
----
-title: "Functional-analysis-of-RNAseq"
-output: html_document
-date: "2023-08-06"
----
+# Functional analysis
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
+## Functional analysis of RNAseq
+
+**md file = "08-GO_enrichment_analysis.md"**
+
 
 ```{r, message=FALSE}
+# you may have to install some of these libraries; use `BiocManager::install()`
 library(org.Hs.eg.db)
 library(DOSE)
 library(pathview)
@@ -19,7 +16,7 @@ library(ensembldb)
 library(tidyverse)
 library(enrichplot)
 
-#if you haven't installed annotables yet, uncomment this line and install from github: devtools::install_github("stephenturner/annotables")
+# if you haven't installed annotables yet, uncomment this line and install from github: devtools::install_github("stephenturner/annotables")
 library(annotables)
 
 ```
@@ -30,13 +27,13 @@ Functional analysis tools are useful in interpreting resulting DGE gene lists fr
 2. Functional class scoring
 3. Pathway topology
 
-**Over-representation analysis**
+### Over-representation analysis
 
 Functional analysis tools rely on databases that typically categorize genes into groups based on shared function. The GO ontology consortium is a mission to develop an up-to-date, comprehensive, computational model of biological systems, from the molecular level to larger pathways, cellular and organism-level systems. The Gene Ontology (GO), began in 1998 when researchers studying the genome of three model organisms — Drosophila melanogaster (fruit fly), Mus musculus (mouse), and Saccharomyces cerevisiae (brewer’s or baker’s yeast) — agreed to work collaboratively on a common classification scheme for gene function, and today the number of different organisms represented in GO is in the thousands. GO makes it possible, in a flexible and dynamic way, to provide comparable descriptions of homologous gene and protein sequences across the phylogenetic spectrum. GO ontology is classified into three independent controlled vocabularies: biological process, molecular function and cellular component that are organized in a hierarchical fashion. Each GO term has a term name and a unique term association. For example, the GO term DNA repair is associated with the term accession number GO:0005125. Of the three controlled vocabularies, biological processes is the most well-characterized, and most often used in over-representation studies. The GO knowledgebase plays an essential role in supporting biomedical research and has been used in tens of thousands of scientific studies. The most common use of GO annotations is for interpretation of large-scale molecular biology experiments or “omics” experiments. Whether, genomics, transcriptomics, proteomics, or metabolomics, these experiments pool biological molecules to gain insight into the structure, function, and dynamics of an organism. “Gene Ontology enrichment analysis” is used to discover statistically significant similarities or differences under alternate controlled experimental conditions.
 
 To determine whether any categories are over-represented in a significant gene list, the probability of the observed proportion of genes associated with a specific category is compared to the background set of genes. This statistical test is known as the "hypergeometric test".
 
-**Analyzing GO over-representation using clusterProfiler**
+### clusterProfiler
 
 For the different steps in the functional analysis, we require Ensembl and Entrez IDs. To convert the gene symbols to these IDs, we will use the annotables package and merge the IDs with the DE results.
 
@@ -75,8 +72,8 @@ sigOE = dplyr::filter(res_ids, padj < 0.05)
 sigOE_genes = sigOE$ensgene
 
 ```
-Now we can perform the GO enrichment analysis and save the results:
 
+Now we can perform the GO enrichment analysis and save the results:
 ```{r}
 ## Run GO enrichment analysis 
 ego <- enrichGO(gene = sigOE_genes, 
@@ -96,7 +93,9 @@ write.csv(cluster_summary, "results/clusterProfiler_Mov10oe.csv")
 
 ```
 
-**Visualizing clusterProfiler results**
+### Visualizing clusterProfiler results
+
+#### dotplot
 
 The dotplot shows the number of genes associated with the first 50 terms (size) and the p-adjusted values for these terms (color). This plot displays the top 50 genes by gene ratio (# genes related to GO term / total number of sig genes), not p-adjusted value.
 ```{r}
@@ -106,7 +105,7 @@ dotplot(ego, showCategory=15)
 ```
 To save the figure, click on the Export button in the RStudio Plots tab and Save as PDF.... In the pop-up window, change PDF size to 8 x 16 to give a figure of appropriate size for the text labels
 
-**enrichment GO plot**
+#### enrichment GO plot
 The next plot is the enrichment GO plot, which shows the relationship between the top 50 most significantly enriched GO terms (padj.), by grouping similar terms together. The color represents the p-values relative to the other displayed terms (brighter red is more significant) and the size of the terms represents the number of genes that are significant from our list.
 
 This plot is useful because it serves to collapse the GO terms into functional categories by showing the overlap between GO terms.
@@ -127,6 +126,7 @@ To save the figure, click on the Export button in the RStudio Plots tab and Save
 
 Finally, the category netplot shows the relationships between the genes associated with the top five most significant GO terms and the fold changes of the significant genes associated with these terms (color). The size of the GO terms reflects the pvalues of the terms, with the more significant terms being larger. This plot is particularly useful for hypothesis generation in identifying genes that may be important to several of the most affected processes.
 
+#### netplot
 ```{r}
 ## To color genes by log2 fold changes, we need to extract the log2 fold changes from our results table creating a named vector
 OE_foldchanges <- sigOE$log2FoldChange
@@ -151,8 +151,8 @@ cnetplot(ego,
          vertex.label.font=6)
 ```
 
-If you are interested in significant processes that are not among the top five, you can subset your ego dataset to only display these processes:
 
+If you are interested in significant processes that are not among the top five, you can subset your ego dataset to only display these processes:
 ```{r}
 ## Subsetting the ego results without overwriting original `ego` variable
 ego2 <- ego
@@ -167,7 +167,7 @@ cnetplot(ego2,
          vertex.label.font=6)
 ```
 
-**Gene set enrichment analysis (GSEA)**
+## Gene set enrichment analysis (GSEA)
 
 GSEA uses the entire list of log2 fold changes from all genes. It is based on looking for enrichment of genesets among the large positive or negative fold changes. Thus, rather than setting an arbitrary threshold to identify ‘significant genes’, all genes are considered in the analysis. The gene-level statistics from the dataset are aggregated to generate a single pathway-level statistic and statistical significance of each pathway is reported. 
 
@@ -187,7 +187,6 @@ res_entrez=res_entrez[wdup,]
 ```
 
 Finally, extract and name the fold changes:
-
 ```{r}
 ## Extract the foldchanges
 foldchanges <- res_entrez$log2FoldChange
@@ -197,7 +196,6 @@ names(foldchanges) <- res_entrez$entrez
 ```
 
 Next we need to order the fold changes in decreasing order. To do this we'll use the `sort()` function, which takes a vector as input. This is in contrast to Tidyverse's `arrange()`, which requires a data frame.
-
 ```{r}
 ## Sort fold changes in decreasing order
 foldchanges <- sort(foldchanges, decreasing = TRUE)
@@ -206,7 +204,6 @@ head(foldchanges)
 ```
 
 We can explore the enrichment of BP Gene Ontology terms using gene set enrichment analysis: 
-
 ```{r}
 # GSEA using gene sets associated with BP Gene Ontology terms
 gseaGO <- gseGO(geneList = foldchanges, 
@@ -221,8 +218,8 @@ gseaGO_results <- gseaGO@result
 
 gseaplot(gseaGO, geneSetID = 'GO:0007423')
 ```
-There are other gene sets available for GSEA analysis in clusterProfiler (Disease Ontology, Reactome pathways, etc.). In addition, it is possible to supply your own gene set GMT file, such as a GMT for MSigDB using special clusterProfiler functions as shown below:
 
+There are other gene sets available for GSEA analysis in clusterProfiler (Disease Ontology, Reactome pathways, etc.). In addition, it is possible to supply your own gene set GMT file, such as a GMT for MSigDB using special clusterProfiler functions as shown below:
 ```{r}
 
 library(GSEABase)

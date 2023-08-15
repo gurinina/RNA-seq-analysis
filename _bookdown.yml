@@ -2,14 +2,18 @@ book_filename: RNAseq_analysis
 new_session: yes
 rmd_files:
   - index.Rmd
-  - 01_DGE_setup_and_overview.md
-  - 02_DGE_count_normalization.md
-  - 03_DGE_QC_analysis.md
-  - 04_DGE_DESeq2_analysis.md
-  - 05_DGE_DESeq2_analysis2.md
-  - 06_DGE_visualizing_results.md
-  - 07_DGE_summarizing_workflow.md
-  - 08_GO_enrichment_analysis.md
-  - DESeq2_RNA-SEQ_bookdown.Rmd
-rmd_subdir: no
-delete_merged_file: true
+  - 01-DGE_setup_and_overview.md
+  - 02-DGE_count_normalization.md
+  - 03-DGE_QC_analysis.md
+  - 04-DGE_DESeq2_analysis.md
+  - 05-DGE_DESeq2_analysis2.md
+  - 06-DGE_visualizing_results.md
+  - 07-DGE_summarizing_workflow.md
+  - 08-GO_enrichment_analysis.md
+  - 09-DGE_code_book.Rmd
+delete_merged_file: no
+chapter_name: "Chapter "
+language:
+  label:
+    fig: "Figure "
+    tab: "Table "

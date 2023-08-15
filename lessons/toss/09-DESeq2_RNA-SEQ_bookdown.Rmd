@@ -1,17 +1,5 @@
-# Set up and overview for gene-level differential expression analysis
----
+# Code book
 
-title: "DESeq2_expression_analysis w/ answers"
-html_document:
-  df_print: kable
-  theme: cerulean
-  highlight: haddock
-  toc: yes
-  toc_depth: 2
-date: "2023-08-07"
-output: pdf_document
-
----
 
 ```{r, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -29,6 +17,9 @@ In the next few lessons, we will walk you through an **end-to-end gene-level RNA
 The RNA-Seq was performed on HEK293F cells that were either transfected with a MOV10 transgene, or siRNA to knock down Mov10 expression, or non-specific (irrelevant) siRNA. This resulted in 3 conditions **Mov10 oe** (over expression), **Mov10 kd** (knock down) and **Irrelevant kd**, respectively. The number of replicates is as shown below. 
 
 Using these data, we will evaluate transcriptional patterns associated with perturbation of MOV10 expression. Please note that the irrelevant siRNA will be treated as our control condition.
+
+<img src="img/dataset.png" width="400">
+
 
 ## Setting up
 
@@ -90,7 +81,7 @@ These images illustrate some common features of RNA-seq count data, including a 
 **How do I know if my data should be modeled using the Poisson distribution or Negative Binomial distribution?**
 If it’s count data, it should fit the negative binomial, as discussed previously.
 
-```{r, warning=FALSE}
+```{r}
 mean_counts <- apply(data[, 3:5], 1, mean)
 variance_counts <- apply(data[, 3:5], 1, var)
 df <- data.frame(mean_counts, variance_counts)
@@ -106,17 +97,7 @@ Note that in the above figure, the variance across replicates tends to be greate
 
 We will be using DESeq2 for the DE analysis, and the analysis steps with DESeq2 are shown in the flowchart below in green. DESeq2 first normalizes the count data to account for differences in library sizes and RNA composition between samples. Then, we will use the normalized counts to make some plots for QC at the gene and sample level. The final step is to use the appropriate functions from the DESeq2 package to perform the differential expression analysis.
 
-<img src="./img/deseq_workflow_full_2018.png" width="500">
-
-
-
-
-
-
-
-
-
-
+<img src="img/deseq_workflow_full_2018.png" width="500">
 
 # DGE count normalization with DESeq2
 
@@ -241,7 +222,7 @@ dds <- DESeqDataSetFromMatrix(countData = data, colData = meta, design = ~ sampl
 You can use DESeq-specific functions to access the different slots and retrieve information, if you wish. For example, suppose we wanted the original count matrix we would use counts() (Note: we nested it within the View() function so that rather than getting printed in the console we can see it in the script editor):
 
 ```{r}
-View(counts(dds))
+head(counts(dds))
 
 colData(dds)
 ```
@@ -275,12 +256,6 @@ write.table(normalized_counts, file="data/normalized_counts.txt", sep="\t", quot
 ```
 
 **NOTE:** DESeq2 doesn’t actually use normalized counts, rather it uses the raw counts and models the normalization inside the Generalized Linear Model (GLM). These normalized counts will be useful for downstream visualization of results, but cannot be used as input to DESeq2 or any other tools that peform differential expression analysis which use the negative binomial model.
-
-
-
-
-
-
 
 # DGE QC analysis
 
@@ -326,7 +301,7 @@ The figure below was generated from a time course experiment with sample groups 
 
   - Ans: 
 
-<img src="./img/PCA_example3.png" width="600">
+<img src="img/PCA_example3.png" width="600">
 
 ### Hierarchical Clustering Heatmap
 
@@ -347,7 +322,7 @@ In addition to examining how well the samples/replicates cluster together, there
  - Genes with an extreme count outlier
  - Genes with a low mean normalized counts
 
-<img src="./img/gene_filtering.png" width="600">
+<img src="img/gene_filtering.png" width="600">
 
 **DESeq2 will perform this filtering by default; however other DE tools, such as EdgeR will not.**  
 
@@ -371,11 +346,7 @@ We use this object to plot the PCA and heirarchical clustering figures for quali
 ### Plot PCA 
 plotPCA(rld, intgroup="sampletype")
 ```
-
-**What does this plot tell you about the similarity of samples? Does it fit the expectation from the experimental design?** 
-    - Ans: The replicates are close together as expected and cluster by sampletype from experimental design
-
-By default the function uses the top 500 most variable genes. You can change this by adding the ntop argument and specifying how many genes you want to use to draw the plot.
+**What does this plot tell you about the similarity of samples? Does it fit the expectation from the experimental design?** By default the function uses the top 500 most variable genes. You can change this by adding the ntop argument and specifying how many genes you want to use to draw the plot.
 
 **NOTE:** The plotPCA() function will only return the values for PC1 and PC2. If you would like to explore the additional PCs in your data or if you would like to identify genes that contribute most to the PCs, you can use the prcomp() function. For example, to plot any of the PCs we could run the following code:
 
@@ -413,6 +384,7 @@ And now to plot the correlation values as a heatmap:
 ### Plot heatmap
 pheatmap(rld_cor)
 ```
+
 **NOTE:** The pheatmap function has a number of different arguments that we can alter from default values to enhance the aesthetics of the plot. If you are curious and want to explore more, try running the code below. How does your plot change? Take a look through the help pages (?pheatmap) and identify what each of the added arguments is contributing to the plot.
 
 ```{r}
@@ -424,20 +396,13 @@ pheatmap(rld_cor, color = heat.colors, border_color=NA, fontsize = 10, fontsize_
 display.brewer.all()
 ```
 
-
-
-
-
-
-
-
 # DGE DESeq2 analysis partI
 
 ## Gene-level differential expression analysis with DESeq2
 
 Differential expression analysis with DESeq2 involves multiple steps as displayed in the flowchart below in blue. Briefly, DESeq2 will model the raw counts, using normalization factors (size factors) to account for differences in library depth. Then, it will estimate the gene-wise dispersions and shrink these estimates to generate more accurate estimates of dispersion to model the counts. Finally, DESeq2 will fit the negative binomial model and perform hypothesis testing using the Wald test or Likelihood Ratio Test.
 
-<img src="./img/DESeq2_workflow_2018.png" width="500">
+<img src="img/DESeq2_workflow_2018.png" width="500">
 
 ### Running DESeq2
 
@@ -494,7 +459,7 @@ Everything from normalization to linear modeling was carried out by the use of a
 
 With the 2 lines of code above, we just completed the workflow for the differential gene expression analysis with DESeq2. The steps in the analysis are output below:
 
-<img src="./img/deseq2_workflow_separate.png" width="200">
+<img src="img/deseq2_workflow_separate.png" width="200">
 
 We will be taking a detailed look at each of these steps to better understand how DESeq2 is performing the statistical analysis and what metrics we should examine to explore the quality of our analysis.
 
@@ -669,7 +634,7 @@ mcols(res_tableOE, use.names=T)
 ```
 
 ```{r}
-res_tableOE %>% data.frame() %>% View()
+res_tableOE %>% data.frame() %>% head()
 ```
 If we used the `p-value` directly from the Wald test with a significance cut-off of p < 0.05, that means there is a 5% chance it is a false positives. Each p-value is the result of a single test (single gene). The more genes we test, the more we inflate the false positive rate. **This is the multiple testing problem.** 
 
@@ -860,7 +825,7 @@ gathered_top20_sigOE <- top20_sigOE_norm %>%
   gather(colnames(top20_sigOE_norm)[2:9], key = "samplename", value = "normalized_counts")
 
 ## check the column header in the "gathered" data frame
-View(gathered_top20_sigOE)
+head(gathered_top20_sigOE)
 ```
 
 Now, if we want our counts colored by sample group, then we need to combine the metadata information with the melted normalized counts data into the same data frame for input to `ggplot()`:
@@ -954,7 +919,7 @@ res_tableOE_tb <- res_tableOE_tb %>% arrange(padj) %>% mutate(genelabels = "")
 
 res_tableOE_tb$genelabels[1:10] <- res_tableOE_tb$gene[1:10]
 
-View(res_tableOE_tb)
+head(res_tableOE_tb)
 ```
 
 Next, we plot it as before with an additional layer for `geom_text_repel()` wherein we can specify the column of gene labels we just created.

@@ -7,8 +7,6 @@ date: "May 12, 2017"
 [GEO]: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE51443 "Gene Expression Omnibus"
 [SRA]: https://trace.ncbi.nlm.nih.gov/Traces/sra/?study=SRP031507 "Sequence Read Archive"
 
-Approximate time: 60 minutes
-
 ## Learning Objectives 
 
 * Explain the experiment and its objectives
