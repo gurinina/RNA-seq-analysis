@@ -39,7 +39,7 @@ The authors are investigating interactions between various genes involved in Fra
 
 **The hypothesis [the paper](http://www.ncbi.nlm.nih.gov/pubmed/25464849) is testing is that FMRP and MOV10 associate and regulate the translation of a subset of RNAs.**
 
-<img src="img/mov10-model.png" width="400">
+<img src="img/frmp_mov10.png" width="400">
 
 **Our questions:**
 * What patterns of expression can we identify with the loss or gain of MOV10? 

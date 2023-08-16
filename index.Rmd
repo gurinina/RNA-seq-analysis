@@ -1,7 +1,9 @@
 --- 
 title: "RNAseq analysis" 
+knit: "bookdown::render_book"
 output:
-    bookdown::gitbook:
+  bookdown::gitbook: 
+    self_contained: true
         number_sections: true
         includes:
           in_header: includes/header.html
