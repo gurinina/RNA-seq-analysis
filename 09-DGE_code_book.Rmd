@@ -83,6 +83,7 @@ class(data)
 View(meta)
 
 # I prefer using head()` and printing out just a few columns so that it fits in my colsole:
+# again, I prefer using head()` and printing out just a few columns so that it fits in my colsole:
 
 head(data[,1:5])
      
