@@ -4,7 +4,7 @@ output:
     bookdown::gitbook:
         number_sections: true
         includes:
-          in_header: header.html
+          in_header: includes/header.html
 date: "`r Sys.Date()`" 
 link-citations: yes 
 github-repo: gurinina/genomics/RNAseq_analysis 
