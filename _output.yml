@@ -1,4 +1,9 @@
 bookdown::gitbook:
+  includes:
+  in_header: includes/header.html
+  after_body: [includes/footer.html, includes/webex.js]
+  md_extensions: -smart
+  df_print: kable
   dev: svglite
   css: [css/style.css, css/toc.css]
   config:
@@ -39,5 +44,5 @@ bookdown::pdf_book:
   quote_footer: ["\\VA{", "}{}"]
 bookdown::epub_book:
   dev: svglite
-  stylesheet: css/style.css
+  stylesheet: css/epub.css
 bookdown::bs4_book: default

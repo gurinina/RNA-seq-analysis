@@ -1,4 +1,5 @@
-book_filename: RNAseq_analysis
+book_filename: "RNAseq-analysis"
+before_chapter_script: ["R/introR_setup.R", "R/setup.R"]
 new_session: yes
 rmd_files:
   - index.Rmd
