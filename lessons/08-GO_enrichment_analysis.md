@@ -1,19 +1,3 @@
----
-title: "Functional Analysis for RNA-seq"
-author: "Mary Piper"
-date: "Tuesday, March 20th, 2018"
----
-
-Approximate time: 120 minutes
-
-Learning Objectives:
--------------------
-
-*  Determine how functions are attributed to genes using Gene Ontology terms
-*  Understand the theory of how functional enrichment tools yield statistically enriched functions or interactions
-*  Discuss functional analysis using over-representation analysis, functional class scoring, and pathway topology methods
-*  Explore functional analysis tools
-
 # Functional analysis 
 
 The output of RNA-seq differential expression analysis is a list of significant differentially expressed genes (DEGs). To gain greater biological insight on the differentially expressed genes there are various analyses that can be done:
@@ -24,7 +8,7 @@ The output of RNA-seq differential expression analysis is a list of significant 
 
 Generally for any differential expression analysis, it is useful to interpret the resulting gene lists using freely available web- and R-based tools.  While tools for functional analysis span a wide variety of techniques, they can loosely be categorized into three main types: over-representation analysis, functional class scoring, and pathway topology [[1](https://github.com/hbctraining/In-depth-NGS-Data-Analysis-Course/raw/master/resources/pathway_tools.pdf)]. 
 
-![Pathway analysis tools](../img/pathway_analysis.png)
+![Pathway analysis tools](img/pathway_analysis.png)
 
 The goal of functional analysis is provide biological insight, so it's necessary to analyze our results in the context of our experimental hypothesis: **FMRP and MOV10 associate and regulate the translation of a subset of RNAs**. Therefore, based on the authors' hypothesis, we may expect the enrichment of processes/pathways related to **translation, splicing, and the regulation of mRNAs**, which we would need to validate experimentally.
 
@@ -38,9 +22,9 @@ These databases typically categorize genes into groups based on shared function,
 
 To determine whether any categories are over-represented, you can determine the probability of having the observed proportion of genes associated with a specific category in your gene list based on the proportion of genes associated with the same category in the background set (gene categorizations for the appropriate organism). 
 
-<img src="../img/go_proportions.png" width="600">
+<img src="img/go_proportions.png" width="600">
 
-<img src="../img/go_proportions_table3.png" width="600">
+<img src="img/go_proportions_table3.png" width="600">
 
 The statistical test that will determine whether something is actually over-represented is the *Hypergeometric test*.
 
@@ -50,7 +34,7 @@ Using the example of the first functional category above, hypergeometric distrib
 
 The calculation of probability of k successes follows the formula:
 
-![hypergeo](../img/hypergeo.png) 
+![hypergeo](img/hypergeo.png) 
 
 This test will result in an adjusted p-value (after multiple test correction) for each category tested.
 
@@ -82,7 +66,7 @@ The GO ontologies were developed to describe and query biological knowledge with
 
 Some genes with less information may only be associated with general 'parent' terms or no terms at all, while other genes with a lot of information be associated with many terms.
 
-![Nature Reviews Cancer 7, 23-34 (January 2007)](../img/go_heirarchy.jpg)
+![Nature Reviews Cancer 7, 23-34 (January 2007)](img/go_heirarchy.jpg)
 
 [Tips for working with GO terms](http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003343)
 
@@ -171,10 +155,10 @@ cluster_summary <- data.frame(ego)
 
 write.csv(cluster_summary, "results/clusterProfiler_Mov10oe.csv")
 ```
->**NOTE:** The different organisms with annotation databases available to use with clusterProfiler can be found [here](../img/orgdb_annotation_databases.png)
+>**NOTE:** The different organisms with annotation databases available to use with clusterProfiler can be found [here](img/orgdb_annotation_databases.png)
 > Also, the `keyType` argument may be coded as `keytype` in different versions of clusterProfiler.
 
-![cluster_summary](../img/cluster_summary.png)                
+![cluster_summary](img/cluster_summary.png)                
 
 ### Visualizing clusterProfiler results
 clusterProfiler has a variety of options for viewing the over-represented GO terms. We will explore the dotplot, enrichment plot, and the category netplot.
@@ -190,7 +174,7 @@ dotplot(ego, showCategory=50)
 - `Orientation:` to `Landscape`
 - `PDF size` to `8 x 14` to give a figure of appropriate size for the text labels
 
-<img src="../img/mov10oe_dotplot.png" width="600">
+<img src="img/mov10oe_dotplot.png" width="600">
 
 The next plot is the **enrichment GO plot**, which shows the relationship between the top 50 most significantly enriched GO terms (padj.), by grouping similar terms together. The color represents the p-values relative to the other displayed terms (brighter red is more significant) and the size of the terms represents the number of genes that are significant from our list.
 
@@ -209,7 +193,7 @@ emapplot(pwt, showCategory = 50)
 
 **To save the figure,** click on the `Export` button in the RStudio `Plots` tab and `Save as PDF...`. In the pop-up window, change the `PDF size` to `24 x 32` to give a figure of appropriate size for the text labels.
 
-<img src="../img/mov10oe_enrichmap.png" width="800">
+<img src="img/mov10oe_enrichmap.png" width="800">
 
 Finally, the **category netplot** shows the relationships between the genes associated with the top five most significant GO terms and the fold changes of the significant genes associated with these terms (color). The size of the GO terms reflects the pvalues of the terms, with the more significant terms being larger. This plot is particularly useful for hypothesis generation in identifying genes that may be important to several of the most affected processes. 
 
@@ -239,7 +223,7 @@ cnetplot(ego,
 
 **Again, to save the figure,** click on the `Export` button in the RStudio `Plots` tab and `Save as PDF...`. Change the `PDF size` to `24 x 32` to give a figure of appropriate size for the text labels.
 
-<img src="../img/mov10oe_cnetplot.png" width="800">
+<img src="img/mov10oe_cnetplot.png" width="800">
 
 If you are interested in significant processes that are **not** among the top five, you can subset your `ego` dataset to only display these processes:
 
@@ -257,21 +241,21 @@ cnetplot(ego2,
          vertex.label.font=6)
 ```
 
-<img src="../img/mov10oe_cnetplot2.png" width="800">
+<img src="img/mov10oe_cnetplot2.png" width="800">
 
 Over-representation analysis is only a single type of functional analysis method that is available for teasing apart the biological processes important to your condition of interest. Other types of analyses can be equally important or informative, including functional class scoring and pathway topology methods. 
 
-![Pathway analysis tools](../img/pathway_analysis.png)
+![Pathway analysis tools](img/pathway_analysis.png)
 
-## Functional class scoring tools
+## Gene set enrichment analysis (GSEA)
 
-Functional class scoring (FCS) tools, such as [GSEA](http://software.broadinstitute.org/gsea/index.jsp), most often use the gene-level statistics or log2 fold changes for all genes from the differential expression results, then look to see whether gene sets for particular biological pathways are enriched among the large positive or negative fold changes. 
+ [GSEA](http://software.broadinstitute.org/gsea/index.jsp), most often uses the gene-level statistics or log2 fold changes for all genes from the differential expression results, then look to see whether gene sets for particular biological pathways are enriched among the large positive or negative fold changes. 
 
-<img src="../img/gsea_theory.png" width="600">
+<img src="img/gsea_theory.png" width="600">
 
-The hypothesis of FCS methods is that although large changes in individual genes can have significant effects on pathways (and will be detected via ORA methods), weaker but coordinated changes in sets of functionally related genes (i.e., pathways) can also have significant effects.  Thus, rather than setting an arbitrary threshold to identify 'significant genes', **all genes are considered** in the analysis. The gene-level statistics from the dataset are aggregated to generate a single pathway-level statistic and statistical significance of each pathway is reported. This type of analysis can be particularly helpful if the differential expression analysis only outputs a small list of significant DE genes. 
+The hypothesis of GSEA is that although large changes in individual genes can have significant effects on pathways (and will be detected via ORA methods), weaker but coordinated changes in sets of functionally related genes (i.e., pathways) can also have significant effects.  Thus, rather than setting an arbitrary threshold to identify 'significant genes', **all genes are considered** in the analysis. The gene-level statistics from the dataset are aggregated to generate a single pathway-level statistic and statistical significance of each pathway is reported. This type of analysis can be particularly helpful if the differential expression analysis only outputs a small list of significant DE genes. 
 
-### Gene set enrichment analysis using clusterProfiler 
+### GSEA using clusterProfiler
 
 Using the log2 fold changes obtained from the differential expression analysis for every gene, gene set enrichment analysis and pathway analysis can be performed using clusterProfiler tools.
 
@@ -280,12 +264,18 @@ For gene set or pathway analysis using clusterProfiler, coordinated differential
 To perform GSEA analysis of gene sets, clusterProfiler requires the genes to be identified using Entrez IDs for all genes in our results dataset. We also need to remove the NA values and duplicates (due to gene ID conversion) prior to the analysis:
 
 ```r
-## Remove any NA values
-res_entrez <- filter(res_ids, entrez != "NA")
+m = match(res_ids$ensgene,ids$ensgene)
+res_ids$entrez = ids$entrez[m]
 
-## Remove any Entrez duplicates
+## remove any NA values
+wna = which(is.na(res_ids$entrez))
+res_entrez = res_ids[-wna,]
+
+## remove any Entrez duplicates
 res_entrez <- res_entrez[which(duplicated(res_entrez$entrez) == F), ]
 
+wdup = which(!duplicated(res_entrez$entrez))
+res_entrez=res_entrez[wdup,]
 ```
 
 Finally, extract and name the fold changes:
@@ -330,7 +320,7 @@ There are other gene sets available for GSEA analysis in clusterProfiler (Diseas
 
 library(GSEABase)
 
-# Load in GMT file of gene sets (we downloaded from the Broad Institute [website](http://software.broadinstitute.org/gsea/msigdb/collections.jsp) for MSigDB)
+# Load in GMT file of gene sets (we won't download it from the Broad Institute [website](http://software.broadinstitute.org/gsea/msigdb/collections.jsp) for MSigDB because it requires a login)
 
 c2 <- read.gmt("data/c2.all.v2023.1.Hs.entrez.gmt")
 
@@ -345,7 +335,7 @@ msig_df <- data.frame(msig)
 
 [GeneMANIA](http://genemania.org/) is a tool for predicting the function of your genes. Rather than looking for enrichment, the query gene set is evaluated in the context of curated functional association data and results are displayed in the form of a network. Association data include protein and genetic interactions, pathways, co-expression, co-localization and protein domain similarity. Genes are represented as the nodes of the network and edges are formed by known association evidence. The query gene set is highlighted and so you can find other genes that are related based on the toplogy in the network. This tool is more useful for smaller gene sets (< 400 genes), as you can see in the figure below our input results in a bit of a hairball that is hard to interpret.
 
-![genemania](../img/genemania.png)
+![genemania](img/genemania.png)
 
 > Use the significant gene list generated from the analysis we performed in class as input to GeneMANIA. Using only pathway and coexpression data as evidence, take a look at the network that results. Can you predict anything functionally from this set of genes? 
 

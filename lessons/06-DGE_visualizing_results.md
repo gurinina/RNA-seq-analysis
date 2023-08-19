@@ -1,18 +1,4 @@
----
-title: "Advanced visualizations"
-author: "Meeta Mistry, Mary Piper, Radhika Khetani"
-date: "March 27th, 2018"
----
-
-Approximate time: 75 minutes
-
-## Learning Objectives 
-
-* Exploring expression data using data visualization
-* Using volcano plots to evaluate relationships between DEG statistics
-* Plotting expression of significant genes using heatmaps
-
-## Visualizing the results
+# Visualizing RNA-seq results
 
 When we are working with large amounts of data it can be useful to display that information graphically to gain more insight. During this lesson, we will get you started with some basic and more advanced plots commonly used when exploring differential gene expression data, however, many of these plots can be helpful in visualizing other types of data as well.
 
@@ -63,7 +49,7 @@ To pick out a specific gene of interest to plot, for example Mov10, we can use t
 # Plot expression for single gene
 plotCounts(dds, gene="MOV10", intgroup="sampletype") 
 ```
-![topgene](../img/topgen_plot.png)
+![topgene](img/topgen_plot.png)
 
 **This function only allows for plotting the counts of a single gene at a time.** 
 
@@ -86,7 +72,7 @@ ggplot(d, aes(x = sampletype, y = count, color = sampletype)) +
 
 > Note that in the plot below (code above), we are using `geom_text_repel()` from the `ggrepel` package to label our individual points on the plot.
 
-<img src="../img/plotCounts_ggrepel.png" width="600">
+<img src="img/plotCounts_ggrepel.png" width="600">
 
 #### Using `ggplot2` to plot multiple genes (e.g. top 20)
 
@@ -116,7 +102,7 @@ Now that we have the normalized counts for each of the top 20 genes for all 8 sa
 
 The `gather()` function in the **tidyr** package will perform this operation and will output the normalized counts for all genes for *Mov10_oe_1* listed in the first 20 rows, followed by the normalized counts for *Mov10_oe_2* in the next 20 rows, so on and so forth.
 
-<img src="../img/melt_wide_to_long_format.png" width="800">
+<img src="img/melt_wide_to_long_format.png" width="800">
 
 ```r
 # Gathering the columns to have normalized counts to a single column
@@ -150,7 +136,7 @@ ggplot(gathered_top20_sigOE) +
 	theme(plot.title = element_text(hjust = 0.5))
 ```
 
-<img src="../img/sig_genes_melt2.png" width="700">
+<img src="img/sig_genes_melt2.png" width="700">
 
 ### Heatmap
 
@@ -188,7 +174,7 @@ pheatmap(norm_OEsig,
          height = 20)
 ```
          
-<img src="../img/sigOE_heatmap2.png" width="600">   
+<img src="img/sigOE_heatmap2.png" width="600">   
 
 > *NOTE:* There are several additional arguments we have included in the function for aesthetics. One important one is `scale="row"`, in which Z-scores are plotted, rather than the actual normalized count value. 
 >
@@ -222,7 +208,7 @@ ggplot(res_tableOE_tb) +
               axis.title = element_text(size = rel(1.25)))  
 ```
 
-<img src="../img/volcano_plot_new1.png" width="500"> 
+<img src="img/volcano_plot_new1.png" width="500"> 
 
 This is a great way to get an overall picture of what is going on, but what if we also wanted to know where the top 10 genes (lowest padj) in our DE list are located on this plot? We could label those dots with the gene name on the Volcano plot using `geom_text_repel()`.
 
@@ -251,7 +237,7 @@ ggplot(res_tableOE_tb, aes(x = log2FoldChange, y = -log10(padj))) +
               axis.title = element_text(size = rel(1.25))) 
 ```
 
-<img src="../img/volcano_plot_new2.png" width="500"> 
+<img src="img/volcano_plot_new2.png" width="500"> 
 
 ***
 

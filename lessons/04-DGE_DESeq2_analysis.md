@@ -1,10 +1,4 @@
----
-title: "Gene-level differential expression analysis with DESeq2"
-author: "Meeta Mistry, Radhika Khetani, Mary Piper"
-date: "May 12, 2017"
----
-
-Approximate time: 60 minutes
+# DGE analysis workflow
 
 ## Learning Objectives 
 
@@ -13,12 +7,11 @@ Approximate time: 60 minutes
 * Constructing design formulas appropriate for a given experimental design
 * Exploring the importance of dispersion during differential expression analysis, and using the plots of the dispersion values to explore assumptions of the NB model
 
-
-# Differential expression analysis with DESeq2
+Differential expression analysis with DESeq2
 
 The final step in the differential expression analysis workflow is fitting the raw counts to the NB model and performing the statistical test for differentially expressed genes. In this step we essentially want to determine whether the mean expression levels of different sample groups are significantly different.
 
-<img src="../img/de_theory.png" width="600">
+<img src="img/de_theory.png" width="600">
 
 *Image credit:  Paul  Pavlidis,  UBC*
 
@@ -27,7 +20,7 @@ The [DESeq2 paper](https://genomebiology.biomedcentral.com/articles/10.1186/s130
 
 Differential expression analysis with DESeq2 involves multiple steps as displayed in the flowchart below in blue. Briefly, DESeq2 will model the raw counts, using normalization factors (size factors) to account for differences in library depth. Then, it will estimate the gene-wise dispersions and shrink these estimates to generate more accurate estimates of dispersion to model the counts. Finally, DESeq2 will fit the negative binomial model and perform hypothesis testing using the Wald test or Likelihood Ratio Test.
 
-<img src="../img/DESeq2_workflow_2018.png" width="500">
+<img src="img/DESeq2_workflow_2018.png" width="500">
 
 > **NOTE:** DESeq2 is actively maintained by the developers and continuously being updated. As such, it is important that you note the version you are working with. Recently, there have been some rather **big changes implemented** that impact the output. To find out more detail about the specific **modifications made to methods described in the original 2014 paper**, take a look at [this section in the DESeq2 vignette](http://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#methods-changes-since-the-2014-deseq2-paper). 
 
@@ -41,7 +34,7 @@ A design formula tells the statistical software the known sources of variation t
 
 For example, suppose you have the following metadata:
 
-<img src="../img/meta_example.png" width="300">
+<img src="img/meta_example.png" width="300">
 
 If you want to examine the expression differences between treatments, and you know that major sources of variation include `sex` and `age`, then your design formula would be:
 
@@ -57,24 +50,6 @@ The tilde (`~`) should always proceed your factors and tells DESeq2 to model the
 3. What would you do if you wanted to include a factor in your design formula that is not in your metadata? 
 
 ***
-
-#### Complex designs
-
-DESeq2 also allows for the analysis of complex designs. You can explore interactions or 'the difference of differences' by specifying for it in the design formula. For example, if you wanted to explore the effect of sex on the treatment effect, you could specify for it in the design formula as follows: 
-
-`design <- ~ sex + age + treatment + sex:treatment`
-
-Since the interaction term `sex:treatment` is last in the formula, the results output from DESeq2 will output results for this term. Alternatively, as recommended in the [DESeq2 vignette](https://www.bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#interactions), we could create a new factor variable in our metadata based on the two interaction factors as shown in the table below:
-
-<img src="../img/meta_example2.png" width="300">
-
-The design formula would be:
-
-`design <- ~ age + treat_sex`
-
-> **NOTE:** The design `~ sex + age + treatment + treat_sex` won't work (because the model can't be fit) because `treatment` and `treat_sex` are confounded (same goes for `sex`). Therefore, we drop the terms that went into `treat_sex` from the design formula.
->
-> The testing method for using the combined `treat_sex` factor column will be slightly different, using the LRT method, which we will discuss later.
 
 ### MOV10 DE analysis 
 
@@ -98,7 +73,7 @@ dds <- DESeq(dds)
 
 By re-assigning the results of the function back to the same variable name (`dds`), we can fill in the `slots` of our `DESeqDataSet` object.
 
-![deseq1](../img/deseq_obj2.png)
+![deseq1](img/deseq_obj2.png)
 
 **Everything from normalization to linear modeling was carried out by the use of a single function!** This function will print out a message for the various steps it performs: 
 
@@ -117,7 +92,7 @@ fitting model and testing
 
 With the 2 lines of code above, we just completed the workflow for the differential gene expression analysis with DESeq2. The steps in the analysis are output below:
 
-<img src="../img/deseq2_workflow_separate.png" width="200">
+<img src="img/deseq2_workflow_separate.png" width="200">
 
 We will be taking a detailed look at each of these steps to better understand how DESeq2 is performing the statistical analysis and what metrics we should examine to explore the quality of our analysis.
 
@@ -125,7 +100,7 @@ We will be taking a detailed look at each of these steps to better understand ho
 
 The first step in the differential expression analysis is to estimate the size factors, which is exactly what we already did to normalize the raw counts. 
 
-<img src="../img/deseq2_workflow_separate_sf.png" width="200">
+<img src="img/deseq2_workflow_separate_sf.png" width="200">
 
 DESeq2 will automatically estimate the size factors when performing the differential expression analysis. However, if you have already generated the size factors using `estimateSizeFactors()`, as we did earlier, then DESeq2 will use these values.
 
@@ -167,7 +142,7 @@ How do the values across samples compare with the total counts taken for each sa
 
 The next step in the differential expression analysis is the estimation of gene-wise dispersions. Before we get into the details, we should have a good idea about what dispersion is referring to in DESeq2.
 
-<img src="../img/deseq2_workflow_separate_dis.png" width="200">
+<img src="img/deseq2_workflow_separate_dis.png" width="200">
 
 **What is dispersion?** 
 
@@ -179,7 +154,7 @@ The DESeq2 dispersion estimates are **inversely related to the mean** and **dire
 
 The plot of mean versus variance in count data below shows the variance in gene expression increases with the mean expression (each black dot is a gene). Notice that the relationship between mean and variance is linear on the log scale, and for higher means, we could predict the variance relatively accurately given the mean. However, **for low mean counts, the variance estimates have a much larger spread; therefore, the dispersion estimates will differ much more between genes with small means**. 
 
-<img src="../img/deseq_mean_vs_variance.png" width="600">
+<img src="img/deseq_mean_vs_variance.png" width="600">
 
 **How does the dispersion relate to our model?** 
 
@@ -195,17 +170,17 @@ To model the dispersion based on expression level (mean counts of replicates), t
 
 The next step in the workflow is to fit a curve to the dispersion estimates for each gene. The idea behind fitting a curve to the data is that different genes will have different scales of biological variability, but, over all genes, there will be a distribution of reasonable estimates of dispersion. 
 
-<img src="../img/deseq2_workflow_separate_fit.png" width="200">
+<img src="img/deseq2_workflow_separate_fit.png" width="200">
 
 This curve is displayed as a red line in the figure below, which plots the estimate for the **expected dispersion value for genes of a given expression strength**. Each black dot is a gene with an associated mean expression level and maximum likelihood estimation (MLE) of the dispersion (Step 1).
 
-<img src="../img/deseq_dispersion1.png" width="400">
+<img src="img/deseq_dispersion1.png" width="400">
 
 ### Step 4: Shrink gene-wise dispersion estimates toward the values predicted by the curve
 
 The next step in the workflow is to shrink the gene-wise dispersion estimates toward the expected dispersion values.
 
-<img src="../img/deseq2_workflow_separate_shr.png" width="200">
+<img src="img/deseq2_workflow_separate_shr.png" width="200">
 
 The curve allows for more accurate identification of differentially expressed genes when sample sizes are small, and the strength of the shrinkage for each gene depends on :
 	
@@ -216,15 +191,15 @@ The curve allows for more accurate identification of differentially expressed ge
 
 Dispersion estimates that are slightly above the curve are also shrunk toward the curve for better dispersion estimation; however, genes with extremely high dispersion values are not. This is due to the likelihood that the gene does not follow the modeling assumptions and has higher variability than others for biological or technical reasons [[1](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-014-0550-8)]. Shrinking the values toward the curve could result in false positives, so these values are not shrunken. These genes are shown surrounded by blue circles below. 
 
-<img src="../img/deseq_dispersion2.png" width="600">
+<img src="img/deseq_dispersion2.png" width="600">
 
 **This is a good plot to examine to ensure your data is a good fit for the DESeq2 model.** You expect your data to generally scatter around the curve, with the dispersion decreasing with increasing mean expression levels. If you see a cloud or different shapes, then you might want to explore your data more to see if you have contamination (mitochondrial, etc.) or outlier samples.  Note how much shrinkage you get across the whole range of means in the `plotDispEsts()` plot for any experiment with low degrees of freedom.
 
 Examples of **worrisome dispersion plots** are shown below:
 
-<img src="../img/bad_dispersion1.png" width="600">
+<img src="img/bad_dispersion1.png" width="600">
 
-<img src="../img/bad_dispersion2.png" width="600">
+<img src="img/bad_dispersion2.png" width="600">
 
 
 #### MOV10 DE analysis: exploring the dispersion estimates and assessing model fit
@@ -236,12 +211,12 @@ Let's take a look at the dispersion estimates for our MOV10 data:
 plotDispEsts(dds)
 ```
 
-<img src="../img/plotDispersion.png">
+<img src="img/plotDispersion.png">
  
 **Since we have a small sample size, for many genes we see quite a bit of shrinkage. Do you think our data are a good fit for the model?**
 
 
----
+***
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
 
 *Some materials and hands-on activities were adapted from [RNA-seq workflow](http://www.bioconductor.org/help/workflows/rnaseqGene/#de) on the Bioconductor website*

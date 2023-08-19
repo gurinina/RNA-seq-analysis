@@ -1,22 +1,20 @@
 --- 
-title: "RNAseq analysis" 
+title: "RNAseq-analysis" 
 knit: "bookdown::render_book"
 output:
   bookdown::gitbook: 
       number_sections: true
-      includes:
-          in_header: includes/header.html
 date: "`r Sys.Date()`" 
 link-citations: yes 
-github-repo: gurinina/genomics/RNAseq_analysis 
-url: https\://bookdown.org/ggiaever/RNAseq_analysis 
+github-repo: gurinina/genomics/RNAseq-analysis 
+url: https\://bookdown.org/ggiaever/RNAseq-analysis 
 site: bookdown::bookdown_site 
 documentclass: book
 favicon: "img/icons8-biotech-64.png"
 cover-image: "img/koos10.png"
 --- 
 
-# Welcome to Omic-sciences! {-}
+# RNA-seq analysis workshop {-}
 
 ![](img/koos10.png)
 

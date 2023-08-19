@@ -1,22 +1,8 @@
----
-title: "QC methods for DE analysis using DESeq2"
-author: "Meeta Mistry, Radhika Khetani, Mary Piper"
-date: "April 26, 2017"
----
-
-Approximate time: 80 minutes
-
-## Learning Objectives 
-
-* Transforming counts for unsupervised clustering methods
-* Evaluating quality of samples using Principal Components Analysis
-* Hierarchical clustering of samples in the dataset 
-
 # Quality Control
 
 The next step in the DESeq2 workflow is QC, which includes sample-level and gene-level steps to perform QC checks on the count data to help us ensure that the samples/replicates look good. 
 
-<img src="../img/deseq_workflow_qc_2018.png" width="400">
+<img src="img/deseq_workflow_qc_2018.png" width="400">
 
 ## Sample-level QC
 
@@ -28,11 +14,11 @@ A useful initial step in an RNA-seq analysis is often to assess overall similari
 
 To explore the similarity of our samples, we will be performing sample-level QC using Principal Component Analysis (PCA) and hierarchical clustering methods. Our sample-level QC allows us to see how well our replicates cluster together, as well as, observe whether our experimental condition represents the major source of variation in the data. Performing sample-level QC can also identify any sample outliers, which may need to be explored further to determine whether they need to be removed prior to DE analysis. 
 
-<img src="../img/sample_qc.png" width="700">
+<img src="img/sample_qc.png" width="700">
 
 When using these unsupervised clustering methods, log2-transformation of the normalized counts improves the distances/clustering for visualization. DESeq2 uses a **regularized log transform** (rlog) of the normalized counts for sample-level QC as it moderates the variance across the mean, improving the clustering.
 
-<img src="../img/rlog_transformation.png" width="500">
+<img src="img/rlog_transformation.png" width="500">
 
 ### [Principal Component Analysis (PCA)](https://hbctraining.github.io/DGE_workshop/lessons/principal_component_analysis.html)
 
@@ -40,11 +26,11 @@ Principal Component Analysis (PCA) is a technique used to emphasize variation an
 
 Suppose we had a dataset with two samples and four genes. Based on this expression data we want to evaluate the relationship between these samples. We could plot the counts of one sample versus another, with Sample 1 on the x-axis and Sample 2 on the y-axis as shown below:
 
-<img src="../img/PCA_2sample_genes.png" width="600">
+<img src="img/PCA_2sample_genes.png" width="600">
 
 For PCA analysis, the first step is taking this plot and drawing a line through the data in the direction representing the most variation. In this example, the most variation is along the diagonal. That is, the **largest spread in the data** is between the two endpoints of this line. **This is called the first principal component, or PC1.**  The genes at the endpoints of this line (Gene B and Gene C) have the **greatest influence** on the direction of this line. 
 
-<img src="../img/pca_with_PC1_line.png" width="300">
+<img src="img/pca_with_PC1_line.png" width="300">
 
 After drawing this line and establishing the amount of influence per gene, **PCA will compute a per sample score**. The per sample PC1 score is computed by taking the product of the influence and the normalized read count and summing across all genes. We could draw another line through the data representing the second most amount of variation in the data (PC2) and compute scores, followed by a third line and so on until you hit the total number of samples in your dataset. 
 
@@ -54,7 +40,7 @@ Sample1 PC1 score = (read count Gene A * influence Gene A) + (read count Gene B 
 
 In reality, your dataset will have larger dimensions (more samples, and many, many more genes). The initial sample-to-sample plot, will therefore be in *n*-dimensional space with *n* axes representing the total number of samples you have. The end result is a 2-dimensional matrix with rows representing samples and columns reflecting scores for each of the principal components. To evaluate the results of a PCA, we usually plot principal components against each other, starting with PCs that explain the most amount of variation in your data.
 
-<img src="../img/PCA_samples.png" width="600">
+<img src="img/PCA_samples.png" width="600">
 
 **If two samples have similar levels of expression for the genes that contribute significantly to the variation represented by PC1, they will be plotted close together on the PC1 axis.** Therefore, we would expect that biological replicates to have similar scores (since the same genes are changing) and cluster together on PC1 and/or PC2, and the samples from different treatment groups to have different score. This is easiest to understand by visualizing example PCA plots.
 
@@ -62,23 +48,23 @@ In reality, your dataset will have larger dimensions (more samples, and many, ma
 
 We have an example dataset and a few associated PCA plots below to get a feel for how to interpret them. The metadata for the experiment is displayed below. The main condition of interest is `treatment`.
 
-<img src="../img/example_metadata.png" width="600">
+<img src="img/example_metadata.png" width="600">
 
 When visualizing on PC1 and PC2, we don't see the samples separate by `treatment`, so we decide to explore other sources of variation present in the data. We hope that we have included all possible known sources of variation in our metadata table, and we can use these factors to color the PCA plot. 
 
-<img src="../img/example_PCA_treatmentPC1.png" width="600">
+<img src="img/example_PCA_treatmentPC1.png" width="600">
 
 We start with the factor `cage`, but the `cage` factor does not seem to explain the variation on PC1 or PC2.
 
-<img src="../img/example_PCA_cage.png" width="600">
+<img src="img/example_PCA_cage.png" width="600">
 
 Then, we color by the `sex` factor, which appears to separate samples on PC2. This is good information to take note of, as we can use it downstream to account for the variation due to sex in the model and regress it out.
 
-<img src="../img/example_PCA_sex.png" width="600">
+<img src="img/example_PCA_sex.png" width="600">
 
 Next we explore the `strain` factor and find that it explains the variation on PC1. 
 
-<img src="../img/example_PCA_strain.png" width="600">
+<img src="img/example_PCA_strain.png" width="600">
 
 It's great that we have been able to identify the sources of variation for both PC1 and PC2. By accounting for it in our model, we should be able to detect more genes differentially expressed due to `treatment`.
 
@@ -86,7 +72,7 @@ Worrisome about this plot is that we see two samples that do not cluster with th
 
 Still we haven't found if `treatment` is a major source of variation after `strain` and `sex`. So, we explore PC3 and PC4 to see if `treatment` is driving the variation represented by either of these PCs.
 
-<img src="../img/example_PCA_treatmentPC3.png" width="600">
+<img src="img/example_PCA_treatmentPC3.png" width="600">
 
 We find that the samples separate by `treatment` on PC3, and are optimistic about our DE analysis since our condition of interest, `treatment`, is separating on PC3 and we can regress out the variation driving PC1 and PC2.
 
@@ -104,7 +90,7 @@ The figure below was generated from a time course experiment with sample groups 
 - Are there any outliers in the data?
 - Should we have any other concerns regarding the samples in the dataset?
 
-<img src="../img/PCA_example3.png" width="600">
+<img src="img/PCA_example3.png" width="600">
 
 ***
 
@@ -116,7 +102,7 @@ The hierarchical tree can indicate which samples are more similar to each other 
 
 **In the plot below, we would be quite concerned about 'Wt_3' and 'KO_3' samples not clustering with the other replicates. We would want to explore the PCA to see if we see the same clustering of samples.**
 
-<img src="../img/heatmap_example.png" width="500">
+<img src="img/heatmap_example.png" width="500">
 
 
 ## Gene-level QC
@@ -127,7 +113,7 @@ In addition to examining how well the samples/replicates cluster together, there
 - Genes with an extreme count outlier
 - Genes with a low mean normalized counts
 
-<img src="../img/gene_filtering.png" width="600">
+<img src="img/gene_filtering.png" width="600">
 
 **DESeq2 will perform this filtering by default; however other DE tools, such as EdgeR will not.**  Filtering is a necessary step, even if you are using limma-voom and/or edgeR's quasi-likelihood methods. Be sure to follow pre-filtering steps when using other tools, as outlined in their user guides found on Bioconductor as they generally perform much better. 
 
@@ -162,7 +148,7 @@ The function `plotPCA()` requires two arguments as input: an `rlog` object and t
 plotPCA(rld, intgroup="sampletype")
 ```
 
-![pca](../img/pca_500.png)
+![pca](img/pca_500.png)
 
 **What does this plot tell you about the similarity of samples? Does it fit the expectation from the experimental design?** By default the function uses the *top 500 most variable genes*. You can change this by adding the `ntop` argument and specifying how many genes you want to use to draw the plot.
 
@@ -207,7 +193,7 @@ And now to plot the correlation values as a heatmap:
 pheatmap(rld_cor)
 ```
 
-![heatmap1](../img/pheatmap-1.png)
+![heatmap1](img/pheatmap-1.png)
 
 Overall, we observe pretty high correlations across the board ( > 0.999) suggesting no outlying sample(s). Also, similar to the PCA plot you see the samples clustering together by sample group. Together, these plots suggest to us that the data are of good quality and we have the green light to proceed to differential expression analysis.
 
@@ -222,6 +208,6 @@ Overall, we observe pretty high correlations across the board ( > 0.999) suggest
 > Curious on all of the available [color palettes offered by the RColorBrewer package](http://www.r-graph-gallery.com/38-rcolorbrewers-palettes/)? Try typing in your console `display.brewer.all()` and see what happens!
 > 
 
----
+***
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
 

@@ -1,16 +1,4 @@
----
-title: "Summary of DGE workflow"
-author: "Mary Piper"
-date: "June 8, 2017"
----
-
-Approximate time: 15 minutes
-
-## Learning Objectives 
-
-* Understand the commands needed to run a complete differential expression analysis
-
-## Summary of differential expression analysis workflow
+# Summary of DGE workflow
 
 We have detailed the various steps in a differential expression analysis workflow, providing theory with example code. To provide a more succinct reference for the code needed to run a DGE analysis, we have summarized the steps in an analysis below:
 

@@ -1,22 +1,10 @@
----
-title: "Count normalization with DESeq2"
-author: "Meeta Mistry, Radhika Khetani, Mary Piper"
-date: "April 26, 2017"
----
-
-Approximate time: 60 minutes
-
-## Learning Objectives 
-
-* Explore different types of normalization methods
-* Become familiar with the `DESeqDataSet` object 
-* Understand how to normalize counts using DESeq2
+# Count normalization
 
 ## Normalization
 
 The first step in the DE analysis workflow is count normalization, which is necessary to make accurate comparisons of gene expression between samples.
 
-<img src="../img/deseq_workflow_normalization_2018.png" width="400">
+<img src="img/deseq_workflow_normalization_2018.png" width="400">
 
 The counts of mapped reads for each gene is proportional to the expression of RNA ("interesting") in addition to many other factors ("uninteresting"). Normalization is the process of scaling raw count values to account for the "uninteresting" factors. In this way the expression levels are more comparable between and/or within samples.
 
@@ -24,19 +12,18 @@ The main factors often considered during normalization are:
  
  - **Sequencing depth:** Accounting for sequencing depth is necessary for comparison of gene expression between samples. In the example below, each gene appears to have doubled in expression in *Sample A* relative to *Sample B*, however this is a consequence of *Sample A* having double the sequencing depth. 
 
-    <img src="../img/normalization_methods_depth.png" width="400">
+    <img src="img/normalization_methods_depth.png" width="400">
   
 	>***NOTE:** In the figure above, each pink and green rectangle represents a read aligned to a gene. Reads connected by dashed lines connect a read spanning an intron.*
  
  - **Gene length:** Accounting for gene length is necessary for comparing expression between different genes within the same sample. In the example, *Gene X* and *Gene Y* have similar levels of expression, but the number of reads mapped to *Gene X* would be many more than the number mapped to *Gene Y* because *Gene X* is longer.
  
-    <img src="../img/normalization_methods_length.png" width="200">
+    <img src="img/normalization_methods_length.png" width="200">
  
  - **RNA composition:** A few highly differentially expressed genes between samples, differences in the number of genes expressed between samples, or presence of contamination can skew some types of normalization methods. Accounting for RNA composition is recommended for accurate comparison of expression between samples, and is particularly important when performing differential expression analyses [[1](https://genomebiology.biomedcentral.com/articles/10.1186/gb-2010-11-10-r106)]. 
  
 	In the example, if we were to divide each sample by the total number of counts to normalize, the counts would be greatly skewed by the DE gene, which takes up most of the counts for *Sample A*, but not *Sample B*. Most other genes for *Sample A* would be divided by the larger number of total counts and appear to be less expressed than those same genes in *Sample B*.  
-	
-    <img src="../img/normalization_methods_composition.png" width="400">
+<img src="img/normalization_methods_composition.png" width="400">
     
 ***While normalization is essential for differential expression analyses, it is also necessary for exploratory data analysis, visualization of data, and whenever you are exploring or comparing counts between or within samples.***
  
@@ -51,7 +38,6 @@ Several common normalization methods exist to account for these differences:
 | **RPKM/FPKM** (reads/fragments per kilobase of exon per million reads/fragments mapped) | similar to TPM | sequencing depth and gene length | gene count comparisons between genes within a sample; **NOT for between sample comparisons or DE analysis** |
 | DESeq2's **median of ratios** [[1](https://genomebiology.biomedcentral.com/articles/10.1186/gb-2010-11-10-r106)] | counts divided by sample-specific size factors determined by median ratio of gene counts relative to geometric mean per gene | sequencing depth and RNA composition | gene count comparisons between samples and for **DE analysis**; **NOT for within sample comparisons** |
 | EdgeR's **trimmed mean of M values (TMM)** [[2](https://genomebiology.biomedcentral.com/articles/10.1186/gb-2010-11-3-r25)] | uses a weighted trimmed mean of the log expression ratios between samples | sequencing depth, RNA composition | gene count comparisons between samples and for **DE analysis**; **NOT for within sample comparisons** |
-
 
 ### RPKM/FPKM (not recommended)
 While TPM and RPKM/FPKM normalization methods both account for sequencing depth and gene length, RPKM/FPKM are not recommended. **The reason  is that the normalized count values output by the RPKM/FPKM method are not comparable between samples.** 
@@ -109,7 +95,7 @@ The median value (column-wise for the above table) of all ratios for a given sam
  
 The figure below illustrates the median value for the distribution of all gene ratios for a single sample (frequency is on the y-axis).
 
-<img src="../img/deseq_median_of_ratios.png" width="400">
+<img src="img/deseq_median_of_ratios.png" width="400">
 
 The median of ratios method makes the assumption that not ALL genes are differentially expressed; therefore, the normalization factors should account for sequencing depth and RNA composition of the sample (large outlier genes will not represent the median ratio values). **This method is robust to imbalance in up-/down-regulation and large numbers of differentially expressed genes.**
 
@@ -163,7 +149,7 @@ size_factors <- c(1.32, 0.70, 1.04, 1.27, 1.11, 0.85)
 
 ***
 
-## Count normalization of Mov10 dataset using DESeq2
+## Count normalization of Mov10 dataset
 
 Now that we know the theory of count normalization, we will normalize the counts for the Mov10 dataset using DESeq2. This requires a few steps:
 
@@ -181,13 +167,12 @@ all(colnames(data) %in% rownames(meta))
 all(colnames(data) == rownames(meta))
 ```
 
-If your data did not match, you could use the `match()` function to rearrange them to be matching.
+**Exercise**
 
-***
+The colnames of our data don't match the rownames of our metadata so we need to reorder them. Write the line(s) of code required to create a new metadata such that the rownames are identical to the column names of our count matrix.  
+```{r}
 
-**Exercise**	
-
-Suppose we had sample names matching in the counts matrix and metadata file, but they were out of order. Write the line(s) of code required to create a new matrix with columns ordered such that they were identical to the row names of the metadata.
+```
 
 *** 
 
@@ -202,22 +187,26 @@ Let's start by creating the `DESeqDataSet` object and then we can talk a bit mor
 dds <- DESeqDataSetFromMatrix(countData = data, colData = meta, design = ~ sampletype)
 ```
 
-![deseq1](../img/deseq_obj1.png)
+![deseq1](img/deseq_obj1.png)
 
 
-You can use DESeq-specific functions to access the different slots and retrieve information, if you wish. For example, suppose we wanted the original count matrix we would use `counts()` (*Note: we nested it within the `View()` function so that rather than getting printed in the console we can see it in the script editor*) :
+You can use DESeq-specific functions to access the different slots and retrieve information, if you wish. For example, suppose we wanted the original count matrix we would use `counts()`:
 
 ```r
-View(counts(dds))
+head(counts(dds[,1:5]))
 ```
 
-As we go through the workflow we will use the relevant functions to check what information gets stored inside our object.
+As we go through the workflow we will use the relevant functions to check what information gets stored inside our object. We can also run:
+
+```{r}
+slotNames(dds)
+```
 
 ### 3. Generate the Mov10 normalized counts
 
 The next step is to normalize the count data in order to be able to make fair gene comparisons between samples.
 
-<img src="../img/deseq_workflow_normalization_2018.png" width="400">
+<img src="img/deseq_workflow_normalization_2018.png" width="400">
 
 To perform the **median of ratios method** of normalization, DESeq2 has a single `estimateSizeFactors()` function that will generate size factors for us. We will use the function in the example below, but **in a typical RNA-seq analysis this step is automatically performed by the `DESeq()` function**, which we will see later. 
 
@@ -242,8 +231,4 @@ We can save this normalized data matrix to file for later use:
 ```r
 write.table(normalized_counts, file="data/normalized_counts.txt", sep="\t", quote=F, col.names=NA)
 ```
-
-> **NOTE:** DESeq2 doesn't actually use normalized counts, rather it uses the raw counts and models the normalization inside the Generalized Linear Model (GLM). These normalized counts will be useful for downstream visualization of results, but cannot be used as input to DESeq2 or any other tools that peform differential expression analysis which use the negative binomial model.
-
-***
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*

@@ -1,20 +1,25 @@
 book_filename: "RNAseq-analysis"
 before_chapter_script: ["R/introR_setup.R", "R/setup.R"]
-new_session: yes
+new_session: no
 rmd_files:
   - index.Rmd
-  - 01-DGE_setup_and_overview.md
-  - 02-DGE_count_normalization.md
-  - 03-DGE_QC_analysis.md
-  - 04-DGE_DESeq2_analysis.md
-  - 05-DGE_DESeq2_analysis2.md
-  - 06-DGE_visualizing_results.md
-  - 07-DGE_summarizing_workflow.md
-  - 08-GO_enrichment_analysis.md
-  - 09-DGE_code_book.Rmd
-delete_merged_file: no
+  - lessons/01-DGE_setup_and_overview.md
+  - lessons/02-DGE_count_normalization.md
+  - lessons/03-DGE_QC_analysis.md
+  - lessons/04-DGE_DESeq2_analysis.md
+  - lessons/05-DGE_DESeq2_analysis2.md
+  - lessons/06-DGE_visualizing_results.md
+  - lessons/07-DGE_summarizing_workflow.md
+  - lessons/08-GO_enrichment_analysis.md
+  - lessons/09-DGE_code.Rmd
+  - lessons/10-dummy-script.Rmd
+delete_merged_file: yes
+output:
+  bookdown::gitbook:
+css: [css/style.css, css/toc.css, css/webex.css]
 chapter_name: "Chapter "
 language:
   label:
     fig: "Figure "
     tab: "Table "
+rmd_subdir: ["lessons"]
