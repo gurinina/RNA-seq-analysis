@@ -57,7 +57,6 @@ meta <- read.table("meta/Mov10_full_meta.txt", header=T, row.names=1)
 ```
 
 Use class() to inspect our data and make sure we are working with data frames:
-
 ```{r}
 ### Check classes of the data we just brought in
 class(meta)
@@ -78,7 +77,6 @@ head(data[,1:5])
 #### RNA-seq count distribution
 
 To determine the appropriate statistical model, we need information about the distribution of counts. To get an idea about how RNA-seq counts are distributed, let's plot the counts for a single sample, 'Mov10_oe_1':
-
 ```{r}
 ggplot(data) +
 geom_histogram(aes(x = Mov10_oe_1), stat = "bin", bins = 200) +
@@ -87,7 +85,6 @@ geom_histogram(aes(x = Mov10_oe_1), stat = "bin", bins = 200) +
 ```
 
 If we zoom in close to zero, we can see a large number of genes with counts of zero:
-
 ```{r}
 ggplot(data) +
 geom_histogram(aes(x = Mov10_oe_1), stat = "bin", bins = 200) + 
@@ -101,7 +98,6 @@ These images illustrate some common features of RNA-seq count data, including a 
 #### Modeling count data
 
 By plotting the *mean versus the variance* of our data we should be able to see that the mean < variance and therefore it does not fit the Poisson distribution and is better suited to the Negative Binomial (NB) model.
-
 ```{r}
 mean_counts <- apply(data[, 3:5], 1, mean)
 variance_counts <- apply(data[, 3:5], 1, var)
@@ -211,13 +207,11 @@ The next step is to normalize the count data in order to be able to make fair ge
 <img src="img/deseq_workflow_normalization_2018.png" width="400"/>
 
 To perform the **median of ratios method** of normalization, DESeq2 has a single `estimateSizeFactors()` function that will generate size factors for us. We will use the function in the example below, but **in a typical RNA-seq analysis this step is automatically performed by the `DESeq()` function**, which we will see later.
-
 ```{r}
 dds <- estimateSizeFactors(dds)
 ```
 
 By assigning the results back to the dds object we are filling in the slots of the DESeqDataSet object with the appropriate information. We can take a look at the normalization factor applied to each sample using:
-
 ```{r}
 sizeFactors(dds)
 ```
@@ -352,14 +346,12 @@ Similar to PCA, hierarchical clustering is another, complementary method for ide
 The heatmap displays the correlation of gene expression for all pairwise combinations of samples in the dataset. Since the majority of genes are not differentially expressed, samples generally have high correlations with each other (values higher than 0.80). Samples below 0.80 may indicate an outlier in your data and/or sample contamination. We expect to see samples clustered similar to the groupings observed in a PCA plot.
 
 Since there is no built-in function for heatmaps in DESeq2 we will be using the `pheatmap()` function from the pheatmap package. This function requires a matrix/dataframe of numeric values as input, and so the first thing we need to is retrieve that information from the rld object:
-
 ```{r}
 ### Extract the rlog matrix from the object
 rld_mat <- assay(rld)    ## assay() is function from the "SummarizedExperiment" package that was loaded when you loaded DESeq2
 ```
 
 Then we need to compute the pairwise correlation values for samples. We can do this using the cor() function:
-
 ```{r}
 ### Compute pairwise correlation values
 rld_cor <- cor(rld_mat)    ## cor() is a base R function
@@ -368,7 +360,6 @@ head(rld_cor[,1:5])   ## check the output of cor(), make note of the rownames an
 ```
 
 And now to plot the correlation values as a heatmap:
-
 ```{r}
 ### Plot heatmap
 pheatmap(rld_cor)
@@ -397,7 +388,6 @@ Differential expression analysis with DESeq2 involves multiple steps as displaye
 #### Design formula
 
 A design formula tells the statistical software the known sources of variation to control for, as well as, the factor of interest to test for during differential expression testing. For example, if you know that sex is a significant source of variation in your data, then sex should be included in your model. The design formula should have all of the factors in your metadata that account for major sources of variation in your data. **The last factor entered in the formula should be the condition of interest.**
-
 ```{r}
 design(dds)
 ```
@@ -409,7 +399,6 @@ For example, suppose you have the following metadata:
 **Exercise**
 
 1.  Suppose you wanted to study the expression differences between the two age groups in the metadata shown above, and major sources of variation were `sex` and `treatment`, how would the design formula be written?
-
 ```{r, eval=FALSE}
 # the default behavior of the function `DESeq2::results` is to return the comparision of the last, so your condition of interest should come last:
  
@@ -428,14 +417,12 @@ For example, suppose you have the following metadata:
 #### **MOV10** DE analysis
 
 To get our differential expression results from our raw count data, we only need to run 2 lines of code!
-
 ```{r}
 ## Create DESeq object
 dds <- DESeqDataSetFromMatrix(countData = data, colData = meta, design = ~ sampletype)
 ```
 
 Then, to run the actual differential expression analysis, we use a single call to the function DESeq().
-
 ```{r}
 ## Run analysis
 dds <- DESeq(dds)
@@ -461,27 +448,23 @@ sizeFactors(dds)
 ```
 
 These numbers should be identical to those we generated initially when we had run the function estimateSizeFactors(dds). Take a look at the total number of reads for each sample:
-
 ```{r}
 ## Total number of raw counts per sample
 colSums(counts(dds))
 ```
 
 **How do the numbers correlate with the size factor?**
-
 ```{r}
 cor(colSums(counts(dds)),sizeFactors(dds))
 ```
 
 Now take a look at the total depth after normalization using:
-
 ```{r}
 ## Total number of normalized counts per sample
 colSums(counts(dds, normalized=T))
 ```
 
 **How do the values across samples compare with the total counts taken for each sample?**
-
 ```{r}
 plot(colSums(counts(dds, normalized = F)),pch=19)
 points(colSums(counts(dds, normalized = T)),pch=19, col = "blue")
@@ -523,7 +506,6 @@ Dispersion plots are a good way to examine your data to ensure it is a good fit 
 ##### **MOV10** DE analysis: exploring the dispersion estimates and assessing model fit
 
 Let's take a look at the dispersion estimates for our **MOV10** data:
-
 ```{r}
 ## Plot dispersion estimates
 plotDispEsts(dds)
@@ -567,7 +549,6 @@ To indicate to DESeq2 the two groups we want to compare, we can use contrasts. C
 1.  Do nothing. Automatically DESeq2 will use the base factor level of the condition of interest as the base for statistical testing. The base level is chosen based on alphabetical order of the levels.
 
 2.  In the results() function you can specify the comparison of interest, and the levels to compare. The level given last is the base level for the comparison. The syntax is given below:
-
 ```{r, eval=FALSE}
 # DO NOT RUN!
 contrast <- c("condition", "level_to_compare", "base_level")
@@ -613,13 +594,11 @@ A plot that can be useful to exploring our results is the MA plot. The MA plot s
 **Let's start with the unshrunken results:**
 
 Viewing the results:
-
 ```{r}
 plotMA(res_tableOE_unshrunken, ylim=c(-2,2))
 ```
 
 **And now the shrunken results:**
-
 ```{r}
 plotMA(res_tableOE, ylim=c(-2,2))
 ```
@@ -629,13 +608,11 @@ This plot allows us to evaluate the magnitude of fold changes and how they are d
 ##### **MOV10** DE analysis: results exploration
 
 The results table looks very much like a dataframe and in many ways it can be treated like one (i.e when accessing/subsetting data). However, it is important to recognize that it is actually stored in a `DESeqResults` object. When we start visualizing our data, this information will be helpful.
-
 ```{r}
 class(res_tableOE)
 ```
 
 Let's go through some of the columns in the results table to get a better idea of what we are looking at. To extract information regarding the meaning of each column we can use mcols():
-
 ```{r}
 
 mcols(res_tableOE, use.names=T)
@@ -656,7 +633,6 @@ In DESeq2, the p-values attained by the Wald test are corrected for multiple tes
 ##### **MOV10** DE analysis: Control versus Knockdown
 
 Now that we have results for the overexpression results, let's do the same for the **Control vs. Knockdown samples**. Use contrasts in the `results()` to extract a results table and store that to a variable called `res_tableKD`.
-
 ```{r}
 
 ## Define contrasts, extract results table and shrink log2 fold changes
@@ -680,7 +656,6 @@ save.image()
 ```
 
 Let's look at the number of genes below the standard p-adjusted value 0.05:
-
 ```{r}
 
 table(res_tableKD$padj < 0.05)
@@ -689,7 +664,6 @@ table(res_tableOE$padj < 0.05)
 ```
 
 Now, let's add an absolute value cutoff of log2FoldChange \>=1:
-
 ```{r}
 
 table(res_tableKD$padj < 0.05 & abs(res_tableKD$log2FoldChange) >=1)
@@ -700,7 +674,6 @@ table(res_tableOE$padj < 0.05 & abs(res_tableOE$log2FoldChange) >=1)
 ### Summarizing results
 
 To summarize the results table, a handy function in DESeq2 is `summary()`. Confusingly it has the same name as the function used to inspect data frames. This function when called with a DESeq results table as input, will summarize the results using the alpha threshold: FDR \< 0.05 (padj/FDR is used even though the output says `p-value < 0.05`).
-
 ```{r}
 summary(res_tableKD)
 summary(res_tableOE)
@@ -709,7 +682,6 @@ summary(res_tableOE)
 #### Extracting significant differentially expressed genes
 
 What we noticed is that the FDR threshold on it's own doesn't appear to be reducing the number of significant genes. With large significant gene lists it can be hard to extract meaningful biological relevance. To help increase stringency, one can also **add a fold change threshold**.
-
 ```{r}
 ### Set thresholds
 padj.cutoff <- 0.05
@@ -719,7 +691,6 @@ lfc.cutoff <- 0.58 ## change in expression of 1.5
 The lfc.cutoff is set to 0.58; remember that we are working with log2 fold changes so this translates to an actual fold change of 1.5 which is pretty reasonable.
 
 We can easily subset the results table to only include those that are significant using the filter() function, but first we will convert the results table into a tibble:
-
 ```{r}
 
 res_tableOE_tb <- res_tableOE %>%
@@ -736,13 +707,11 @@ sigOE <- res_tableOE_tb %>%
 **Exercise**
 
 **How many genes are differentially expressed in the Overexpression compared to Control, given our criteria specified above? Does this reduce our results?**
-
 ```{r}
 
 ```
 
 **Does this reduce our results?**
-
 ```{r}
 
 ```
@@ -750,7 +719,6 @@ sigOE <- res_tableOE_tb %>%
 -Ans:
 
 Using the same thresholds as above (padj.cutoff \< 0.05 and lfc.cutoff = 0.58), subset res_tableKD to report the number of genes that are up- and down-regulated in Mov10_knockdown compared to control.
-
 ```{r}
 
 res_tableKD_tb <- res_tableKD %>%
@@ -768,7 +736,6 @@ saveRDS(sigKD,"data/sigKD.rds")
 **Exercise**
 
 **How many genes are differentially expressed in the Knockdown compared to Control?**
-
 ```{r}
 
 ```
@@ -780,7 +747,6 @@ saveRDS(sigKD,"data/sigKD.rds")
 **.md file = 06_DGE_visualizing_results.md**
 
 Let's start by loading a few libraries (if not already loaded):
-
 ```{r}
 # load libraries
 library(tidyverse)
@@ -799,7 +765,6 @@ When we are working with large amounts of data it can be useful to display that 
 Let's create tibble objects from the meta and normalized_counts data frames before we start plotting. This will enable us to use the tidyverse functionality more easily.
 
 Basically, we are taking the rownames and adding them as a field in the tibble/data.frame.
-
 ```{r}
 # Create tibbles including row names
 mov10_meta <- meta %>% 
@@ -819,7 +784,6 @@ One way to visualize results would be to simply plot the expression data for a h
 #### Using DESeq2 `plotCounts()` to plot expression of a single gene
 
 To pick out a specific gene of interest to plot, for example Mov10, we can use the `plotCounts()` from DESeq2:
-
 ```{r}
 
 # Plot expression for single gene
@@ -829,7 +793,6 @@ plotCounts(dds, gene="MOV10", intgroup="sampletype",pch=19,col=as.numeric(as.fac
 #### Using ggplot2 to plot expression of a single gene
 
 If you wish to change the appearance of this plot, we can save the output of `plotCounts()` to a variable specifying the `returnData=TRUE` argument, then use `ggplot()`:
-
 ```{r}
 
 # Save plotcounts to a data frame object
@@ -848,7 +811,6 @@ ggplot(d, aes(x = sampletype, y = count, color = sampletype)) +   geom_point(pos
 Often it is helpful to check the expression of multiple genes of interest at the same time. This often first requires some data wrangling.
 
 We are going to plot the normalized count values for the **top 20 differentially expressed genes (by padj values)**.
-
 ```{r}
 
 ## Order results by padj values
@@ -859,7 +821,6 @@ top20_sigOE_genes <- res_tableOE_tb %>%
 ```
 
 Then, we can extract the normalized count values for these top 20 genes:
-
 ```{r}
 
 ## normalized counts for top 20 significant genes
@@ -884,7 +845,6 @@ head(gathered_top20_sigOE)
 ```
 
 Now, if we want our counts colored by sample group, then we need to combine the metadata information with the melted normalized counts data into the same data frame for input to `ggplot()`:
-
 ```{r}
 gathered_top20_sigOE <- inner_join(mov10_meta, gathered_top20_sigOE)
 ```
@@ -892,7 +852,6 @@ gathered_top20_sigOE <- inner_join(mov10_meta, gathered_top20_sigOE)
 The inner_join() will merge 2 data frames with respect to the "samplename" column, i.e. a column with the same column name in both data frames.
 
 Now that we have a data frame in a format that can be utilised by ggplot easily, let's plot!
-
 ```{r}
 ## plot using ggplot2
 ggplot(gathered_top20_sigOE) +
@@ -909,7 +868,6 @@ theme(plot.title = element_text(hjust = 0.5))
 ### Heatmap
 
 In addition to plotting subsets, we could also extract the normalized values of *all* the significant genes and plot a heatmap of their expression using `pheatmap()`.
-
 ```{r}
 
 ### Extract normalized expression for significant genes from the OE and control samples (4:9), and set the gene column (1) to row names
@@ -920,7 +878,6 @@ norm_OEsig <- normalized_counts[,c(1,4:9)] %>%
 ```
 
 Now let's draw the heatmap using pheatmap:
-
 ```{r}
 ### Annotate our heatmap (optional)
 annotation <- mov10_meta %>% 
@@ -948,7 +905,6 @@ pheatmap(norm_OEsig,
 The above plot would be great to look at the expression levels of a good number of genes, but for more of a global view there are other plots we can draw. A commonly used one is a volcano plot; in which you have the log transformed adjusted p-values plotted on the y-axis and log2 fold change values on the x-axis.
 
 To generate a volcano plot (which you have the log transformed adjusted p-values plotted on the y-axis and log2 fold change values on the x-axis), we first need to have a column in our results data indicating whether or not the gene is considered differentially expressed based on p-adjusted values.
-
 ```{r}
 
 ## Obtain logical vector where TRUE values denote padj values < 0.05 and fold change > 1.5 in either direction
@@ -958,7 +914,6 @@ res_tableOE_tb <- res_tableOE_tb %>%
 ```
 
 Now we can start plotting:
-
 ```{r}
 
 ## Volcano plot
@@ -976,7 +931,6 @@ ggplot(res_tableOE_tb) +
 What if we also wanted to know where the top 10 genes (lowest padj) in our DE list are located on this plot? We could label those dots with the gene name on the Volcano plot using `geom_text_repel()`.
 
 First, we need to order the res_tableOE tibble by padj, and add an additional column to it, to include on those gene names we want to use to label the plot.
-
 ```{r}
 
 ## Create a column to indicate which genes to label
@@ -1010,7 +964,6 @@ ggplot(res_tableOE_tb, aes(x = log2FoldChange, y = -log10(padj))) + geom_point(a
 ### Bioconductor and CRAN libraries used
 library(DESeq2)
 ```
-
 We have detailed the various steps in a differential expression analysis workflow, providing theory with example code. To provide a more succinct reference for the code needed to run a DGE analysis, we have summarized the steps in an analysis below:
 
 ### 1. Import data into dds object:
