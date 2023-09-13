@@ -1,9 +1,5 @@
 # DGE analysis overview 
 
-## Learning Objectives 
-
-* Describe the RNA-seq and the differential gene expression (DGE) analysis workflow
-
 The goal of RNA-seq is often to perform differential expression testing to determine which genes are expressed at different levels between conditions. These genes can offer biological insight into the processes affected by the condition(s) of interest. 
 
 To determine the expression levels of genes, our RNA-seq workflow followed the steps detailed in the image below. All steps were performed on the command line (Linux/Unix) through the generation of the read counts per gene. The differential expression analysis and any downstream functional analysis are generally performed in R using R packages specifically designed for the complex statistical analyses required to determine whether genes are differentially expressed.
@@ -45,7 +41,7 @@ Using these data, we will evaluate transcriptional patterns associated with pert
 
 ## Setting up
 
-Go to the `File` menu and open `09-DGE_code_book_answers.Rmd`. This should open up a script editor in the top left hand corner. This is where we will be running and all commands required for this analysis. Your working directory should have these folders: data, meta and results:
+Go to the `File` menu and open `09-DGE_codebook.Rmd`. This should open up a script editor in the top left hand corner. This is where we will be running all commands required for this analysis. Your working directory should have these folders: data, meta and results:
 
 ![setup](img/settingup.png)
 
@@ -60,7 +56,6 @@ library(tidyverse)
 library(RColorBrewer)
 library(DESeq2)
 library(pheatmap)
-library(DEGreport)
 ```
 
 ### Loading data
@@ -165,6 +160,7 @@ Run the following code to plot the *mean versus variance* for the 'Mov10 overexp
 ```r
 mean_counts <- apply(data[, 3:5], 1, mean)
 variance_counts <- apply(data[, 3:5], 1, var)
+# for ggplot we need the data to be in a data.frame
 df <- data.frame(mean_counts, variance_counts)
 
 ggplot(df) +

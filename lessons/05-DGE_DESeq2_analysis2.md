@@ -1,8 +1,4 @@
-# Model and hypothesis testing 
-
-## Learning Objectives 
-
-* Building results tables for comparison of different sample classes
+# Model and hypothesis testing
 
 ## Generalized Linear Model fit for each gene
 
