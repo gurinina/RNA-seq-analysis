@@ -2,10 +2,7 @@
 
 ## Learning Objectives 
 
-* Understanding the different steps in a differential expression analysis in the context of DESeq2
 * Building results tables for comparison of different sample classes
-* Summarizing significant differentially expressed genes for each comparison
-
 
 ## Generalized Linear Model fit for each gene
 
@@ -38,21 +35,24 @@ As with the shrinkage of dispersion estimates, LFC shrinkage uses **information 
 
 For example, in the figure above, the green gene and purple gene have the same mean values for the two sample groups (C57BL/6J and DBA/2J), but the green gene has little variation while the purple gene has high levels of variation. For the green gene with low variation, the **unshrunken LFC estimate** (vertex of the green **solid line**) is very similar to the shrunken LFC estimate (vertex of the green dotted line), but the LFC estimates for the purple gene are quite different due to the high dispersion. So even though two genes can have similar normalized count values, they can have differing degrees of LFC shrinkage. Notice the **LFC estimates are shrunken toward the prior (black solid line)**.
 
-In the most recent versions of DESeq2, the shrinkage of LFC estimates is **not performed by default**. This means that the log2 foldchanges would be the same as those calculated by:
+In the most recent versions of DESeq2, the shrinkage of LFC estimates is **not performed by default**. This means that the log2 foldchanges would be nearly the same as those calculated by:
 
 ```r
-log2 (normalized_counts_group1 / normalized_counts_group2)
+normalized_counts <- counts(dds,normalized = T)
+
+normalized_counts_group <- apply(normalized_counts,1, function(x) x=tapply(x,meta$sampletype,mean))
+
+normalized_counts_group <- t(normalized_counts_group)
+
+normalized_counts_group1 <- normalized_counts_group[,1]
+
+normalized_counts_group3 <-normalized_counts_group[,3]
+
+oe=log2 (normalized_counts_group3 / normalized_counts_group1)
+
 ```
 
 To generate the shrunken log2 fold change estimates, you have to run an additional step on your results object (that we will create below) with the function `lfcShrink()`.
-
-> **NOTE: Shrinking the log2 fold changes will not change the total number of genes that are identified as significantly differentially expressed.** The shrinkage of fold change is to help with downstream assessment of results. For example, if you wanted to subset your significant genes based on fold change for further evaluation, you may want to use shruken values. Additionally, for functional analysis tools such as GSEA which require fold change values as input you would want to provide shrunken values.
-
->**NOTE:** Older versions of DESeq2 (< 1.16.0) shrink the fold changes by default, so if you are using an older version of the tool and very large expected fold changes for a number of individual genes are expected, but not enough such that the prior would not include such large fold changes, then you may want to turn off LFC shrinkage.
-> 
->For these older versions of DESeq2, you can turn off the beta prior when calling the `DESeq()` function: `DESeq(dds, betaPrior=FALSE)`. By turning off the prior, the log2 foldchanges would be the same as those calculated by:
->
->`log2 (normalized_counts_group1 / normalized_counts_group2)`
 
 
 ## Hypothesis testing using the Wald test
@@ -75,8 +75,6 @@ To indicate to DESeq2 the two groups we want to compare, we can use **contrasts*
 	results(dds, contrast = contrast, alpha = alpha_threshold)
 	
 	```
->
-> **NOTE:** The Wald test can also be used with **continuous variables**. If the variable of interest provided in the design formula is continuous-valued, then the reported log2 fold change is per unit of change of that variable.
 
 #### MOV10 DE analysis: contrasts and Wald tests
 
@@ -181,17 +179,14 @@ A2M           5.8600841    -0.27850841 0.18051805 -1.5428286 0.1228724 0.2148906
 
 Note that we have pvalues and p-adjusted values in the output. Which should we use to identify significantly differentially expressed genes?
 
-If we used the `p-value` directly from the Wald test with a significance cut-off of p < 0.05, that means there is a 5% chance it is a false positives. Each p-value is the result of a single test (single gene). The more genes we test, the more we inflate the false positive rate. **This is the multiple testing problem.** For example, if we test 20,000 genes for differential expression, at p < 0.05 we would expect to find 1,000 genes by chance. If we found 3000 genes to be differentially expressed total, roughly one third of our genes are false positives. We would not want to sift through our "significant" genes to identify which ones are true positives.
+If we used the `p-value` directly from the Wald test with a significance cut-off of p < 0.05, that means there is a 5% chance it is a false positives. Each p-value is the result of a single test (single gene). The more genes we test, the more we inflate the false positive rate. **This is the multiple testing problem.** For example, if we test 20,000 genes for differential expression, at p < 0.05 we would expect to find 1,000 genes by chance. If we found 3000 genes to be differentially expressed total, 150 of our genes are false positives. We would not want to sift through our "significant" genes to identify which ones are true positives.
 
 DESeq2 helps reduce the number of genes tested by removing those genes unlikely to be significantly DE prior to testing, such as those with low number of counts and outlier samples (gene-level QC). However, we still need to correct for multiple testing to reduce the number of false positives, and there are a few common approaches:
 
 - **Bonferroni:** The adjusted p-value is calculated by: p-value * m (m = total number of tests). **This is a very conservative approach with a high probability of false negatives**, so is generally not recommended.
 - **FDR/Benjamini-Hochberg:** Benjamini and Hochberg (1995) defined the concept of FDR and created an algorithm to control the expected FDR below a specified level given a list of independent p-values. **An interpretation of the BH method for controlling the FDR is implemented in DESeq2 in which we rank the genes by p-value, then multiply each ranked p-value by m/rank**.
-- **Q-value / Storey method:** The minimum FDR that can be attained when calling that feature significant. For example, if gene X has a q-value of 0.013 it means that 1.3% of genes that show p-values at least as small as gene X are false positives
 
 In DESeq2, the p-values attained by the Wald test are corrected for multiple testing using the Benjamini and Hochberg method by default. There are options to use other methods in the `results()` function. The p-adjusted values should be used to determine significant genes. The significant genes can be output for visualization and/or functional analysis.
-
-> **So what does FDR < 0.05 mean?** By setting the FDR cutoff to < 0.05, we're saying that the proportion of false positives we expect amongst our differentially expressed genes is 5%. For example, if you call 500 genes as differentially expressed with an FDR cutoff of 0.05, you expect 25 of them to be false positives.
 
 ### MOV10 DE analysis: Control versus Knockdown
 
@@ -201,9 +196,18 @@ Now that we have results for the overexpression results, let's do the same for t
 ## Define contrasts, extract results table and shrink log2 fold changes
 contrast_kd <-  c("sampletype", "MOV10_knockdown", "control")
 
-res_tableKD <- results(dds, contrast=contrast_kd, alpha = 0.05)
+res_tableKD_unshrunken <- results(dds, contrast=contrast_kd, alpha = 0.05)
 
-res_tableKD <- lfcShrink(dds, contrast=contrast_kd, res=res_tableKD)
+resultsNames(dds)
+
+res_tableKD <- lfcShrink(dds, coef = 2, res=res_tableKD_unshrunken)
+
+# We will save these results for later use in the data directory using the following command:
+
+saveRDS(res_tableKD, file = "data/res_tableKD.rds")
+
+# just for security, save all our objects in ".RData" again:
+save.image()
 ```
 
 Take a quick peek at the results table containing Wald test statistics for the Control-Knockdown comparison we are interested in and make sure that format is similar to what we observed with the OE.
@@ -268,10 +272,5 @@ sigKD <- res_tableKD_tb %>%
 **How many genes are differentially expressed in the Knockdown compared to Control?** 
 
 Now that we have subsetted our data, we are ready for visualization!
-
-***
-*This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
-
-*Some materials and hands-on activities were adapted from [RNA-seq workflow](http://www.bioconductor.org/help/workflows/rnaseqGene/#de) on the Bioconductor website*
 
 ***

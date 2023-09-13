@@ -167,11 +167,12 @@ all(colnames(data) %in% rownames(meta))
 all(colnames(data) == rownames(meta))
 ```
 
-**Exercise**
+The colnames of our data don't match the rownames of our metadata so we need to reorder them. We can use the `match` function:
+```r
+idx <- match(rownames(meta),colnames(data))
+data <- data[,idx]
 
-The colnames of our data don't match the rownames of our metadata so we need to reorder them. Write the line(s) of code required to create a new metadata such that the rownames are identical to the column names of our count matrix.  
-```{r}
-
+all(colnames(data) == rownames(meta))
 ```
 
 *** 
@@ -198,7 +199,7 @@ head(counts(dds[,1:5]))
 
 As we go through the workflow we will use the relevant functions to check what information gets stored inside our object. We can also run:
 
-```{r}
+```r
 slotNames(dds)
 ```
 

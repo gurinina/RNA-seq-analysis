@@ -1,4 +1,24 @@
-/*@import url('https://fonts.googleapis.com/css2?family=Cabin&display=swap');*/
+
+th, td {
+        font-size: 12px;
+        border-collapse: collapse;
+        border-width:3px;
+    }
+
+/* ordered and unordered list styles */
+.reveal ul,
+.reveal ol {
+    font-size: 12px;
+    color: black;
+}
+
+.book.font-size-2 .book-body .page-inner section {
+  font-size: 12px;
+}
+
+code.r{
+  font-size: 12px;
+}
 
 p.caption {
   color: #777;
@@ -10,23 +30,27 @@ p code {
 pre {
   word-break: normal;
   word-wrap: normal;
+  font-size: 12px;
 }
 pre code {
   white-space: inherit;
 }
 
 .book .book-body .page-wrapper .page-inner {
-  max-width: 99%;
+    max-width: 2500px !important;
+    margin: 0 !important;
+    padding: 5px 0 5px !important;
 }
 
-/* Increase space to display line number in R chunks correctly */
+
+/* Increase space to display line number in R chunks correctly*/
 pre.numberSource code > span > a:first-child::before {
   left: -0.3em;
 }
 
-/* for multi cols */
-/*.cols {display: flex; } /* uncomment for flex column size */
-.cols {display: grid; grid-template-columns: 30% 50% 20%;} /* for fixed column size */
+/* for multi cols
+.cols {display: flex; } uncomment for flex column size
+.cols {display: grid; grid-template-columns: 30% 50% 20%;} for fixed column size */
 
 h1, h2, h3, h4 {
   font-family: Arial, Helvetica, sans-serif;
@@ -47,7 +71,7 @@ h1, h2, h3, h4 {
 }
 
 
-a { 
+a {
 color: #000080;
 }
 
@@ -65,14 +89,14 @@ dt {
 /* this is paragraph text */
 .book .book-body .page-wrapper .page-inner section.normal p {
 
-    font-size: 12px
+    font-size: 12px;
 }
 
 
 
 
 .book .book-body .page-wrapper .page-inner section.normal h1{
-    font-size: 14px; 
+    font-size: 14px;
     margin-top: 12px }
 
 .book .book-body .page-wrapper .page-inner section.normal h2 {
@@ -90,10 +114,20 @@ dt {
     font-size: 12px
 }
 
+
 .book .book-summary ul.summary li.active>a {
   color: #ffffff;
 }
 
+.book .book-summary ul.summary li a {
+  color: #FFFFFF;
+}
+
+/* this is the sidebar hover */
+.book .book-summary ul.summary li a:hover {
+  background-color: #ffffff;
+  color: #000080;
+}
 
 body {
     text-rendering: optimizeLegibility;
@@ -104,22 +138,12 @@ body {
     text-size-adjust: 100%
 }
 
-
-/* this is the sidebar hover */
-.book .book-summary ul.summary li a:hover {
-    background-color: #FFFFFF;
-    text-overflow: ellipsis;
-    overflow: hidden !important;
-    white-space: wrap !important;
-    font-weight: bold !important
-    color: #000080 !important;
-    background-color: #FFFFFF !important;
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif !important;
-    font-size: 12px !important; /* 16px is better for web */
-}
-
 .book .book-summary ul.summary li a,.book .book-summary ul.summary li span {
+    display: block;
+    padding: 10px 15px;
+    border-bottom: none;
     color: #FFFFFF;
+    background: 0 0;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: wrap;
@@ -129,21 +153,24 @@ body {
     font-size: 12px;
 }
 
-
+/*
 book.with-summary .book-header.fixed {
     left: 400px;
-  }
+  }*/
 
-  @media (min-width: 600px) {
+/*
+@media (min-width: 600px) {
     .book.with-summary .book-body {
         left:400px
     }
+}*/
 
 
 /* this is the sidebar width and font family */
 .book .book-summary {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 8x;
+  height: 100%;
   width: 250px;
   position:absolute;
   font-weight: bold;
@@ -168,8 +195,9 @@ book.with-summary .book-header.fixed {
   margin: 0 !important; /* makes space above and below symmetrical*/
 }
 
+
 .sourceCode {
-  margin-bottom: 0.85em; /* adds same amount of margin as a <p> would */
+  margin-bottom: 12px !important; /* adds same amount of margin as a <p> would */
 }
 
 /* The next two rules make the horizontal line go straight across in top navbar */
@@ -180,23 +208,7 @@ book.with-summary .book-header.fixed {
     border-bottom: 1px solid rgba(0,0,0,.07);
 }
 
+
 .book .book-summary ul.summary li.divider {
-    height: 0px;
-}
-
-.book .book-body .page-wrapper .page-inner section {
-    margin: 0;
-    padding: 5px 15px;
-    background: #fff;
-    border-radius: 2px;
-    line-height: 1.7;
-    font-size: 12px !important;
-}
-
-
-.book .book-summary ul.summary li a:hover,.book .book-summary ul.summary li.active>a {
-    color: #000080 !important;
-    background: 0 0;
-    text-decoration: none;
-    background-color: #FFFFFF !important;
+    height: 0px !important;
 }
