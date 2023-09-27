@@ -2,6 +2,8 @@
 title: "DGE_analysis_exercises"
 output: html_document
 date: "2023-08-07"
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r setup, include=FALSE}
@@ -36,7 +38,7 @@ knitr::opts_chunk$set(echo = TRUE)
 	**a.** Reorder the columns of the `counts` dataset such that `rownames(meta) == colnames(counts)`.
 	
 ```{r, eval=FALSE}
-	
+
 ```
 	
 	**b.** Provide the line of code used to create a DESeqDataSet object called `dds` in which `Genotype` is the factor of interest and `Celltype` and `Batch` are other contributing sources of variation in your data.
@@ -48,7 +50,7 @@ knitr::opts_chunk$set(echo = TRUE)
 	**c.** Provide the line of code required to run DESeq2 on `dds`.
 	
 ```{r, eval=FALSE}
-	
+
 ```
 	
 	**d.** Provide the line of code to create a dispersion plot.
@@ -67,17 +69,20 @@ knitr::opts_chunk$set(echo = TRUE)
 	
 ```{r, eval=FALSE}
 
+
 ```
 	
 	**g.** Provide the line of code to write the results of the Wald test with shrunken log2 fold changes to file.
 	
 ```{r, eval=FALSE}
 
+
 ```
 	
 	**h.** Provide the line of code to subset the results to return those genes with adjusted p-value < 0.05 and logFold2Change > 1.
 	
 ```{r, eval=FALSE}
+
 
 ```
 	
@@ -96,19 +101,14 @@ knitr::opts_chunk$set(echo = TRUE)
 	**a.** Subset `res_tableOE` to only return those rows that meet the criteria we specified above (adjusted p-values < 0.01 and log fold changes >1.5). Save the subsetted table to a data frame called `sig_table_hw_oe`. You'll have to load the res_tableOE first. Write the code below:
 	
 ```{r}
-res_tableOE = readRDS("../data/res_tableOE.rds")
+
+res_tableOE <-  readRDS("data/res_tableOE.rds")
 
 
 ```
 	
-	**b.** There is a a DESeq2 function that summarizes how many genes are up- and down-regulated using our criteria for `alpha=0.01`. Use this on the `sig_table_hw_oe`. Write the code you would use, and also, list how many genes are up- and down- regulated.
 	
-```{r}
-
-		
-```
-	
-	**c.** Get the gene names from `sig_table_hw_oe` and save them to a vector called `sigOE_hw`. Write the code below:
+	**d.** Get the gene names from `sig_table_hw_oe` and save them to a vector called `sigOE_hw`. Write the code below:
 	
 ```{r}
 
@@ -118,47 +118,64 @@ res_tableOE = readRDS("../data/res_tableOE.rds")
 	
 ```{r}
 
+
+
+
 ```
 
 	 
 # Visualizing Results
 
-- For the genes that are differentially expressed in the knockdown versus control comparison (`res_tableKD`), plot an expression heatmap using normalized counts and `pheatmap()` following the instructions below. Write the code you would use to create the heatmap.
+- For the genes that are differentially expressed in the knockdown versus control comparison (`sigKD`), plot an expression heatmap using normalized counts and `pheatmap()` following the instructions below. Write the code you would use to create the heatmap.
 
 	**a.** The heatmap should only include control and knockdown samples. 
 	
 ```{r}
-normalized_counts <- read.delim("../data/normalized_counts.txt",row.names = 1)
-meta <- read.table("../meta/Mov10_full_meta.txt", header=T, row.names=1)
+normalized_counts <- read.delim("data/normalized_counts.txt",row.names = 1)
 
-sigKD <- readRDS("../data/sigKD.rds")
 
-colnames(normalized_counts)
+meta <- read.table("meta/Mov10_full_meta.txt", header=T, row.names=1)
+
+
+
+sigKD <- readRDS("data/sigKD.rds")
+
+
 
 ## Extract normalized expression for significant genes
 
 
-## Annotate our heatmap (optional)
+
 
 ```
 	
+```{r}
+### Annotate our heatmap (optional)
+
+
+
+
+```
+
+
 	**b.** Set up a heat.colors vector using a palette of your choice from brewer.pal (make sure it is different from the one used in class).
 	
 ```{r}
+
+### Set a color palette
 library(RColorBrewer)
 
-```
-	
-	**c.** Plot the heatmap without clustering the columns. 
-	
-```{r}
-library(pheatmap)
 
 ```
 	
-	**d.** Scale expression values by row.
+	
+	**c.** Plot the heatmap and scale expression values by row.
 	
 ```{r}
+
+library(pheatmap)
+
+
 
 ```
 	
@@ -176,13 +193,13 @@ library(pheatmap)
 	
 ```{r}
 
+
 ```
 	
 	**b.** Create separate vectors with gene names for up-regulated genes and down-regulated genes from `res_tableKD` and save as `up_KD` and `down_KD`, respectively. Write the code below:
 	
 ```{r}
 
-res_tableKD <- readRDS("../data/res_tableKD.rds")
 
 
 ```
@@ -192,15 +209,15 @@ res_tableKD <- readRDS("../data/res_tableKD.rds")
 	- How many, and which genes in `up_OE` are also in `down_KD`?
 		
 ```{r}
-	
+
 ```
 
 	- How many, and which genes in `up_KD` are also in `down_OE`?
 		
 ```{r}
-		
-```
 
+
+```
 
 	 
 

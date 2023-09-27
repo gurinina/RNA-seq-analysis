@@ -149,11 +149,11 @@ To address this problem, DESeq2 **shares information across genes** to generate 
 
 **Estimating the dispersion for each gene separately:**
 
-To model the dispersion based on expression level (mean counts of replicates), the dispersion for each gene is estimated using maximum likelihood estimation. In statistics, maximum likelihood estimation (MLE) is a method of estimating the parameters of an assumed probability distribution, given some observed data. This is achieved by maximizing a likelihood function so that, under the assumed statistical model, the observed data is most probable. In other words, **given the count values of the replicates, the most likely estimate of dispersion is calculated**.
+The first step in estimating dispersion is to get the dispersion estimates for each gene. The dispersion for each gene is estimated using maximum likelihood estimation (MLE). MLE can be thought about as **given the count values of the replicates, the most likely estimate of dispersion is calculated**.
 
 ### Step 3: Fit curve to gene-wise dispersion estimates
 
-The next step in the workflow is to fit a curve to the dispersion estimates for each gene. The idea behind fitting a curve to the data is that different genes will have different scales of biological variability, but, over all genes, there will be a distribution of reasonable estimates of dispersion. 
+The next step in the workflow is to fit a curve to the dispersion estimates for each gene. This this curve represents the expected value of the dispersion given the expression values of the genes. The idea behind fitting a curve to the data is that different genes will have different scales of biological variability, but, over all genes, there will be a distribution of reasonable estimates of dispersion.
 
 <img src="img/deseq2_workflow_separate_fit.png" width="200">
 
@@ -163,7 +163,7 @@ This curve is displayed as a red line in the figure below, which plots the estim
 
 ### Step 4: Shrink gene-wise dispersion estimates toward the values predicted by the curve
 
-The next step in the workflow is to shrink the gene-wise dispersion estimates toward the expected dispersion values.
+The next step in the workflow is to shrink the gene-wise dispersion estimates toward the expected dispersion values to get the final dispersion estimates. 
 
 <img src="img/deseq2_workflow_separate_shr.png" width="200">
 
