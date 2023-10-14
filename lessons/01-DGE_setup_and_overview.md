@@ -147,7 +147,7 @@ When **the number of cases is very large (i.e. people who buy lottery tickets), 
 
 <img src="img/poisson-distribution-formula.png" width="300">
 
-**With RNA-Seq data, for each sample we have millions of reads being sequenced and the probability of a read mapping to a gene is extremely low.**. Thus, it would be an appropriate situation to use the Poisson distribution. However, a unique property of this distribution is that it only has one parameter: $/lambda$,equivalent to expected value that is mean and that is also equivalent to the variance mean == variance. 
+**With RNA-Seq data, for each sample we have millions of reads being sequenced and the probability of a read mapping to a gene is extremely low.** Thus, it would be an appropriate situation to use the Poisson distribution. However, a unique property of this distribution is that it only has one parameter: $\lambda$, equivalent to expected value that is mean and that is also equivalent to the variance mean == variance. 
 
 For us to apply a poisson distribution to our data, we first need to find out
 whether our data fulfills the criteria to use the poisson distribution. To do that we can plot the *mean versus variance* for the 'Mov10 overexpression' replicates:

@@ -94,6 +94,7 @@ To indicate to DESeq2 the two groups we want to compare, we can use **contrasts*
 	results(dds, contrast = contrast, alpha = alpha_threshold)
 	
 	```
+The alpha threshold is the significance cutoff used for optimizing the independent filtering. After testing your genes and getting p-values, DESeq2 performs a step which is called "independent filtering" and the goal is to remove genes with very low counts because these usually have low power to be detected as significant in the first place, because of high dispersion (you remove them even without looking at their p-values). The alpha in threshold in results controls how this procedure is made, and it should be set to the threshold that you want to use in your adjusted p-values (e.g. 0.05).
 
 #### MOV10 DE analysis: contrasts and Wald tests
 
@@ -203,7 +204,7 @@ If we used the `p-value` directly from the Wald test with a significance cut-off
 DESeq2 helps reduce the number of genes tested by removing those genes unlikely to be significantly DE prior to testing, such as those with low number of counts and outlier samples (gene-level QC). However, we still need to correct for multiple testing to reduce the number of false positives, and there are a few common approaches:
 
 - **Bonferroni:** The adjusted p-value is calculated by: p-value * m (m = total number of tests). **This is a very conservative approach with a high probability of false negatives**, so is generally not recommended.
-- **FDR/Benjamini-Hochberg:** Benjamini and Hochberg (1995) defined the concept of FDR and created an algorithm to control the expected FDR below a specified level given a list of independent p-values. **An interpretation of the BH method for controlling the FDR is implemented in DESeq2 in which we rank the genes by p-value, then multiply each ranked p-value by m/rank**.
+- **FDR/Benjamini-Hochberg:** Benjamini and Hochberg (1995) defined the concept of FDR and created an algorithm to control the expected FDR below a specified level given a list of independent p-values. **An interpretation of the BH method for controlling the FDR is implemented in DESeq2 in which we rank the genes by p-value, then multiply each ranked p-value by m/rank where m is the number of tests.**
 
 In DESeq2, the p-values attained by the Wald test are corrected for multiple testing using the Benjamini and Hochberg method by default. There are options to use other methods in the `results()` function. The p-adjusted values should be used to determine significant genes. The significant genes can be output for visualization and/or functional analysis.
 
