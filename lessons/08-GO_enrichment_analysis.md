@@ -8,7 +8,7 @@ The output of RNA-seq differential expression analysis is a list of significant 
 
 There are a plethora of functional enrichment tools that perform some type of "over-representation" analysis by querying databases containing information about gene function and interactions.
 
-These databases typically categorize genes into groups based on shared function, or involvement in a pathway, or presence in a specific cellular location, or other categorizations, e.g. functional pathways, etc. These categorries have been consistently named (controlled vocabulary) based on how the gene has been annotated functionally. 
+These databases typically categorize genes into groups based on shared function, or involvement in a pathway, or presence in a specific cellular location, or other categorizations, e.g. functional pathways, etc. These categories have been consistently named (controlled vocabulary) based on how the gene has been annotated functionally. 
 
 ### Gene Ontology project
 
