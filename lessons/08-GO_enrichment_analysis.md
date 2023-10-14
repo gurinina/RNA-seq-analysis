@@ -249,6 +249,94 @@ goplot(gseaGO)
 gseaplot2(gseaGO, geneSetID = 1:3)
 
 ```
+
+
+We can also use our homemade GO enrichment analysis. To do this we need to load the library GOenrichment:
+
+```
+
+# Uncomment the following if you haven't yet installed GOenrichment.
+
+# devtools::install_github("gurinina/GOenrichment")
+
+library(GOenrichment)
+
+ls("package:GOenrichment")
+```
+
+One of the problems with GO enrichment analysis is that the GO annotations are in constant flux. 
+
+Here we can use the GO annotations in `hGOBP.gmt` (downloaded recently) to run GSEA using the `fgsea` package to run GSEA:
+
+```
+
+
+fgseaRes <-  fgsea::fgseaSimple(pathways = hGOBP.gmt,stats=foldchanges,nperm=1000,maxSize = 300,minSize = 20)
+
+fgsea <- data.frame(fgseaRes,stringsAsFactors = F)
+
+w = which(fgsea$ES > 0)
+
+fposgsea <- fgsea[w,]
+
+fposgsea <- fposgsea %>% arrange(padj)
+
+```
+
+
+We are going to compare these results to runing the GO enrichment function `runGORESP`. `runGORESP` uses over-representation analysis to identify enriched GO terms, so we need to define a significance cutoff for the `querySet`.
+```
+args(runGORESP)
+
+?runGORESP
+
+# we'll define our significance cutoff as 0.58, corresponding to 1.5x change.
+
+# `runGORESP` requires a matrix, so we can turn foldchanges into a matrix using `cbind`:
+matx <- cbind(foldchanges,foldchanges)
+
+hresp = GOenrichment::runGORESP(fdrThresh = 0.2,mat=matx,
+coln=1,curr_exp = colnames(matx)[1], sig = 0.58,
+bp_input = hGOBP.gmt,go_input = NULL,minSetSize = 20,
+maxSetSize = 300)
+
+names(hresp$edgeMat)
+names(hresp$enrichInfo)
+View(hresp$enrichInfo[,c(2,3,4,5,10)])
+```
+
+Let's check the overlap between the enriched terms found using `runGORESP` and those found using `fgseaSimple` as they used the same GO term libraries:
+
+```
+w = which(fposgsea$padj <= 0.2)
+
+lens <- length(intersect(fposgsea$pathway[w],hresp$enrichInfo$term))
+
+length(w)
+dim(hresp$enrichInfo)
+
+percent_overlap <- lens/nrow(hresp$enrichInfo)*100
+
+percent_overlap
+```
+
+80%, that's very good, especially because we are using two different GO enrichment methods, over-representation analysis and GSEA. The overlap between these enrichment and the ones using the other GO enrichment tools will be very small because of the differences in the GO annotation libraries.
+
+Now to set up the results for viewing in a network, we use the function `visSetup`, which creates a set of nodes and edges in the network, where nodes are GO terms (node size proportional to FDR score) and edges represent the overlap between GO terms (proportional to edge width). This network analysis is based on [Cytoscape](https://cytoscape.org/), an open source bioinformatics software platform for visualizing molecular interaction networks.
+
+```
+vis = visSetup(hresp$enrichInfo,hresp$edgeMat)
+names(vis)
+```
+
+Now we use runNetwork to view the map: 
+
+```
+
+runNetwork(vis$nodes,vis$edges)
+```
+
+[Cytoscape](https://cytoscape.org/) is one of the best visualizations available out of all the GO packages.
 There are other gene sets available for GSEA analysis in clusterProfiler (Disease Ontology, Reactome pathways, etc.). In addition, it is possible to supply your own gene set GMT file, such as a GMT for MSigDB from the Broad Institute called c2.
 
 ** The C2 subcollection CGP: Chemical and genetic perturbations

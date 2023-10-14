@@ -153,7 +153,7 @@ The first step in estimating dispersion is to get the dispersion estimates for e
 
 ### Step 3: Fit curve to gene-wise dispersion estimates
 
-The next step in the workflow is to fit a curve to the dispersion estimates for each gene. This this curve represents the expected value of the dispersion given the expression values of the genes. The idea behind fitting a curve to the data is that different genes will have different scales of biological variability, but, over all genes, there will be a distribution of reasonable estimates of dispersion.
+The next step in the workflow is to fit a curve to the dispersion estimates for each gene. This curve represents the expected value of the dispersion given the expression values of the genes. The idea behind fitting a curve to the data is that different genes will have different scales of biological variability, but, over all genes, there will be a distribution of reasonable estimates of dispersion.
 
 <img src="img/deseq2_workflow_separate_fit.png" width="200">
 

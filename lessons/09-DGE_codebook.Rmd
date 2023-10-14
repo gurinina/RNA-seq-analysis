@@ -3,7 +3,8 @@ output: html_document
 editor_options:
   chunk_output_type: console
 ---
-# Code book
+# Codebook answers
+60 total points
 
 
 ```{r, include=FALSE}
@@ -107,6 +108,7 @@ Run the following code to plot the *mean versus variance* for the 'Mov10 overexp
 
 mean_counts <- apply(data[, 3:5], 1, mean)
 variance_counts <- apply(data[, 3:5], 1, var)
+# for ggplot we need the data to be in a data.frame
 df <- data.frame(mean_counts, variance_counts)
 
 ggplot(df) +
@@ -133,48 +135,17 @@ The steps fpr DESeq2 median of ratios method:
 
 3. take the median value for each column -- these are your size factors, one for each sample
 
-4. Divide each sample by its size factor
-
-**Exercise**
-
-Manually compute the size factors for our count matrix, then normalize the matrix.
-
-
-Remember the steps:
-1. take the geometric mean of each row
-2. divide each row by the geometric mean
-3. take the median of each column to get the size factors for each sample; remember you only want the median of the finite values
-4. divide each column by its size factor
-
-Hint: use the `apply` function; and you can combine it with the `sweep` function but you don't need to
-
-1.
-```{r}
-
-```
-2.
-```{r}
-
-
-```
-
-3.
-```{r}
-
-```
-
-4.
-```{r}
-
-```
+4. divide each sample by its size factor
 
 **Normalized Counts**
 
-**Exercise**
+**Exercise** 
 
 Determine the normalized counts for your gene of interest, PD1, given the raw counts and size factors below.
 
 NOTE: You will need to run the code below to generate the raw counts dataframe (PD1) and the size factor vector (size_factors), then use these objects to determine the normalized counts values:
+
+
 ```{r}
 # Raw counts for PD1
 PD1 <- c(21, 58, 17, 97, 83, 10)
@@ -209,10 +180,11 @@ data <- data[,idx]
 all(colnames(data) == rownames(meta))
 ```
 
-**Exercise**
+**Exercise** points = +2
 
 Suppose we had sample names matching in the counts matrix and metadata file, but they were out of order. Write the line(s) of code required to create a new matrix with columns ordered such that they were identical to the row names of the metadata.
 ```{r, eval=FALSE}
+
 
 
 ```
@@ -265,11 +237,11 @@ normalized_counts <- counts(dds, normalized=TRUE)
 
 We can save this normalized data matrix to file for later use:
 ```{r}
-write.table(normalized_counts, file="data/normalized_counts.txt", sep="\t", quote=F, col.names=NA)
+write.table(normalized_counts, file="data/normalized_counts.txt", sep="\t")
 
 # it's always good to save our results, in case we forget to save objects
 save.image()
-# saves all objects in session/eenvironment
+# saves all objects in session/environment
 ```
 
 ## DGE QC analysis
@@ -302,42 +274,42 @@ We use this object to plot the PCA and heirarchical clustering figures for quali
 
 Principal Component Analysis (PCA) is a technique used to emphasize variation and bring out strong patterns in a dataset (dimensionality reduction). The take home message for our purposes is that **if two samples have similar levels of expression for the genes that contribute significantly to the variation represented by PC1, they will be plotted close together on the PC1 axis.** Therefore, we would expect that biological replicates to have similar scores (since the same genes are changing) and cluster together on PC1 and/or PC2, and the samples from different treatment groups to have different score. This is easiest to understand by visualizing example PCA plots.
 
-**Exercise**
+**Exercise** points = +8
 
 The figure below was generated from a time course experiment with sample groups ‘Ctrl’ and ‘Sci’ and the following timepoints: 0h, 2h, 8h, and 16h.
 
 <img src="img/PCA_example3.png" width="600">
 
-**Determine the sources explaining the variation represented by PC1 and PC2.**
+**Determine the sources explaining the variation represented by PC1 and PC2.** points = +1
 
-- Ans: 
+  - Ans: 
 
-**Do the sample groups separate well?**
+**Do the sample groups separate well?** points = +1
 
-- Ans: 
+  - Ans: 
 
-**Do the replicates cluster together for each sample group?**
+**Do the replicates cluster together for each sample group?** points = +1
 
-- Ans: 
+  - Ans: 
 
-**Are there any outliers in the data?**
+**Are there any outliers in the data?** points = +2
 
-- Ans: 
+  - Ans: 
 
 **Should we have any other concerns regarding the samples in the dataset?**
 
-- Ans: 
+  - Ans: 
 
 ```{r}
 ### Plot PCA
 plotPCA(rld, intgroup="sampletype")
 ```
 
-**What does this plot tell you about the similarity of samples?**
+**What does this plot tell you about the similarity of samples?** points = +1
 
 - Ans: 
 
-**Does it fit the expectation from the experimental design?**
+**Does it fit the expectation from the experimental design?** points = +1
 
 - Ans: 
 
@@ -419,9 +391,10 @@ As another example, suppose you have the following metadata:
 
 <img src="img/meta_example.png" width="300">
 
-**Exercise**
+**Exercise** points = +5
 
 1. Suppose you wanted to study the expression differences between the two age groups in the metadata shown above, and major sources of variation were `sex` and `treatment`, how would the design formula be written?
+
 
 ```{r, eval=FALSE}
 
@@ -430,7 +403,7 @@ As another example, suppose you have the following metadata:
 
 2. Based on our Mov10 metadata dataframe, which factors could we include in our design formula?
 
-- Ans:
+  - Ans: 
 
 3. What would you do if you wanted to include a factor in your design formula that is not in your metadata?
 
@@ -505,7 +478,7 @@ names(v) = rownames(norm.cts)
 v = v[names(mn)]
 
 
-# For genes with moderate to high count values, the square root of dispersion will be equal to the coefficient of variatiomn (`σ / μ`).
+# For genes with moderate to high count values, the square root of dispersion will be equal to the coefficient of variation (`σ / μ`).
 # Let's try a relatively low mean
 
 # to calculate the dispersion, v has to be greater than mu otherwise the disp will be negative
@@ -596,40 +569,6 @@ To generate more accurate log2 foldchange estimates, DESeq2 allows for the **shr
 
 As with the shrinkage of dispersion estimates, LFC shrinkage uses **information from all genes** to generate more accurate estimates. Specifically, the distribution of LFC estimates for all genes is used (as a prior) to shrink the LFC estimates of genes with little information or high dispersion toward more likely (lower) LFC estimates.
 
-In the most recent versions of DESeq2, the shrinkage of LFC estimates is **not performed by default**. This means that the log2 foldchanges would be nearly the same as those calculated by:
-```{r}
-
-normalized_counts <- counts(dds,normalized = T)
-
-
-normalized_counts_group <- apply(normalized_counts,1, function(x) x = tapply(x,meta$sampletype,mean))
-
-normalized_counts_group <- t(normalized_counts_group)
-
-normalized_counts_group1 <- normalized_counts_group[,1]
-
-normalized_counts_group3 <- normalized_counts_group[,3]
-
-oe=log2 (normalized_counts_group3 / normalized_counts_group1)
-```
-
-Let's look at the log2 fold change for the gene "MOV10":
-
-```{r}
-oe["MOV10"]
-```
-
-We can compare this to the log2 fold change calculated by the `DESeq` function like this:
-
-```{r}
-
-mcols(dds)["MOV10",
-           "sampletype_MOV10_overexpression_vs_control"]
-
-```
-
-They are nearly the same, the difference is due to the `DESeq` function estimating the counts using by fitting to a negative binomial model first and taking the dispersion effect into account.
-
 ### Hypothesis testing using the Wald test
 
 With DESeq2, the Wald test is commonly used for hypothesis testing when comparing two groups. A Wald test statistic is computed along with a probability that a test statistic at least as extreme as the observed value were selected at random. This probability is called the p-value of the test. If the p-value is small we reject the null hypothesis and state that there is evidence against the null (i.e. the gene is differentially expressed).
@@ -666,7 +605,7 @@ contrast_oe <- c("sampletype", "MOV10_overexpression", "control")
 
 res_tableOE_unshrunken <- results(object = dds, contrast=contrast_oe, alpha = 0.05)
 
-# for lfcShrink we have to use coefficient names from the `resultsNames()` for the coef argument of 'lfcShrink'
+# for the coef argument of lfcShrink we have to use coefficient names from the `resultsNames()` 
 
 resultsNames(dds)
 
@@ -681,7 +620,7 @@ saveRDS(res_tableOE, file = "data/res_tableOE.rds")
 
 #### MA Plot
 
-A plot that can be useful to exploring our results is the MA plot. The MA plot shows the mean of the normalized counts versus the log2 foldchanges for all genes tested. The genes that are significantly DE are colored to be easily identified. This is also a great way to illustrate the effect of LFC shrinkage. The DESeq2 package offers a simple function to generate an MA plot.
+A plot that can be useful to exploring our results is the MA plot. The MA plot shows the mean of the normalized counts versus the log2 fold changes for all genes tested. The genes that are significantly DE are colored to be easily identified. This is also a great way to illustrate the effect of LFC shrinkage. The DESeq2 package offers a simple function to generate an MA plot.
 
 **Let's start with the unshrunken results:**
 
@@ -797,17 +736,17 @@ sigOE <- res_tableOE_tb %>%
         dplyr::filter(padj < padj.cutoff & abs(log2FoldChange) > lfc.cutoff)
 ```
 
-**Exercise**
+**Exercise** 
 
-**How many genes are differentially expressed in the Overexpression compared to Control, given our criteria specified above? Does this reduce our results?**
+**How many genes are differentially expressed in the Overexpression compared to Control, given our criteria specified above? Does this reduce our results?** points = +2
 ```{r}
 
 
-```
-  
-- Ans: 
 
-**Does this reduce our results?**
+```
+  - Ans: 
+
+**Does this reduce our results?** 
 ```{r}
 
 ```
@@ -829,14 +768,13 @@ sigKD <- res_tableKD_tb %>%
 saveRDS(sigKD,"data/sigKD.rds")
 ```
 
-**Exercise**
+**Exercise** 
 
 **How many genes are differentially expressed in the Knockdown compared to Control?**
 ```{r}
 
 ```
-
-- Ans: 
+  - Ans: 
 
 
 ## Visualizing rna-seq results
@@ -902,7 +840,7 @@ One way to visualize results would be to simply plot the expression data for a h
 
 #### Using DESeq2 `plotCounts()` to plot expression of a single gene
 
-To pick out a specific gene of interest to plot, for example `Mov10`, we can use the `plotCounts()` from DESeq2:
+To pick out a specific gene of interest to plot, for example Mov10, we can use the `plotCounts()` from DESeq2:
 ```{r}
 
 # Plot expression for single gene
@@ -989,7 +927,7 @@ Now, if we want our counts colored by sample group, then we need to combine the 
 pivoted_top20_sigOE <- inner_join(mov10_meta, pivoted_top20_sigOE, by = "samplename")
 ```
 
-Now that we have a data frame in a format that can be utilised by ggplot easily, let’s plot!
+Now that we have a data frame in a format that can be utilized by ggplot easily, let’s plot!
 ```{r}
 ## plot using ggplot2
 ggplot(pivoted_top20_sigOE) +
@@ -1459,7 +1397,6 @@ names(vis)
 Now we use runNetwork to view the map: 
 
 ```{r}
-library(webshot)
 runNetwork(vis$nodes,vis$edges)
 ```
 

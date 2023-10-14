@@ -41,7 +41,7 @@ Sample1 PC1 score = (read count Gene A * influence Gene A) + (read count Gene B 
 
 Calculating the influence of each gene is a bit complicated, but to give you an idea,the first step is to calculate a z-score for each gene:
 
-<img src="img/zscore.png" width="600">
+<img src="img/zscore.png" width="200">
 
 The z-score is a measure of variability. So it's easy to see how in our plot, the influence of the two endpoints will be greater than the other points because their z-scores are greater as they are farther away from the mean and therefore they will have a greater influence on PC1.
 
@@ -55,7 +55,7 @@ The take home message for our purposes is that if two samples have similar level
 3.1.1.1 Interpreting PCA plots
 We have an example dataset and a few associated PCA plots below to get a feel for how to interpret them. The metadata for the experiment is displayed below. The main condition of interest is treatment.
 
-We could draw another line through the data representing the second most amount of variation in the data (PC2) and compute scores, followed by a third line and so on until you hit the total number of samples in your dataset. The initial sample-to-sample plot, will therefore be in n-dimensional space with n axes representing the total number of samples you have. The end result is a 2-dimensional matrix with rows representing samples and columns reflecting scores for each of the principal components. To evaluate the results of a PCA, we usually plot principal components against each other, starting with PCs that explain the most amount of variation in your data.
+To evaluate the results of a PCA, we usually plot principal components against each other, starting with PCs that explain the most amount of variation in your data.
 
 In reality, your dataset will have larger dimensions (more samples, and many, many more genes). The initial sample-to-sample plot, will therefore be in *n*-dimensional space with *n* axes representing the total number of samples you have. The end result is a 2-dimensional matrix with rows representing samples and columns reflecting scores for each of the principal components. To evaluate the results of a PCA, we usually plot principal components against each other, starting with PCs that explain the most amount of variation in your data.
 
@@ -94,7 +94,6 @@ Still we haven't found if `treatment` is a major source of variation after `stra
 
 We find that the samples separate by `treatment` on PC3, and are optimistic about our DE analysis since our condition of interest, `treatment`, is separating on PC3 and we can regress out the variation driving PC1 and PC2.
 
-Depending on how much variation is explained by the first few principal components, you **may want to explore more (i.e consider more components and plot pairwise combinations)**. Even if your samples do not separate clearly by the experimental variable, you may still get biologically relevant results from the DE analysis. If you are expecting very small effect sizes, then it's possible the signal is drowned out by extraneous sources of variation. In situations **where you can identify those sources, it is important to account for these in your model**, as it provides more power to the tool for detecting DE genes.  
 
 ***
 
@@ -133,7 +132,7 @@ In addition to examining how well the samples/replicates cluster together, there
 
 <img src="img/gene_filtering.png" width="600">
 
-**DESeq2 will perform this filtering by default; however other DE tools, such as EdgeR will not.**  Filtering is a necessary step, even if you are using limma-voom and/or edgeR's quasi-likelihood methods. Be sure to follow pre-filtering steps when using other tools, as outlined in their user guides found on Bioconductor as they generally perform much better. 
+**DESeq2 will perform this filtering by default; however other DE tools, such as EdgeR will not.**  Filtering is a necessary step, especially when you are using methods other than DESeq2. 
 
 ## Mov10 quality assessment and exploratory analysis using DESeq2	
 
@@ -153,8 +152,6 @@ The `blind=TRUE` argument results in a transformation unbiased to sample conditi
 
 The `rlog` function returns a `DESeqTransform` object, another type of DESeq-specific object. The reason you don't just get a matrix of transformed values is because all of the parameters (i.e. size factors) that went into computing the rlog transform are stored in that object. We use this object to plot the PCA and heirarchical clustering figures for quality assessment.
 
-> **NOTE:** The `rlog()` funtion can be a bit slow when you have e.g. > 20 samples. In these situations the `vst()` function is much faster and performs a similar transformation appropriate for use with `plotPCA()`. It's typically just a few seconds with `vst()` due to optimizations and the nature of the transformation.
-
 ### Principal components analysis (PCA)
 
 DESeq2 has a built-in function for plotting PCA plots, that uses `ggplot2` under the hood. This is great because it saves us having to type out lines of code and having to fiddle with the different ggplot2 layers. In addition, it takes the `rlog` object as an input directly, hence saving us the trouble of extracting the relevant information from it.
@@ -169,21 +166,6 @@ plotPCA(rld, intgroup="sampletype")
 ![pca](img/pca_500.png)
 
 **What does this plot tell you about the similarity of samples? Does it fit the expectation from the experimental design?** By default the function uses the *top 500 most variable genes*. You can change this by adding the `ntop` argument and specifying how many genes you want to use to draw the plot.
-
-> **NOTE:** The `plotPCA()` function will only return the values for PC1 and PC2. If you would like to explore the additional PCs in your data or if you would like to identify genes that contribute most to the PCs, you can use the `prcomp()` function. For example, to plot any of the PCs we could run the following code:
->
->  ```r
->  # Input is a matrix of log transformed values
->  rld <- rlog(dds, blind=T)
->  rld_mat <- assay(rld)
->  pca <- prcomp(t(rld_mat))
->
->  # Create data frame with metadata and PC3 and PC4 values for input to ggplot
->  df <- cbind(meta, pca$x)
->  ggplot(df) + geom_point(aes(x=PC3, y=PC4, color = sampletype))
->  ```
->
-> [Resources](http://www.sthda.com/english/wiki/principal-component-analysis-in-r-prcomp-vs-princomp-r-software-and-data-mining) are available to learn how to do more complex inquiries using the PCs.
 
 
 ### Hierarchical Clustering

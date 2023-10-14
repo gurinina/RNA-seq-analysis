@@ -4,7 +4,7 @@ The goal of RNA-seq is often to perform differential expression testing to deter
 
 To determine the expression levels of genes, our RNA-seq workflow followed the steps detailed in the image below. All steps were performed on the command line (Linux/Unix) through the generation of the read counts per gene. The differential expression analysis and any downstream functional analysis are generally performed in R using R packages specifically designed for the complex statistical analyses required to determine whether genes are differentially expressed.
 
-<img src="img/rnaseq_fullworkflow2019.png" width="400">
+<img src="img/rnaseq_full_workflow.png" width="400">
 
 In the next few lessons, we will walk you through an **end-to-end gene-level RNA-seq differential expression workflow** using various R packages. We will start with the count matrix, perform exploratory data analysis for quality assessment and to explore the relationship between samples, perform differential expression analysis, and visually explore the results prior to performing downstream functional analysis.
 
@@ -145,7 +145,7 @@ Count data is often modeled using the **binomial distribution**, which can give 
 
 When **the number of cases is very large (i.e. people who buy lottery tickets), but the probability of an event is very small (probability of winning)**, the **Poisson distribution** is used to model these types of count data. 
 
-<img src="img/poisson-distribution-formula" width="300">
+<img src="img/poisson-distribution-formula.png" width="300">
 
 **With RNA-Seq data, for each sample we have millions of reads being sequenced and the probability of a read mapping to a gene is extremely low.**. Thus, it would be an appropriate situation to use the Poisson distribution. However, a unique property of this distribution is that it only has one parameter: $/lambda$,equivalent to expected value that is mean and that is also equivalent to the variance mean == variance. 
 
@@ -194,12 +194,12 @@ The figure below illustrates the relationship between sequencing depth and numbe
 
 To model counts appropriately when performing a differential expression analysis, there are a number of software packages that have been developed for differential expression analysis of RNA-seq data. Even as new methods are continuously being developed a few  tools are generally recommended as best practice, e.g. **[DESeq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html)** and **[EdgeR](https://bioconductor.org/packages/release/bioc/html/edgeR.html)**. Both these tools use the negative binomial model, employ similar methods, and typically, yield similar results. They are pretty stringent, and have a good balance between sensitivity and specificity (reducing both false positives and false negatives).
 
-![deg1](img/deg_methods1.png) 
+Here is a comparison of the three most highy used software packages for differential expression analysis. No single method is optimal under all circumstances, for example, limma works best when sample number is high, and edgeR and DESeq2 perform well for small sample sizes. It is also difficult to compare analysis methods due to different procedures in calculating pvalues. 
 
-![deg1](img/deg_methods2.png) 
+<img src="img/venn.png" width = "300">
 
 
-**We will be using [DESeq2](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-014-0550-8) for the DE analysis, and the analysis steps with DESeq2 are shown in the flowchart below in green**. DESeq2 first normalizes the count data to account for differences in library sizes and RNA composition between samples. Then, we will use the normalized counts to make some plots for QC at the gene and sample level. The final step is to use the appropriate functions from the DESeq2 package to perform the differential expression analysis. 
+**We will be using [DESeq2](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-014-0550-8) for the DE analysis, and the analysis steps with DESeq2 are shown in the flowchart below**. DESeq2 first normalizes the count data to account for differences in library sizes and RNA composition between samples. Then, we will use the normalized counts to make some plots for QC at the gene and sample level. The final step is to use the appropriate functions from the DESeq2 package to perform the differential expression analysis. 
 
 <img src="img/deseq_workflow_full_2018.png" width="500">
 
