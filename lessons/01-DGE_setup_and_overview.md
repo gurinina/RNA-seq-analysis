@@ -11,6 +11,7 @@ To determine the expression levels of genes, our RNA-seq workflow followed the s
 
 >>>>>>> ebd01e8 (images)
 
+
 In the next few lessons, we will walk you through an **end-to-end gene-level RNA-seq differential expression workflow** using various R packages. We will start with the count matrix, perform exploratory data analysis for quality assessment and to explore the relationship between samples, perform differential expression analysis, and visually explore the results prior to performing downstream functional analysis.
 
 ## Review of the dataset
