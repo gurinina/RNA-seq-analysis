@@ -167,6 +167,11 @@ plotPCA(rld, intgroup="sampletype")
 
 **What does this plot tell you about the similarity of samples? Does it fit the expectation from the experimental design?** By default the function uses the *top 500 most variable genes*. You can change this by adding the `ntop` argument and specifying how many genes you want to use to draw the plot.
 
+<<<<<<< HEAD
+=======
+> [Resources](http://www.sthda.com/english/wiki/principal-component-analysis-in-r-prcomp-vs-princomp-r-software-and-data-mining) are available to learn how to do more complex inquiries using the PCs.
+
+>>>>>>> ebd01e8 (images)
 
 ### Hierarchical Clustering
 

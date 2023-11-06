@@ -811,7 +811,7 @@ mov10_meta <- meta %>%
         
 # you might to read in normalized_counts if it is not in your current session:
 
-normalized_counts <- read.delim("data/normalized_counts.txt", row.names=1)
+# normalized_counts <- read.delim("data/normalized_counts.txt", row.names=1)
 
 # then make sure the colnames of normalized_counts are the same as the mov10_meta$sampname
 
@@ -1004,7 +1004,7 @@ ggplot(res_tableOE_tb) +
         ylab("-log10 adjusted p-value") +
         #scale_y_continuous(limits = c(0,50)) +
         theme(legend.position = "none",
-        plot.title = element_text(size = rel(1.5),             hjust = 0.5),
+        plot.title = element_text(size = rel(1.5), hjust = 0.5),
         axis.title = element_text(size = rel(1.25)))
 ```
 
@@ -1014,7 +1014,7 @@ First, we need to order the res_tableOE tibble by padj, and add an additional co
 ```{r}
 
 ## Create a column to indicate which genes to label
-res_tableOE_tb <- res_tableOE_tb %>% arrange(padj) %>%       mutate(genelabels = "")
+res_tableOE_tb <- res_tableOE_tb %>% arrange(padj) %>% mutate(genelabels = "")
 
 res_tableOE_tb$genelabels[1:10] <- res_tableOE_tb$gene[1:10]
 
@@ -1032,7 +1032,7 @@ ggplot(res_tableOE_tb, aes(x = log2FoldChange,
         xlab("log2 fold change") + 
         ylab("-log10 adjusted p-value") +
         theme(legend.position = "none",
-        plot.title = element_text(size = rel(1.5),             hjust = 0.5),
+        plot.title = element_text(size = rel(1.5), hjust = 0.5),
         axis.title = element_text(size = rel(1.25))) 
 ```
 
@@ -1311,7 +1311,7 @@ gseaGO <- clusterProfiler::gseGO(
 
 gseaGO_results <- gseaGO@result
 
-goplot(gseaGO)
+goplot(gseaGO) # default is 10 categories
 
 gseaplot2(gseaGO, geneSetID = 1:3)
 ```
@@ -1397,6 +1397,7 @@ names(vis)
 Now we use runNetwork to view the map: 
 
 ```{r}
+
 runNetwork(vis$nodes,vis$edges)
 ```
 
