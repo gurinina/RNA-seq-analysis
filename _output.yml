@@ -27,7 +27,7 @@ bookdown::word_document2:
   fig_height: 5.3
   fig_width: 8.5
 bookdown::html_chapters:
-  css: [lessons/css/style.css, lessoons/css/toc.css]
+  css: [css/style.css, css/toc.css]
 bookdown::pdf_book:
   includes:
    in_header: lessons/preamble.tex

@@ -11,7 +11,7 @@ rmd_files:
   - lessons/07-DGE_summarizing_workflow.md
   - lessons/08-GO_enrichment_analysis.md
   - lessons/09-DGE_codebook.Rmd
-  - lessons/10-dummy-script.Rmd
+
 delete_merged_file: yes
 output:
   bookdown::gitbook:

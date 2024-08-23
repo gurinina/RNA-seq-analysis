@@ -118,7 +118,7 @@ ego <- enrichGO(gene = sigOE_genes,
                 
 ## Output results from GO analysis to a table
 cluster_summary <- data.frame(ego)
-
+## Note: folder results needs to exist here, add it if it doesn't
 write.csv(cluster_summary, "results/clusterProfiler_Mov10oe.csv")
 ```
 >**NOTE:** The different organisms with annotation databases available to use with clusterProfiler can be found [here](img/orgdb_annotation_databases.png)
@@ -269,8 +269,6 @@ One of the problems with GO enrichment analysis is that the GO annotations are i
 Here we can use the GO annotations in `hGOBP.gmt` (downloaded recently) to run GSEA using the `fgsea` package to run GSEA:
 
 ```
-
-
 fgseaRes <-  fgsea::fgseaSimple(pathways = hGOBP.gmt,stats=foldchanges,nperm=1000,maxSize = 300,minSize = 20)
 
 fgsea <- data.frame(fgseaRes,stringsAsFactors = F)
@@ -302,7 +300,7 @@ maxSetSize = 300)
 
 names(hresp$edgeMat)
 names(hresp$enrichInfo)
-View(hresp$enrichInfo[,c(2,3,4,5,10)])
+## View(hresp$enrichInfo[,c(2,3,4,5,10)])
 ```
 
 Let's check the overlap between the enriched terms found using `runGORESP` and those found using `fgseaSimple` as they used the same GO term libraries:

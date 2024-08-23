@@ -1,6 +1,5 @@
 --- 
 title: "RNAseq-analysis" 
-knit: "bookdown::render_book"
 output:
   bookdown::gitbook: 
       number_sections: true
