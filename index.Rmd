@@ -5,7 +5,7 @@ output:
       number_sections: true
 date: "`r Sys.Date()`" 
 link-citations: yes 
-github-repo: gurinina/genomics/RNAseq-analysis 
+github-repo: gurinina/RNAseq-analysis 
 url: https\://bookdown.org/ggiaever/RNAseq-analysis 
 site: bookdown::bookdown_site 
 documentclass: book

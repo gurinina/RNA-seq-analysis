@@ -94,7 +94,6 @@ Still we haven't found if `treatment` is a major source of variation after `stra
 
 We find that the samples separate by `treatment` on PC3, and are optimistic about our DE analysis since our condition of interest, `treatment`, is separating on PC3 and we can regress out the variation driving PC1 and PC2.
 
-
 ***
 
 **Exercise**
@@ -107,7 +106,7 @@ The figure below was generated from a time course experiment with sample groups 
 - Are there any outliers in the data?
 - Should we have any other concerns regarding the samples in the dataset?
 
-<img src="img/PCA_example3.png" width="600">
+<img src="../img/PCA_example3.png" width="600">
 
 ***
 
