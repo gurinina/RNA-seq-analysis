@@ -17,5 +17,5 @@ cover-image: "img/koos10.png"
 
 ![](img/koos10.png)
 
-The bookdown version of these pages is published on my page at [intro-to-R](https://bookdown.org/ggiaever/intro-to-R/) and here, [RNAseq_analysis](https://bookdown.org/ggiaever/RNAseq_analysis/).
+The published version for this module can be found at my bookdown site [RNAseq_analysis](https://bookdown.org/ggiaever/RNAseq_analysis/).
 
