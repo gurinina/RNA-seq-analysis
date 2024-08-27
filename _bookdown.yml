@@ -14,7 +14,7 @@ rmd_files:
 delete_merged_file: yes
 output:
   bookdown::gitbook:
-css: [css/style.css, css/toc.css, css/webex.css]
+css: [css/git.css, css/toc.css]
 chapter_name: "Chapter "
 language:
   label:

@@ -4,7 +4,7 @@ bookdown::gitbook:
     after_body: [includes/footer.html, includes/webex.js]
   md_extensions: -smart
   df_print: kable
-  css: [css/style.css, css/toc.css, css/webex.css]
+  css: [css/git.css, css/toc.css]
   config:
     toc:
       collapse: section
@@ -27,7 +27,7 @@ bookdown::word_document2:
   fig_height: 5.3
   fig_width: 8.5
 bookdown::html_chapters:
-  css: [css/style.css, css/toc.css]
+  css: [css/git.css, css/toc.css]
 bookdown::pdf_book:
   includes:
    in_header: lessons/preamble.tex

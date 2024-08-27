@@ -2,7 +2,7 @@
 title: "RNAseq-analysis" 
 output:
   bookdown::gitbook: 
-      number_sections: true
+    number_sections: true
 date: "`r Sys.Date()`" 
 link-citations: yes 
 github-repo: gurinina/RNAseq-analysis 
