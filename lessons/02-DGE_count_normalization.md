@@ -63,7 +63,19 @@ To normalize for sequencing depth and RNA composition, DESeq2 uses the median of
 
 **Step 1: creates a pseudo-reference sample (row-wise geometric mean)**
 
-For each gene, a pseudo-reference sample is created that is equal to the geometric mean across all samples.
+## Geometric Mean
+
+The **geometric mean** of a set of \( n \) positive numbers \( x_1, x_2, \dots, x_n \) is defined as the \( n \)th root of the product of the numbers. It is mathematically expressed as:
+
+\[
+\text{Geometric Mean} = \left( \prod_{i=1}^{n} x_i \right)^{\frac{1}{n}}
+\]
+
+where:
+- \( x_1, x_2, \dots, x_n \) are the individual numbers in the set,
+- \( \prod_{i=1}^{n} x_i \) denotes the product of all the numbers.
+
+For each gene, a pseudo-reference sample is created that is equal to the geometric mean across all samples. The geometric mean is less affected by extremely high or low values than the arithmetic mean, making it more appropriate for skewed data, such as count data that has a large number of genes with low counts.
 
 | gene | sampleA | sampleB | pseudo-reference sample  |
 | ----- |:-----:|:-----:|:-----:|
@@ -96,7 +108,7 @@ The figure below illustrates the median value for the distribution of all gene r
 
 <img src="img/deseq_median_of_ratios.png" width="400">
 
-The median of ratios method makes the assumption that not ALL genes are differentially expressed; therefore, the normalization factors should account for sequencing depth and RNA composition of the sample (large outlier genes will not represent the median ratio values). **This method is robust to imbalance in up-/down-regulation and large numbers of differentially expressed genes.**
+The median of ratios method makes the assumption that not **ALL** genes are differentially expressed; therefore, the normalization factors should account for sequencing depth and RNA composition of the sample (large outlier genes will not represent the median ratio values). **This method is robust to imbalance in up-/down-regulation and large numbers of differentially expressed genes.**
 
 > Usually these size factors are around 1, if you see large variations between samples it is important to take note since it might indicate the presence of extreme outliers.
 
@@ -168,10 +180,10 @@ all(colnames(data) == rownames(meta))
 
 The colnames of our data don't match the rownames of our metadata so we need to reorder them. We can use the `match` function:
 ```r
-idx <- match(rownames(meta),colnames(data))
-data <- data[,idx]
+# write the code to match the colnames of data to the rownames of meta
 
-all(colnames(data) == rownames(meta))
+# check that the rownames of the metadata match the colnames of the data
+
 ```
 
 *** 
