@@ -1,4 +1,4 @@
-# DGE analysis overview 
+# Differential gene expression (DGE) analysis overview
 
 The goal of RNA-seq is to perform differential expression testing to determine which genes are expressed at different levels between conditions. These genes can offer biological insight into the processes affected by the condition(s) of interest. 
 
@@ -10,7 +10,7 @@ In the next few lessons, we will walk you through an **end-to-end gene-level RNA
 
 ## Review of the dataset
 
-We will be using the full count matrix from the RNA-Seq dataset that is part of a larger study described in [Kenny PJ et al, Cell Rep 2014](http://www.ncbi.nlm.nih.gov/pubmed/25464849) investigating the interactions between genes potentially involved in Fragile X syndrome (FXS). FXS is a genetic disorder and the leading cause of inherited intellectual disabilities like autism. FXS is caused by aberrant production of a protein called Fragile X Messenger Ribonucleoprotein (**FMRP**) that is needed for brain development. People who have FXS do not make this protein. The authors demonstrated that **FMRP** associates with another RNA-binding protein **MOV10** (Mov10 RISC Complex RNA Helicase) and acts to regulate the translation of a subset of RNAs.
+We will be using the full count matrix from the RNA-seq dataset that is part of a larger study described in [Kenny PJ et al, Cell Rep 2014](http://www.ncbi.nlm.nih.gov/pubmed/25464849) investigating the interactions between genes potentially involved in Fragile X syndrome (FXS). FXS is a genetic disorder and the leading cause of inherited intellectual disabilities like autism. FXS is caused by aberrant production of a protein called Fragile X Messenger Ribonucleoprotein (**FMRP**) that is needed for brain development. People who have FXS do not make this protein. The authors demonstrated that **FMRP** associates with another RNA-binding protein **MOV10** (Mov10 RISC Complex RNA Helicase) and acts to regulate the translation of a subset of RNAs.
 
 What is the function of **FMRP** and **MOV10**?
 
@@ -24,7 +24,7 @@ The aim of the RNAseq part of the study was to characterize the transcription ex
 
 **Model for **MOV10-FMRP** Association in Translation Regulation**. Top: fate of RNAs bound by **MOV10**. **MOV10** binds the 3′ UTR-encoded G-rich structure to reveal MREs for subsequent AGO2 association. Middle: fate of RNAs bound by **FMRP**. **FMRP** binds RNAs in the nucleus. Upon export, **FMRP** recruits **MOV10**, which ultimately unwinds MREs for association with AGO2. Bottom: **FMRP** recruits **MOV10** to RNAs; however, binding of both **FMRP** and **MOV10** in proximity of MRE blocks association with AGO2. Red line indicates MRE.
 
-RNA-Seq was performed on HEK293F cells that were either transfected with a **MOV10** transgene, or siRNA to knock down Mov10 expression, or non-specific (irrelevant) siRNA. This resulted in 3 conditions **Mov10 oe** (over expression), **Mov10 kd** (knock down) and **Irrelevant kd**, respectively. The number of replicates is as shown below.
+RNA-seq was performed on HEK293F cells that were either transfected with a **MOV10** transgene, or siRNA to knock down Mov10 expression, or non-specific (irrelevant) siRNA. This resulted in 3 conditions **Mov10 oe** (over expression), **Mov10 kd** (knock down) and **Irrelevant kd**, respectively. The number of replicates is as shown below.
 
 <img src="img/dataset.png" width="400">
 
@@ -85,7 +85,7 @@ Make sure your datasets contain the expected samples / information before procee
 View(meta)
 View(data)
 ```
-## DGE analysis workflow
+## Differential gene expression analysis overview
 
 So what does this count data actually represent? The count data used for differential expression analysis represents the number of sequence reads that originated from a particular gene. The higher the number of counts, the more reads associated with that gene, and the assumption that there was a higher level of expression of that gene in the sample. 
 
@@ -141,18 +141,25 @@ These images illustrate some common features of RNA-seq count data, including a 
 
 ### Modeling count data
 
-Count data is often modeled using the **binomial distribution**, which can give you the **probability of getting a number of heads upon tossing a coin a number of times**. However, not all count data can be fit with the binomial distribution. The binomial is based on discrete events and used in situations when you have a certain number of cases.
+Count data is often modeled using the **binomial distribution**. The Binomial distribution is a common probability distribution that models the probability of obtaining one of two outcomes under a given number of parameters. It summarizes the number of trials when each trial has the same chance of attaining one specific outcome. For example, it can give you the **probability of getting a number of heads upon tossing a coin a number of times**. However, not all count data can be fit with the binomial distribution. The binomial is based on discrete events and used in situations when you have a certain number of cases.
 
 When **the number of cases is very large (i.e. people who buy lottery tickets), but the probability of an event is very small (probability of winning)**, the **Poisson distribution** is used to model these types of count data. 
 
 <img src="img/poisson-distribution-formula.png" width="300">
 
-**With RNA-Seq data, for each sample we have millions of reads being sequenced and the probability of a read mapping to a gene is extremely low.** Thus, it would be an appropriate situation to use the Poisson distribution. However, a unique property of this distribution is that it only has one parameter: $\lambda$, equivalent to expected value that is mean and that is also equivalent to the variance mean == variance. 
+**With RNA-seq data, for each sample we have millions of reads being sequenced and the probability of a read mapping to a gene is extremely low.** Thus, it would be an appropriate situation to use the Poisson distribution. However, a unique property of this distribution is that the mean == variance given by the single parameter $\lambda$.
 
 For us to apply a poisson distribution to our data, we first need to find out
 whether our data fulfills the criteria to use the poisson distribution. To do that we can plot the *mean versus variance* for the 'Mov10 overexpression' replicates:
 
 ```r
+# apply applies a function to the margins of a matrix
+# apply(X, MARGIN, FUN)
+# where X is a matrix
+# to apply a function to each row of a matrix, use MARGIN = 1
+# to apply a function to each column of a matrix, use MARGIN = 2
+# FUN can be any function that takes a vector as input and returns a single value
+
 mean_counts <- apply(data[, 3:5], 1, mean)
 variance_counts <- apply(data[, 3:5], 1, var)
 # for ggplot we need the data to be in a data.frame
@@ -170,13 +177,13 @@ ggplot(df) +
 
 By plotting the *mean versus the variance* of our data we can easily see that the mean < variance and therefore it does not fit the Poisson distribution. Genes having higher mean counts have even higher variance. Also for gene having low mean counts, there is a scatter of points and we can see that there is variability even in the variance. To account for this extra variance we need a new model. 
 
-The model that fits best, given this type of variability between replicates, is the Negative Binomial (NB) model. Essentially, **the NB model is a good approximation for data where the mean < variance**, as is the case with RNA-Seq count data.
+The model that fits best, given this type of variability between replicates, is the Negative Binomial (NB) model. Essentially, **the NB model is a good approximation for data where the mean < variance**, as is the case with RNA-seq count data.
 
 ### Improving mean estimates (i.e. reducing variance) with biological replicates
 
-The variance or scatter tends to reduce as we increase the number of biological replicates (*the distribution will approach the Poisson distribution with increasing numbers of replicates*), since standard deviations of averages are smaller than standard deviations of individual observations. **The value of additional replicates is that as you add more data (replicates), you get increasingly precise estimates of group means, and ultimately greater confidence in the ability to distinguish differences between sample classes (i.e. more DE genes).**
+The variance or scatter tends to reduce as we increase the number of biological replicates (*the distribution will approach the Poisson distribution with increasing numbers of replicates*). **The value of additional replicates is that as you add more data (replicates), you get increasingly precise estimates of group means, and ultimately greater confidence in the ability to distinguish differences between sample classes (i.e. more DE genes).**
 
-The figure below illustrates the relationship between sequencing depth and number of replicates on the number of differentially expressed genes identified [[1](https://academic.oup.com/bioinformatics/article/30/3/301/228651/RNA-seq-differential-expression-studies-more)]. Note that an **increase in the number of replicates tends to return more DE genes than increasing the sequencing depth**. Therefore, generally more replicates are better than higher sequencing depth, with the caveat that higher depth is required for detection of lowly expressed DE genes and for performing isoform-level differential expression. Generally, the minimum sequencing depth recommended is 20-30 million reads per sample, but we have seen good RNA-seq experiments with 10 million reads if there are a good number of replicates.
+The figure below illustrates the relationship between sequencing depth and number of replicates on the number of differentially expressed genes identified [[1](https://academic.oup.com/bioinformatics/article/30/3/301/228651/RNA-seq-differential-expression-studies-more)]. Note that an **increase in the number of replicates tends to return more DE genes than increasing the sequencing depth**. This is because most of the biological variability is between samples. Therefore, generally more replicates are better than higher sequencing depth, with the caveat that higher depth is required for detection of lowly expressed DE genes and for performing isoform-level differential expression. Generally, the minimum sequencing depth recommended is 20-30 million reads per sample, but we have seen good RNA-seq experiments with 10 million reads if there are a good number of replicates.
 
 <img src="img/de_replicates_img.png" width="500">
 
