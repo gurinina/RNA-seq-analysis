@@ -21,16 +21,9 @@ bookdown::gitbook:
     download: ["pdf", "epub"]
     fig_height: 5.3
     fig_width: 8.5
-bookdown::word_document2:
-  toc: yes
-  fontfamily: serif
-  fig_height: 5.3
-  fig_width: 8.5
-bookdown::html_chapters:
-  css: [css/git.css, css/toc.css]
 bookdown::pdf_book:
   includes:
-   in_header: lessons/preamble.tex
+    in_header: lessons/preamble.tex
   keep_tex: yes
   dev: "cairo_pdf"
   latex_engine: xelatex
@@ -44,4 +37,3 @@ bookdown::pdf_book:
 bookdown::epub_book:
   dev: svglite
   stylesheet: css/epub.css
-bookdown::bs4_book: default

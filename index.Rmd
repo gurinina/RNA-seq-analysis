@@ -1,12 +1,12 @@
 --- 
-title: "RNAseq-analysis" 
+title: "RNA-seq-analysis" 
 output:
   bookdown::gitbook: 
     number_sections: true
 date: "`r Sys.Date()`" 
 link-citations: yes 
-github-repo: gurinina/RNAseq-analysis 
-url: https\://bookdown.org/ggiaever/RNAseq-analysis 
+github-repo: gurinina/RNA-seq-analysis 
+url: https\://bookdown.org/ggiaever/RNA-seq-analysis 
 site: bookdown::bookdown_site 
 documentclass: book
 favicon: "img/icons8-biotech-64.png"
@@ -15,7 +15,10 @@ cover-image: "img/koos10.png"
 
 # RNA-seq analysis workshop {-}
 
-![](img/koos10.png)
+<div style="text-align: center;">
+  ![Welcome to Omics Science!](img/koos10.png){ width=600px }
+</div>
 
-The published version for this module can be found at my bookdown site [RNAseq_analysis](https://bookdown.org/ggiaever/RNAseq_analysis/).
+
+The published version for this module can be found on my bookdown site [RNAseq_analysis](https://bookdown.org/ggiaever/RNAseq_analysis/).
 

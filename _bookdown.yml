@@ -1,4 +1,4 @@
-book_filename: "RNAseq-analysis"
+book_filename: "RNA-seq-analysis"
 new_session: no
 rmd_files:
   - index.Rmd
@@ -9,15 +9,29 @@ rmd_files:
   - lessons/05-DGE_DESeq2_analysis2.md
   - lessons/06-DGE_visualizing_results.md
   - lessons/07-DGE_summarizing_workflow.md
-  - lessons/08-GO_enrichment_analysis.md
+  - lessons/08-GO_enrichment_analysis.Rmd
   - lessons/09-DGE_codebook.Rmd
-delete_merged_file: yes
-output:
-  bookdown::gitbook:
-css: [css/git.css, css/toc.css]
+
+delete_merged_file: no
 chapter_name: "Chapter "
 language:
   label:
     fig: "Figure "
     tab: "Table "
+
+output:
+  bookdown::gitbook:
+    output_dir: "_book"
+    css: [css/git.css, css/toc.css]
+
+  bookdown::epub_book:
+    output_dir: "_epub"
+    epub_version: "3"
+
+  bookdown::pdf_book:
+    output_dir: "_pdf"
+    latex_engine: xelatex
+    includes:
+      in_header: preamble.tex
+
 rmd_subdir: ["lessons"]
