@@ -2,7 +2,7 @@
 
 The next step in the DESeq2 workflow is QC, which includes sample-level and gene-level steps to perform QC checks on the count data to help us ensure that the samples/replicates look good. 
 
-<img src="img/deseq_workflow_qc_2018.png" width="400">
+![Alt text](img/deseq_workflow_qc_2018.png){ width=400 }
 
 ## Sample-level QC
 
@@ -14,11 +14,11 @@ A useful initial step in an RNA-seq analysis is often to assess overall similari
 
 To explore the similarity of our samples, we will be performing sample-level QC using Principal Component Analysis (PCA) and hierarchical clustering methods. Our sample-level QC allows us to see how well our replicates cluster together, as well as, observe whether our experimental condition represents the major source of variation in the data. Performing sample-level QC can also identify any sample outliers, which may need to be explored further to determine whether they need to be removed prior to DE analysis. 
 
-<img src="img/sample_qc.png" width="700">
+![Alt text](img/sample_qc.png){ width=700 }
 
 When using these unsupervised clustering methods, log2-transformation of the normalized counts improves the distances/clustering for visualization. DESeq2 uses a **regularized log transform** (rlog) of the normalized counts for sample-level QC as it moderates the variance across the mean, improving the clustering.
 
-<img src="img/rlog_transformation.png" width="500">
+![Alt text](img/rlog_transformation.png){ width=500 }
 
 ### [Principal Component Analysis (PCA)](https://hbctraining.github.io/DGE_workshop/lessons/principal_component_analysis.html)
 
@@ -26,11 +26,11 @@ Principal Component Analysis (PCA) is a technique used to emphasize variation an
 
 Suppose we had a dataset with two samples and four genes. Based on this expression data we want to evaluate the relationship between these samples. We could plot the counts of one sample versus another, with Sample 1 on the x-axis and Sample 2 on the y-axis as shown below:
 
-<img src="img/PCA_2sample_genes.png" width="600">
+![Alt text](img/PCA_2sample_genes.png){ width=600 }
 
 For PCA analysis, the first step is taking this plot and drawing a line through the data in the direction representing the most variation. In this example, the most variation is along the diagonal. That is, the **largest spread in the data** is between the two endpoints of this line. **This is called the first principal component, or PC1.**  The genes at the endpoints of this line (Gene B and Gene C) have the **greatest influence** on the direction of this line. 
 
-<img src="img/pca_with_PC1_line.png" width="300">
+![Alt text](img/pca_with_PC1_line.png){ width=300 }
 
 After drawing this line and establishing the amount of influence per gene, **PCA will compute a per sample score**. The per sample PC1 score is computed by taking the product of the influence and the normalized read count and summing across all genes. We could draw another line through the data representing the second most amount of variation in the data (PC2) and compute scores, followed by a third line and so on until you hit the total number of samples in your dataset. 
 
@@ -41,12 +41,12 @@ Sample1 PC1 score = (read count Gene A * influence Gene A) + (read count Gene B 
 
 Calculating the influence of each gene is a bit complicated, but to give you an idea,the first step is to calculate a z-score for each gene:
 
-<img src="img/zscore.png" width="200">
+![Alt text](img/zscore.png){ width=200 }
 
 The z-score is a measure of variability. So it's easy to see how in our plot, the influence of the two endpoints will be greater than the other points because their z-scores are greater as they are farther away from the mean and therefore they will have a greater influence on PC1.
 
 
-<img src="img/PCA_samples.png" width="600">
+![Alt text](img/PCA_samples.png){ width=600 }
 
 
 The take home message for our purposes is that if two samples have similar levels of expression for the genes that contribute significantly to the variation represented by PC1, they will be plotted close together on the PC1 axis. Therefore, we would expect biological replicates to have similar scores (since the same genes are changing) and cluster together on PC1 and/or PC2, and the samples from different treatment groups to have different scores. This is easiest to understand by visualizing example PCA plots.
@@ -66,23 +66,23 @@ In reality, your dataset will have larger dimensions (more samples, and many, ma
 
 We have an example dataset and a few associated PCA plots below to get a feel for how to interpret them. The metadata for the experiment is displayed below. The main condition of interest is `treatment`.
 
-<img src="img/example_metadata.png" width="600">
+![Alt text](img/example_metadata.png){ width=600 }
 
 When visualizing on PC1 and PC2, we don't see the samples separate by `treatment`, so we decide to explore other sources of variation present in the data. We hope that we have included all possible known sources of variation in our metadata table, and we can use these factors to color the PCA plot. 
 
-<img src="img/example_PCA_treatmentPC1.png" width="600">
+![Alt text](img/example_PCA_treatmentPC1.png){ width=600 }
 
 We start with the factor `cage`, but the `cage` factor does not seem to explain the variation on PC1 or PC2.
 
-<img src="img/example_PCA_cage.png" width="600">
+![Alt text](img/example_PCA_cage.png){ width=600 }
 
 Then, we color by the `sex` factor, which appears to separate samples on PC2. This is good information to take note of, as we can use it downstream to account for the variation due to sex in the model and regress it out.
 
-<img src="img/example_PCA_sex.png" width="600">
+![Alt text](img/example_PCA_sex.png){ width=600 }
 
 Next we explore the `strain` factor and find that it explains the variation on PC1. 
 
-<img src="img/example_PCA_strain.png" width="600">
+![Alt text](img/example_PCA_strain.png){ width=600 }
 
 It's great that we have been able to identify the sources of variation for both PC1 and PC2. By accounting for it in our model, we should be able to detect more genes differentially expressed due to `treatment`.
 
@@ -90,7 +90,7 @@ Worrisome about this plot is that we see two samples that do not cluster with th
 
 Still we haven't found if `treatment` is a major source of variation after `strain` and `sex`. So, we explore PC3 and PC4 to see if `treatment` is driving the variation represented by either of these PCs.
 
-<img src="img/example_PCA_treatmentPC3.png" width="600">
+![Alt text](img/example_PCA_treatmentPC3.png){ width=600 }
 
 We find that the samples separate by `treatment` on PC3, and are optimistic about our DE analysis since our condition of interest, `treatment`, is separating on PC3 and we can regress out the variation driving PC1 and PC2.
 
@@ -107,7 +107,7 @@ The figure below was generated from a time course experiment with sample groups 
 - Are there any outliers in the data?
 - Should we have any other concerns regarding the samples in the dataset?
 
-<img src="img/PCA_example3.png" width="600">
+![Alt text](img/PCA_example3.png){ width=600 }
 
 ***
 
@@ -119,7 +119,7 @@ The hierarchical tree can indicate which samples are more similar to each other 
 
 **In the plot below, we would be quite concerned about 'Wt_3' and 'KD_3' samples not clustering with the other replicates. We would want to explore the PCA to see if we see the same clustering of samples.**
 
-<img src="img/heatmap_example.png" width="500">
+![Alt text](img/heatmap_example.png){ width=500 }
 
 
 ## Gene-level QC
@@ -130,7 +130,7 @@ In addition to examining how well the samples/replicates cluster together, there
 - Genes with an extreme count outlier
 - Genes with a low mean normalized counts
 
-<img src="img/gene_filtering.png" width="600">
+![Alt text](img/gene_filtering.png){ width=600 }
 
 **DESeq2 will perform this filtering by default; however other DE tools, such as EdgeR will not.**  Filtering is a necessary step, especially when you are using methods other than DESeq2. 
 

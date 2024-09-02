@@ -105,7 +105,7 @@ ggplot(d, aes(x = sampletype, y = count, color = sampletype)) +
 
 > Note that in the plot below (code above), we are using `geom_text_repel()` from the `ggrepel` package to label our individual points on the plot.
 
-<img src="img/plotCounts_ggrepel.png" width="600">
+![Alt text](img/plotCounts_ggrepel.png){ width=600 }
 
 #### Using `ggplot2` to plot multiple genes (e.g. top 20)
 
@@ -138,7 +138,7 @@ Now that we have the normalized counts for each of the top 20 genes for all 8 sa
 
 The `pivot_longer()` function in the **tidyr** package will perform this operation and will output the normalized counts for all genes for *Mov10_oe_1* listed in the first 20 rows, followed by the normalized counts for *Mov10_oe_2* in the next 20 rows, so on and so forth.
 
-<img src="img/melt_wide_to_long_format.png" width="800">
+![Alt text](img/melt_wide_to_long_format.png){ width=800 }
 
 ```r
 # Pivoting the columns to have normalized counts to a single column
@@ -176,7 +176,7 @@ ggplot(pivoted_top20_sigOE) +
 	theme(plot.title = element_text(hjust = 0.5))
 ```
 
-<img src="img/sig_genes_melt2.png" width="700">
+![Alt text](img/sig_genes_melt2.png){ width=700 }
 
 ### Heatmap
 
@@ -216,7 +216,7 @@ pheatmap(norm_OEsig,
          height = 20)
 ```
          
-<img src="img/sigOE_heatmap2.png" width="600">   
+![Alt text](img/sigOE_heatmap2.png){ width=600 }   
 
 > *NOTE:* There are several additional arguments we have included in the function for aesthetics. One important one is `scale="row"`, in which Z-scores are plotted, rather than the actual normalized count value. 
 >
@@ -252,7 +252,7 @@ ggplot(res_tableOE_tb) +
         axis.title = element_text(size = rel(1.25)))  
 ```
 
-<img src="img/volcano_plot_new1.png" width="500"> 
+![Alt text](img/volcano_plot_new1.png){ width=500 } 
 
 This is a great way to get an overall picture of what is going on, but what if we also wanted to know where the top 10 genes (lowest padj) in our DE list are located on this plot? We could label those dots with the gene name on the Volcano plot using `geom_text_repel()`.
 
@@ -283,7 +283,7 @@ ggplot(res_tableOE_tb, aes(x = log2FoldChange,
         axis.title = element_text(size = rel(1.25))) 
 ```
 
-<img src="img/volcano_plot_new2.png" width="500"> 
+![Alt text](img/volcano_plot_new2.png){ width=500 } 
 
 ***
 

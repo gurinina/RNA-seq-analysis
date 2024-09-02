@@ -3,9 +3,8 @@ output: html_document
 editor_options:
   chunk_output_type: console
 ---
-# Codebook answers
-60 total points
-
+# Codebook
+20 total points
 
 ```{r, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -1138,7 +1137,7 @@ sessionInfo()
 
 **Exercise/Homework: modify this file to analyze the MOV dataset. Include a heatmap and a volcano plot**
 
-## Functional analysis
+## Functional analysis of RNA-seq data
 
 **.md file = 08-GO_enrichment_analysis.md**
 
@@ -1367,7 +1366,7 @@ maxSetSize = 300)
 
 names(hresp$edgeMat)
 names(hresp$enrichInfo)
-View(hresp$enrichInfo[,c(2,3,4,5,10)])
+# View(hresp$enrichInfo[,c(2,3,4,5,10)])
 ```
 
 Let's check the overlap between the enriched terms found using `runGORESP` and those found using `fgseaSimple` as they used the same GO term libraries:

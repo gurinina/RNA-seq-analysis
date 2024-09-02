@@ -4,18 +4,18 @@
 
 The final step in the DESeq2 workflow is fitting the Negative Binomial model for each gene and performing differential expression testing.
 
-<img src="img/deseq2_workflow_separate_2018.png" width="400">
+![Alt text](img/deseq2_workflow_separate_2018.png){ width=400 }
 
 
 The first step in performing differential expression analysis is to model the RNA-seq counts. DESeq2 fits a negative binomial generalized linear model (GLM) to estimatae the counts for each gene. A generalized linear model (GLM) is a statistical method that allows you to model relationships between different variables. It's similar to a linear regression model, which fits data to a line, but it can handle data that is not normally distributed, such as data that is binary or count data. The two parameters required to fit the negative binomial GLM are the size factor, and the dispersion estimate. The model incorporates the estimated dispersion and the design matrix, which specifies the experimental conditions and any covariates of interest. The negative binomial model is shown below:
 
-<img src="img/NB_model_formula.png" width="600">
+![Alt text](img/NB_model_formula.png){ width=600 }
 
 where $K_{ij}$ are the raw counts for gene i in sample j. 
 
 After the model is fit, coefficients are estimated for each sample group along with their standard error. These coefficients are the estimates for the log2 fold changes using the following model:
 
-<img src="img/NB_model_formula_betas.png" width="600">
+![Alt text](img/NB_model_formula_betas.png){ width=600 }
 
 An easier way of writing this is:
 
@@ -52,7 +52,7 @@ To generate more accurate LFC estimates, DESeq2 allows for the **shrinkage of th
 
 As with the shrinkage of dispersion estimates, LFC shrinkage uses **information from all genes** to generate more accurate estimates. Specifically, the distribution of LFC estimates for all genes is used (as a prior) to shrink the LFC estimates of genes with little information or high dispersion toward more likely (lower) LFC estimates. 
 
-<img src="img/deseq2_shrunken_lfc.png" width="500">
+![Alt text](img/deseq2_shrunken_lfc.png){ width=500 }
 
 *Illustration taken from the [DESeq2 paper](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-014-0550-8).*
 
@@ -134,7 +134,7 @@ A plot that can be useful to exploring our results is the MA plot. The MA plot s
 plotMA(res_tableOE_unshrunken, ylim=c(-2,2))
 ```
 
-<img src="img/maplot_unshrunken.png" width="600">
+![Alt text](img/maplot_unshrunken.png){ width=600 }
 
 **And now the shrunken results:**
 
@@ -142,7 +142,7 @@ plotMA(res_tableOE_unshrunken, ylim=c(-2,2))
 plotMA(res_tableOE, ylim=c(-2,2))
 ```
 
-<img src="img/MA_plot.png" width="600">
+![Alt text](img/MA_plot.png){ width=600 }
 
 In addition to the comparison described above, this plot allows us to evaluate the magnitude of fold changes and how they are distributed relative to mean expression. Generally, we would expect to see significant genes across the full range of expression levels. 
 
