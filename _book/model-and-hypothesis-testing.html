@@ -4,25 +4,24 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 5 Model and hypothesis testing | 08-GO_enrichment_analysis</title>
+  <title>Chapter 5 Model and hypothesis testing | RNA-seq-analysis</title>
   <meta name="description" content="RNA-seq analysis workshop" />
   <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 5 Model and hypothesis testing | 08-GO_enrichment_analysis" />
+  <meta property="og:title" content="Chapter 5 Model and hypothesis testing | RNA-seq-analysis" />
   <meta property="og:type" content="book" />
-  <meta property="og:image" content="https://bookdown.org/ggiaever/RNA-seq-analysis/img/football22.png" />
+  <meta property="og:image" content="https://bookdown.org/ggiaever/RNA-seq-analysis/img/football22.png”" />
   <meta property="og:description" content="RNA-seq analysis workshop" />
   <meta name="github-repo" content="gurinina/RNA-seq-analysis" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 5 Model and hypothesis testing | 08-GO_enrichment_analysis" />
+  <meta name="twitter:title" content="Chapter 5 Model and hypothesis testing | RNA-seq-analysis" />
   
   <meta name="twitter:description" content="RNA-seq analysis workshop" />
-  <meta name="twitter:image" content="https://bookdown.org/ggiaever/RNA-seq-analysis/img/football22.png" />
+  <meta name="twitter:image" content="https://bookdown.org/ggiaever/RNA-seq-analysis/img/football22.png”" />
 
 
 
-<meta name="date" content="2024-08-31" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -55,16 +54,6 @@
 <link href="libs/vis-9.1.0/vis-network.min.css" rel="stylesheet" />
 <script src="libs/vis-9.1.0/vis-network.min.js"></script>
 <script src="libs/visNetwork-binding-2.1.2/visNetwork.js"></script>
-<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
-<<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-QV7GCCXQ4R"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-QV7GCCXQ4R');
-</script>
 
 
 <style type="text/css">
@@ -151,9 +140,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">Authoring Books with R Markdown</a></li>
-
-<li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>RNA-seq analysis workshop</a></li>
 <li class="chapter" data-level="1" data-path="differential-gene-expression-dge-analysis-overview.html"><a href="differential-gene-expression-dge-analysis-overview.html"><i class="fa fa-check"></i><b>1</b> Differential gene expression (DGE) analysis overview</a>
 <ul>
@@ -168,7 +154,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="1.3.1" data-path="differential-gene-expression-dge-analysis-overview.html"><a href="differential-gene-expression-dge-analysis-overview.html#rna-seq-count-distribution"><i class="fa fa-check"></i><b>1.3.1</b> RNA-seq count distribution</a></li>
 <li class="chapter" data-level="1.3.2" data-path="differential-gene-expression-dge-analysis-overview.html"><a href="differential-gene-expression-dge-analysis-overview.html#modeling-count-data"><i class="fa fa-check"></i><b>1.3.2</b> Modeling count data</a></li>
-<li class="chapter" data-level="1.3.3" data-path="differential-gene-expression-dge-analysis-overview.html"><a href="differential-gene-expression-dge-analysis-overview.html#improving-mean-estimates-i.e.-reducing-variance-with-biological-replicates"><i class="fa fa-check"></i><b>1.3.3</b> Improving mean estimates (i.e. reducing variance) with biological replicates</a></li>
+<li class="chapter" data-level="1.3.3" data-path="differential-gene-expression-dge-analysis-overview.html"><a href="differential-gene-expression-dge-analysis-overview.html#improving-mean-estimates-i.e.-reducing-variance-with-biological-replicates"><i class="fa fa-check"></i><b>1.3.3</b> Improving mean estimates (i.e. reducing variance) with biological replicates</a></li>
 <li class="chapter" data-level="1.3.4" data-path="differential-gene-expression-dge-analysis-overview.html"><a href="differential-gene-expression-dge-analysis-overview.html#differential-expression-analysis-workflow"><i class="fa fa-check"></i><b>1.3.4</b> Differential expression analysis workflow</a></li>
 </ul></li>
 </ul></li>
@@ -297,7 +283,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.7.7" data-path="codebook.html"><a href="codebook.html#visualize-results-volcano-plots-heatmaps-normalized-counts-plots-of-top-genes-etc."><i class="fa fa-check"></i><b>9.7.7</b> 7. Visualize results: volcano plots, heatmaps, normalized counts plots of top genes, etc.</a></li>
 <li class="chapter" data-level="9.7.8" data-path="codebook.html"><a href="codebook.html#make-sure-to-output-the-versions-of-all-tools-used-in-the-de-analysis"><i class="fa fa-check"></i><b>9.7.8</b> 8. Make sure to output the versions of all tools used in the DE analysis:</a></li>
 </ul></li>
-<li class="chapter" data-level="9.8" data-path="codebook.html"><a href="codebook.html#functional-analysis"><i class="fa fa-check"></i><b>9.8</b> Functional analysis</a>
+<li class="chapter" data-level="9.8" data-path="codebook.html"><a href="codebook.html#functional-analysis-of-rna-seq-data"><i class="fa fa-check"></i><b>9.8</b> Functional analysis of RNA-seq data</a>
 <ul>
 <li class="chapter" data-level="9.8.1" data-path="codebook.html"><a href="codebook.html#over-representation-analysis-1"><i class="fa fa-check"></i><b>9.8.1</b> Over-representation analysis</a></li>
 <li class="chapter" data-level="9.8.2" data-path="codebook.html"><a href="codebook.html#clusterprofiler-1"><i class="fa fa-check"></i><b>9.8.2</b> clusterProfiler</a></li>
@@ -305,34 +291,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.8.4" data-path="codebook.html"><a href="codebook.html#other-tools-and-resources-1"><i class="fa fa-check"></i><b>9.8.4</b> Other tools and resources</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="functional-analysis-1.html"><a href="functional-analysis-1.html"><i class="fa fa-check"></i><b>10</b> Functional analysis</a>
-<ul>
-<li class="chapter" data-level="10.1" data-path="functional-analysis-1.html"><a href="functional-analysis-1.html#over-representation-analysis-2"><i class="fa fa-check"></i><b>10.1</b> Over-representation analysis</a>
-<ul>
-<li class="chapter" data-level="10.1.1" data-path="functional-analysis-1.html"><a href="functional-analysis-1.html#gene-ontology-project"><i class="fa fa-check"></i><b>10.1.1</b> Gene Ontology project</a></li>
-<li class="chapter" data-level="10.1.2" data-path="functional-analysis-1.html"><a href="functional-analysis-1.html#hypergeometric-testing"><i class="fa fa-check"></i><b>10.1.2</b> Hypergeometric testing</a></li>
-</ul></li>
-<li class="chapter" data-level="10.2" data-path="functional-analysis-1.html"><a href="functional-analysis-1.html#clusterprofiler-2"><i class="fa fa-check"></i><b>10.2</b> clusterProfiler</a>
-<ul>
-<li class="chapter" data-level="10.2.1" data-path="functional-analysis-1.html"><a href="functional-analysis-1.html#running-clusterprofiler-2"><i class="fa fa-check"></i><b>10.2.1</b> Running clusterProfiler</a></li>
-<li class="chapter" data-level="10.2.2" data-path="functional-analysis-1.html"><a href="functional-analysis-1.html#visualizing-clusterprofiler-results-2"><i class="fa fa-check"></i><b>10.2.2</b> Visualizing clusterProfiler results</a></li>
-</ul></li>
-<li class="chapter" data-level="10.3" data-path="functional-analysis-1.html"><a href="functional-analysis-1.html#gene-set-enrichment-analysis-gsea-2"><i class="fa fa-check"></i><b>10.3</b> Gene set enrichment analysis (GSEA)</a>
-<ul>
-<li class="chapter" data-level="10.3.1" data-path="functional-analysis-1.html"><a href="functional-analysis-1.html#gsea-using-clusterprofiler-2"><i class="fa fa-check"></i><b>10.3.1</b> GSEA using clusterProfiler</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="11" data-path="this-has-to-be-commented-out-in-epub-and-pdf-formats-because-the-dynamic-network-cannot-be-displayed.html"><a href="this-has-to-be-commented-out-in-epub-and-pdf-formats-because-the-dynamic-network-cannot-be-displayed.html"><i class="fa fa-check"></i><b>11</b> this has to be commented out in epub and pdf formats because the dynamic network cannot be displayed</a>
-<ul>
-<li class="chapter" data-level="11.1" data-path="this-has-to-be-commented-out-in-epub-and-pdf-formats-because-the-dynamic-network-cannot-be-displayed.html"><a href="this-has-to-be-commented-out-in-epub-and-pdf-formats-because-the-dynamic-network-cannot-be-displayed.html#other-tools"><i class="fa fa-check"></i><b>11.1</b> Other Tools</a>
-<ul>
-<li class="chapter" data-level="11.1.1" data-path="this-has-to-be-commented-out-in-epub-and-pdf-formats-because-the-dynamic-network-cannot-be-displayed.html"><a href="this-has-to-be-commented-out-in-epub-and-pdf-formats-because-the-dynamic-network-cannot-be-displayed.html#genemania"><i class="fa fa-check"></i><b>11.1.1</b> GeneMANIA</a></li>
-</ul></li>
-<li class="chapter" data-level="11.2" data-path="this-has-to-be-commented-out-in-epub-and-pdf-formats-because-the-dynamic-network-cannot-be-displayed.html"><a href="this-has-to-be-commented-out-in-epub-and-pdf-formats-because-the-dynamic-network-cannot-be-displayed.html#resources-for-functional-analysis"><i class="fa fa-check"></i><b>11.2</b> Resources for functional analysis</a></li>
-</ul></li>
-<li class="divider"></li>
-<li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
-
 </ul>
 
       </nav>
@@ -342,7 +300,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">08-GO_enrichment_analysis</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">RNA-seq-analysis</a>
           </h1>
         </div>
 
@@ -359,7 +317,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <img src="img/deseq2_workflow_separate_2018.png" width="400" alt="Alt text" />
 <div class="figcaption">Alt text</div>
 </div>
-<p>The first step in performing differential expression analysis is to model the RNA-seq counts. DESeq2 fits a negative binomial generalized linear model (GLM) to estimatae the counts for each gene. A generalized linear model (GLM) is a statistical method that allows you to model relationships between different variables. It's similar to a linear regression model, which fits data to a line, but it can handle data that is not normally distributed, such as data that is binary or count data. The two parameters required to fit the negative binomial GLM are the size factor, and the dispersion estimate. The model incorporates the estimated dispersion and the design matrix, which specifies the experimental conditions and any covariates of interest. The negative binomial model is shown below:</p>
+<p>The first step in performing differential expression analysis is to model the RNA-seq counts. DESeq2 fits a negative binomial generalized linear model (GLM) to estimatae the counts for each gene. A generalized linear model (GLM) is a statistical method that allows you to model relationships between different variables. It’s similar to a linear regression model, which fits data to a line, but it can handle data that is not normally distributed, such as data that is binary or count data. The two parameters required to fit the negative binomial GLM are the size factor, and the dispersion estimate. The model incorporates the estimated dispersion and the design matrix, which specifies the experimental conditions and any covariates of interest. The negative binomial model is shown below:</p>
 <div class="float">
 <img src="img/NB_model_formula.png" width="600" alt="Alt text" />
 <div class="figcaption">Alt text</div>
@@ -409,7 +367,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>Taking the LFC and dividing it by its standard error, resulting in a z-statistic</li>
 <li>The z-statistic is compared to a standard normal distribution, and a p-value is computed reporting the probability that a z-statistic at least as extreme as the observed value would be selected at random</li>
-<li>If the p-value is small we reject the null hypothesis (LFC = 0) and state that there is evidence against the null (i.e. the gene is differentially expressed).</li>
+<li>If the p-value is small we reject the null hypothesis (LFC = 0) and state that there is evidence against the null (i.e. the gene is differentially expressed).</li>
 </ul>
 <div id="overall-deseq2-workflow" class="section level3 hasAnchor" number="5.3.1">
 <h3><span class="header-section-number">5.3.1</span> Overall DESeq2 workflow:<a href="model-and-hypothesis-testing.html#overall-deseq2-workflow" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -428,15 +386,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb32-2"><a href="model-and-hypothesis-testing.html#cb32-2" tabindex="-1"></a><span class="co"># DO NOT RUN!</span></span>
 <span id="cb32-3"><a href="model-and-hypothesis-testing.html#cb32-3" tabindex="-1"></a>contrast <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;condition&quot;</span>, <span class="st">&quot;level_to_compare&quot;</span>, <span class="st">&quot;base_level&quot;</span>)</span>
 <span id="cb32-4"><a href="model-and-hypothesis-testing.html#cb32-4" tabindex="-1"></a><span class="fu">results</span>(dds, <span class="at">contrast =</span> contrast, <span class="at">alpha =</span> alpha_threshold)</span></code></pre></div>
-<p>The alpha threshold is the significance cutoff used for optimizing the independent filtering. After testing your genes and getting p-values, DESeq2 performs a step which is called "independent filtering" and the goal is to remove genes with very low counts because these usually have low power to be detected as significant in the first place, because of high dispersion (you remove them even without looking at their p-values). The alpha in threshold in results controls how this procedure is made, and it should be set to the threshold that you want to use in your adjusted p-values (e.g. 0.05).</p></li>
+<p>The alpha threshold is the significance cutoff used for optimizing the independent filtering. After testing your genes and getting p-values, DESeq2 performs a step which is called “independent filtering” and the goal is to remove genes with very low counts because these usually have low power to be detected as significant in the first place, because of high dispersion (you remove them even without looking at their p-values). The alpha in threshold in results controls how this procedure is made, and it should be set to the threshold that you want to use in your adjusted p-values (e.g. 0.05).</p></li>
 </ol>
 <div id="mov10-de-analysis-contrasts-and-wald-tests" class="section level4 hasAnchor" number="5.3.2.1">
 <h4><span class="header-section-number">5.3.2.1</span> MOV10 DE analysis: contrasts and Wald tests<a href="model-and-hypothesis-testing.html#mov10-de-analysis-contrasts-and-wald-tests" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>We have three sample classes so we can make three possible pairwise comparisons:</p>
 <ol style="list-style-type: decimal">
-<li>Control vs. Mov10 overexpression</li>
-<li>Control vs. Mov10 knockdown</li>
-<li>Mov10 knockdown vs. Mov10 overexpression</li>
+<li>Control vs. Mov10 overexpression</li>
+<li>Control vs. Mov10 knockdown</li>
+<li>Mov10 knockdown vs. Mov10 overexpression</li>
 </ol>
 <p><strong>We are really only interested in #1 and #2 from above</strong>. Using the design formula we provided <code>~ sampletype</code>, indicating that this is our main factor of interest.</p>
 </div>
@@ -458,7 +416,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="ma-plot" class="section level3 hasAnchor" number="5.3.4">
 <h3><span class="header-section-number">5.3.4</span> MA Plot<a href="model-and-hypothesis-testing.html#ma-plot" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>A plot that can be useful to exploring our results is the MA plot. The MA plot shows the mean of the normalized counts versus the log2 foldchanges for all genes tested. The genes that are significantly DE are colored to be easily identified. This is also a great way to illustrate the effect of LFC shrinkage. The DESeq2 package offers a simple function to generate an MA plot.</p>
-<p><strong>Let's start with the unshrunken results:</strong></p>
+<p><strong>Let’s start with the unshrunken results:</strong></p>
 <div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="model-and-hypothesis-testing.html#cb34-1" tabindex="-1"></a><span class="fu">plotMA</span>(res_tableOE_unshrunken, <span class="at">ylim=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">2</span>,<span class="dv">2</span>))</span></code></pre></div>
 <div class="float">
 <img src="img/maplot_unshrunken.png" width="600" alt="Alt text" />
@@ -476,7 +434,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">5.3.5</span> MOV10 DE analysis: results exploration<a href="model-and-hypothesis-testing.html#mov10-de-analysis-results-exploration" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The results table looks very much like a dataframe and in many ways it can be treated like one (i.e when accessing/subsetting data). However, it is important to recognize that it is actually stored in a <code>DESeqResults</code> object. When we start visualizing our data, this information will be helpful.</p>
 <div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="model-and-hypothesis-testing.html#cb36-1" tabindex="-1"></a><span class="fu">class</span>(res_tableOE)</span></code></pre></div>
-<p>Let's go through some of the columns in the results table to get a better idea of what we are looking at. To extract information regarding the meaning of each column we can use <code>mcols()</code>:</p>
+<p>Let’s go through some of the columns in the results table to get a better idea of what we are looking at. To extract information regarding the meaning of each column we can use <code>mcols()</code>:</p>
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="model-and-hypothesis-testing.html#cb37-1" tabindex="-1"></a><span class="fu">mcols</span>(res_tableOE, <span class="at">use.names=</span>T)</span></code></pre></div>
 <ul>
 <li><code>baseMean</code>: mean of normalized counts for all samples</li>
@@ -486,7 +444,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><code>pvalue</code>: Wald test p-value</li>
 <li><code>padj</code>: BH adjusted p-values</li>
 </ul>
-<p>Now let's take a look at what information is stored in the results:</p>
+<p>Now let’s take a look at what information is stored in the results:</p>
 <div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="model-and-hypothesis-testing.html#cb38-1" tabindex="-1"></a>res_tableOE <span class="sc">%&gt;%</span> <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code></pre></div>
 <pre><code>log2 fold change (MAP): sampletype MOV10_overexpression vs control 
 Wald test p-value: sampletype MOV10_overexpression vs control 
@@ -510,7 +468,7 @@ A2M           5.8600841    -0.27850841 0.18051805 -1.5428286 0.1228724 0.2148906
 <div id="multiple-test-correction" class="section level3 hasAnchor" number="5.3.6">
 <h3><span class="header-section-number">5.3.6</span> Multiple test correction<a href="model-and-hypothesis-testing.html#multiple-test-correction" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Note that we have pvalues and p-adjusted values in the output. Which should we use to identify significantly differentially expressed genes?</p>
-<p>If we used the <code>p-value</code> directly from the Wald test with a significance cut-off of p &lt; 0.05, that means there is a 5% chance it is a false positives. Each p-value is the result of a single test (single gene). The more genes we test, the more we inflate the false positive rate. <strong>This is the multiple testing problem.</strong> For example, if we test 20,000 genes for differential expression, at p &lt; 0.05 we would expect to find 1,000 genes by chance. If we found 3000 genes to be differentially expressed total, 150 of our genes are false positives. We would not want to sift through our "significant" genes to identify which ones are true positives.</p>
+<p>If we used the <code>p-value</code> directly from the Wald test with a significance cut-off of p &lt; 0.05, that means there is a 5% chance it is a false positives. Each p-value is the result of a single test (single gene). The more genes we test, the more we inflate the false positive rate. <strong>This is the multiple testing problem.</strong> For example, if we test 20,000 genes for differential expression, at p &lt; 0.05 we would expect to find 1,000 genes by chance. If we found 3000 genes to be differentially expressed total, 150 of our genes are false positives. We would not want to sift through our “significant” genes to identify which ones are true positives.</p>
 <p>DESeq2 helps reduce the number of genes tested by removing those genes unlikely to be significantly DE prior to testing, such as those with low number of counts and outlier samples (gene-level QC). However, we still need to correct for multiple testing to reduce the number of false positives, and there are a few common approaches:</p>
 <ul>
 <li><strong>Bonferroni:</strong> The adjusted p-value is calculated by: p-value * m (m = total number of tests). <strong>This is a very conservative approach with a high probability of false negatives</strong>, so is generally not recommended.</li>
@@ -520,7 +478,7 @@ A2M           5.8600841    -0.27850841 0.18051805 -1.5428286 0.1228724 0.2148906
 </div>
 <div id="mov10-de-analysis-control-versus-knockdown" class="section level3 hasAnchor" number="5.3.7">
 <h3><span class="header-section-number">5.3.7</span> MOV10 DE analysis: Control versus Knockdown<a href="model-and-hypothesis-testing.html#mov10-de-analysis-control-versus-knockdown" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Now that we have results for the overexpression results, let's do the same for the <strong>Control vs. Knockdown samples</strong>. Use contrasts in the <code>results()</code> to extract a results table and store that to a variable called <code>res_tableKD</code>.</p>
+<p>Now that we have results for the overexpression results, let’s do the same for the <strong>Control vs. Knockdown samples</strong>. Use contrasts in the <code>results()</code> to extract a results table and store that to a variable called <code>res_tableKD</code>.</p>
 <div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="model-and-hypothesis-testing.html#cb40-1" tabindex="-1"></a><span class="do">## Define contrasts, extract results table and shrink log2 fold changes</span></span>
 <span id="cb40-2"><a href="model-and-hypothesis-testing.html#cb40-2" tabindex="-1"></a>contrast_kd <span class="ot">&lt;-</span>  <span class="fu">c</span>(<span class="st">&quot;sampletype&quot;</span>, <span class="st">&quot;MOV10_knockdown&quot;</span>, <span class="st">&quot;control&quot;</span>)</span>
 <span id="cb40-3"><a href="model-and-hypothesis-testing.html#cb40-3" tabindex="-1"></a></span>
@@ -541,14 +499,14 @@ A2M           5.8600841    -0.27850841 0.18051805 -1.5428286 0.1228724 0.2148906
 </div>
 <div id="summarizing-results" class="section level2 hasAnchor" number="5.4">
 <h2><span class="header-section-number">5.4</span> Summarizing results<a href="model-and-hypothesis-testing.html#summarizing-results" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>To summarize the results table, a handy function in DESeq2 is <code>summary()</code>. Confusingly it has the same name as the function used to inspect data frames. This function when called with a DESeq results table as input, will summarize the results using the alpha threshold: FDR &lt; 0.05 (padj/FDR is used even though the output says <code>p-value &lt; 0.05</code>). Let's start with the OE vs control results:</p>
+<p>To summarize the results table, a handy function in DESeq2 is <code>summary()</code>. Confusingly it has the same name as the function used to inspect data frames. This function when called with a DESeq results table as input, will summarize the results using the alpha threshold: FDR &lt; 0.05 (padj/FDR is used even though the output says <code>p-value &lt; 0.05</code>). Let’s start with the OE vs control results:</p>
 <div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="model-and-hypothesis-testing.html#cb41-1" tabindex="-1"></a><span class="do">## Summarize results</span></span>
 <span id="cb41-2"><a href="model-and-hypothesis-testing.html#cb41-2" tabindex="-1"></a><span class="fu">summary</span>(res_tableOE)</span></code></pre></div>
 <p>In addition to the number of genes up- and down-regulated at the default threshold, <strong>the function also reports the number of genes that were tested (genes with non-zero total read count), and the number of genes not included in multiple test correction due to a low mean count</strong>.</p>
 <div id="extracting-significant-differentially-expressed-genes" class="section level3 hasAnchor" number="5.4.1">
 <h3><span class="header-section-number">5.4.1</span> Extracting significant differentially expressed genes<a href="model-and-hypothesis-testing.html#extracting-significant-differentially-expressed-genes" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>What we noticed is that the FDR threshold on it's own doesn't appear to be reducing the number of significant genes. With large significant gene lists it can be hard to extract meaningful biological relevance. To help increase stringency, one can also <strong>add a fold change threshold</strong>. <em>The <code>summary()</code> function doesn't have an argument for fold change threshold.</em></p>
-<p>Let's first create variables that contain our threshold criteria:</p>
+<p>What we noticed is that the FDR threshold on it’s own doesn’t appear to be reducing the number of significant genes. With large significant gene lists it can be hard to extract meaningful biological relevance. To help increase stringency, one can also <strong>add a fold change threshold</strong>. <em>The <code>summary()</code> function doesn’t have an argument for fold change threshold.</em></p>
+<p>Let’s first create variables that contain our threshold criteria:</p>
 <div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="model-and-hypothesis-testing.html#cb42-1" tabindex="-1"></a><span class="do">### Set thresholds</span></span>
 <span id="cb42-2"><a href="model-and-hypothesis-testing.html#cb42-2" tabindex="-1"></a>padj.cutoff <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
 <span id="cb42-3"><a href="model-and-hypothesis-testing.html#cb42-3" tabindex="-1"></a>lfc.cutoff <span class="ot">&lt;-</span> <span class="fl">0.58</span></span></code></pre></div>
@@ -578,111 +536,6 @@ A2M           5.8600841    -0.27850841 0.18051805 -1.5428286 0.1228724 0.2148906
 </div>
 </div>
 </div>
-<div class="intro-to-R_footer">
-  
-</div>
-<script>
-
-/* update total correct if #webex-total_correct exists */
-update_total_correct = function() {
-  if (t = document.getElementById("webex-total_correct")) {
-    t.innerHTML =
-      document.getElementsByClassName("webex-correct").length + " of " +
-      document.getElementsByClassName("webex-solveme").length + " correct";
-  }
-}
-
-/* webex-solution button toggling function */
-b_func = function() {
-  var cl = this.parentElement.classList;
-  if (cl.contains('open')) {
-    cl.remove("open");
-  } else {
-    cl.add("open");
-  }
-}
-
-/* function for checking solveme answers */
-solveme_func = function(e) {
-  var real_answers = JSON.parse(this.dataset.answer);
-  var my_answer = this.value;
-  var cl = this.classList;
-  if (cl.contains("ignorecase")) {
-    my_answer = my_answer.toLowerCase();
-  }
-  if (cl.contains("nospaces")) {
-    my_answer = my_answer.replace(/ /g, "")
-  }
-  
-  if (my_answer !== "" & real_answers.includes(my_answer)) {
-    cl.add("webex-correct");
-  } else {
-    cl.remove("webex-correct");
-  }
-
-  // match numeric answers within a specified tolerance
-  if(this.dataset.tol > 0){
-    var tol = JSON.parse(this.dataset.tol);  
-    var matches = real_answers.map(x => Math.abs(x - my_answer) < tol)
-    if (matches.reduce((a, b) => a + b, 0) > 0) {
-      cl.add("webex-correct");
-    } else {
-      cl.remove("webex-correct");
-    }  
-  }
-
-  // added regex bit
-  if (cl.contains("regex")){
-    answer_regex = RegExp(real_answers.join("|"))
-    if (answer_regex.test(my_answer)) {
-      cl.add("webex-correct");
-    }  
-  }
-  
-  update_total_correct();
-}
-
-window.onload = function() {
-  /* set up solution buttons */
-  var buttons = document.getElementsByTagName("button");
-
-  for (var i = 0; i < buttons.length; i++) {
-    if (buttons[i].parentElement.classList.contains('webex-solution')) {
-      buttons[i].onclick = b_func;
-    }
-  }
-  
-  /* set up webex-solveme inputs */
-  var solveme = document.getElementsByClassName("webex-solveme");
-
-  for (var i = 0; i < solveme.length; i++) {
-    /* make sure input boxes don't auto-anything */
-    solveme[i].setAttribute("autocomplete","off");
-    solveme[i].setAttribute("autocorrect", "off");
-    solveme[i].setAttribute("autocapitalize", "off"); 
-    solveme[i].setAttribute("spellcheck", "false");
-    solveme[i].value = "";
-    
-    /* adjust answer for ignorecase or nospaces */
-    var cl = solveme[i].classList;
-    var real_answer = solveme[i].dataset.answer;
-    if (cl.contains("ignorecase")) {
-      real_answer = real_answer.toLowerCase();
-    }
-    if (cl.contains("nospaces")) {
-      real_answer = real_answer.replace(/ /g, "");
-    }
-    solveme[i].dataset.answer = real_answer;
-    
-    /* attach checking function */
-    solveme[i].onkeyup = solveme_func;
-    solveme[i].onchange = solveme_func;
-  }
-  
-  update_total_correct();
-}
-
-</script>
             </section>
 
           </div>
@@ -704,8 +557,8 @@ window.onload = function() {
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
-"github": true,
-"facebook": false,
+"github": false,
+"facebook": true,
 "twitter": true,
 "linkedin": false,
 "weibo": false,
@@ -720,8 +573,8 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/rstudio/bookdown/edit/main/inst/examples/lessons/05-DGE_DESeq2_analysis2.md",
-"text": "Edit"
+"link": null,
+"text": null
 },
 "history": {
 "link": null,
@@ -738,9 +591,7 @@ gitbook.start({
 },
 "toc": {
 "collapse": "section"
-},
-"fig_height": 5.3,
-"fig_width": 8.5
+}
 });
 });
 </script>

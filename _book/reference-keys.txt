@@ -131,7 +131,7 @@ create-contrasts-to-perform-wald-testing-on-the-shrunken-log2-foldchanges-betwee
 output-significant-results
 visualize-results-volcano-plots-heatmaps-normalized-counts-plots-of-top-genes-etc.
 make-sure-to-output-the-versions-of-all-tools-used-in-the-de-analysis
-functional-analysis
+functional-analysis-of-rna-seq-data
 over-representation-analysis-1
 clusterprofiler-1
 running-clusterprofiler-1
@@ -139,18 +139,3 @@ visualizing-clusterprofiler-results-1
 gene-set-enrichment-analysis-gsea-1
 gsea-using-clusterprofiler-1
 other-tools-and-resources-1
-functional-analysis-1
-over-representation-analysis-2
-gene-ontology-project
-hypergeometric-testing
-go-ontologies
-go-term-hierarchy
-clusterprofiler-2
-running-clusterprofiler-2
-visualizing-clusterprofiler-results-2
-gene-set-enrichment-analysis-gsea-2
-gsea-using-clusterprofiler-2
-this-has-to-be-commented-out-in-epub-and-pdf-formats-because-the-dynamic-network-cannot-be-displayed
-other-tools
-genemania
-resources-for-functional-analysis

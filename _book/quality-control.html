@@ -4,25 +4,24 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 3 Quality Control | 08-GO_enrichment_analysis</title>
+  <title>Chapter 3 Quality Control | RNA-seq-analysis</title>
   <meta name="description" content="RNA-seq analysis workshop" />
   <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 3 Quality Control | 08-GO_enrichment_analysis" />
+  <meta property="og:title" content="Chapter 3 Quality Control | RNA-seq-analysis" />
   <meta property="og:type" content="book" />
-  <meta property="og:image" content="https://bookdown.org/ggiaever/RNA-seq-analysis/img/football22.png" />
+  <meta property="og:image" content="https://bookdown.org/ggiaever/RNA-seq-analysis/img/football22.png”" />
   <meta property="og:description" content="RNA-seq analysis workshop" />
   <meta name="github-repo" content="gurinina/RNA-seq-analysis" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 3 Quality Control | 08-GO_enrichment_analysis" />
+  <meta name="twitter:title" content="Chapter 3 Quality Control | RNA-seq-analysis" />
   
   <meta name="twitter:description" content="RNA-seq analysis workshop" />
-  <meta name="twitter:image" content="https://bookdown.org/ggiaever/RNA-seq-analysis/img/football22.png" />
+  <meta name="twitter:image" content="https://bookdown.org/ggiaever/RNA-seq-analysis/img/football22.png”" />
 
 
 
-<meta name="date" content="2024-08-31" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -55,16 +54,6 @@
 <link href="libs/vis-9.1.0/vis-network.min.css" rel="stylesheet" />
 <script src="libs/vis-9.1.0/vis-network.min.js"></script>
 <script src="libs/visNetwork-binding-2.1.2/visNetwork.js"></script>
-<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
-<<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-QV7GCCXQ4R"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-QV7GCCXQ4R');
-</script>
 
 
 <style type="text/css">
@@ -151,9 +140,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">Authoring Books with R Markdown</a></li>
-
-<li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>RNA-seq analysis workshop</a></li>
 <li class="chapter" data-level="1" data-path="differential-gene-expression-dge-analysis-overview.html"><a href="differential-gene-expression-dge-analysis-overview.html"><i class="fa fa-check"></i><b>1</b> Differential gene expression (DGE) analysis overview</a>
 <ul>
@@ -168,7 +154,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="1.3.1" data-path="differential-gene-expression-dge-analysis-overview.html"><a href="differential-gene-expression-dge-analysis-overview.html#rna-seq-count-distribution"><i class="fa fa-check"></i><b>1.3.1</b> RNA-seq count distribution</a></li>
 <li class="chapter" data-level="1.3.2" data-path="differential-gene-expression-dge-analysis-overview.html"><a href="differential-gene-expression-dge-analysis-overview.html#modeling-count-data"><i class="fa fa-check"></i><b>1.3.2</b> Modeling count data</a></li>
-<li class="chapter" data-level="1.3.3" data-path="differential-gene-expression-dge-analysis-overview.html"><a href="differential-gene-expression-dge-analysis-overview.html#improving-mean-estimates-i.e.-reducing-variance-with-biological-replicates"><i class="fa fa-check"></i><b>1.3.3</b> Improving mean estimates (i.e. reducing variance) with biological replicates</a></li>
+<li class="chapter" data-level="1.3.3" data-path="differential-gene-expression-dge-analysis-overview.html"><a href="differential-gene-expression-dge-analysis-overview.html#improving-mean-estimates-i.e.-reducing-variance-with-biological-replicates"><i class="fa fa-check"></i><b>1.3.3</b> Improving mean estimates (i.e. reducing variance) with biological replicates</a></li>
 <li class="chapter" data-level="1.3.4" data-path="differential-gene-expression-dge-analysis-overview.html"><a href="differential-gene-expression-dge-analysis-overview.html#differential-expression-analysis-workflow"><i class="fa fa-check"></i><b>1.3.4</b> Differential expression analysis workflow</a></li>
 </ul></li>
 </ul></li>
@@ -297,7 +283,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.7.7" data-path="codebook.html"><a href="codebook.html#visualize-results-volcano-plots-heatmaps-normalized-counts-plots-of-top-genes-etc."><i class="fa fa-check"></i><b>9.7.7</b> 7. Visualize results: volcano plots, heatmaps, normalized counts plots of top genes, etc.</a></li>
 <li class="chapter" data-level="9.7.8" data-path="codebook.html"><a href="codebook.html#make-sure-to-output-the-versions-of-all-tools-used-in-the-de-analysis"><i class="fa fa-check"></i><b>9.7.8</b> 8. Make sure to output the versions of all tools used in the DE analysis:</a></li>
 </ul></li>
-<li class="chapter" data-level="9.8" data-path="codebook.html"><a href="codebook.html#functional-analysis"><i class="fa fa-check"></i><b>9.8</b> Functional analysis</a>
+<li class="chapter" data-level="9.8" data-path="codebook.html"><a href="codebook.html#functional-analysis-of-rna-seq-data"><i class="fa fa-check"></i><b>9.8</b> Functional analysis of RNA-seq data</a>
 <ul>
 <li class="chapter" data-level="9.8.1" data-path="codebook.html"><a href="codebook.html#over-representation-analysis-1"><i class="fa fa-check"></i><b>9.8.1</b> Over-representation analysis</a></li>
 <li class="chapter" data-level="9.8.2" data-path="codebook.html"><a href="codebook.html#clusterprofiler-1"><i class="fa fa-check"></i><b>9.8.2</b> clusterProfiler</a></li>
@@ -305,34 +291,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.8.4" data-path="codebook.html"><a href="codebook.html#other-tools-and-resources-1"><i class="fa fa-check"></i><b>9.8.4</b> Other tools and resources</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="functional-analysis-1.html"><a href="functional-analysis-1.html"><i class="fa fa-check"></i><b>10</b> Functional analysis</a>
-<ul>
-<li class="chapter" data-level="10.1" data-path="functional-analysis-1.html"><a href="functional-analysis-1.html#over-representation-analysis-2"><i class="fa fa-check"></i><b>10.1</b> Over-representation analysis</a>
-<ul>
-<li class="chapter" data-level="10.1.1" data-path="functional-analysis-1.html"><a href="functional-analysis-1.html#gene-ontology-project"><i class="fa fa-check"></i><b>10.1.1</b> Gene Ontology project</a></li>
-<li class="chapter" data-level="10.1.2" data-path="functional-analysis-1.html"><a href="functional-analysis-1.html#hypergeometric-testing"><i class="fa fa-check"></i><b>10.1.2</b> Hypergeometric testing</a></li>
-</ul></li>
-<li class="chapter" data-level="10.2" data-path="functional-analysis-1.html"><a href="functional-analysis-1.html#clusterprofiler-2"><i class="fa fa-check"></i><b>10.2</b> clusterProfiler</a>
-<ul>
-<li class="chapter" data-level="10.2.1" data-path="functional-analysis-1.html"><a href="functional-analysis-1.html#running-clusterprofiler-2"><i class="fa fa-check"></i><b>10.2.1</b> Running clusterProfiler</a></li>
-<li class="chapter" data-level="10.2.2" data-path="functional-analysis-1.html"><a href="functional-analysis-1.html#visualizing-clusterprofiler-results-2"><i class="fa fa-check"></i><b>10.2.2</b> Visualizing clusterProfiler results</a></li>
-</ul></li>
-<li class="chapter" data-level="10.3" data-path="functional-analysis-1.html"><a href="functional-analysis-1.html#gene-set-enrichment-analysis-gsea-2"><i class="fa fa-check"></i><b>10.3</b> Gene set enrichment analysis (GSEA)</a>
-<ul>
-<li class="chapter" data-level="10.3.1" data-path="functional-analysis-1.html"><a href="functional-analysis-1.html#gsea-using-clusterprofiler-2"><i class="fa fa-check"></i><b>10.3.1</b> GSEA using clusterProfiler</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="11" data-path="this-has-to-be-commented-out-in-epub-and-pdf-formats-because-the-dynamic-network-cannot-be-displayed.html"><a href="this-has-to-be-commented-out-in-epub-and-pdf-formats-because-the-dynamic-network-cannot-be-displayed.html"><i class="fa fa-check"></i><b>11</b> this has to be commented out in epub and pdf formats because the dynamic network cannot be displayed</a>
-<ul>
-<li class="chapter" data-level="11.1" data-path="this-has-to-be-commented-out-in-epub-and-pdf-formats-because-the-dynamic-network-cannot-be-displayed.html"><a href="this-has-to-be-commented-out-in-epub-and-pdf-formats-because-the-dynamic-network-cannot-be-displayed.html#other-tools"><i class="fa fa-check"></i><b>11.1</b> Other Tools</a>
-<ul>
-<li class="chapter" data-level="11.1.1" data-path="this-has-to-be-commented-out-in-epub-and-pdf-formats-because-the-dynamic-network-cannot-be-displayed.html"><a href="this-has-to-be-commented-out-in-epub-and-pdf-formats-because-the-dynamic-network-cannot-be-displayed.html#genemania"><i class="fa fa-check"></i><b>11.1.1</b> GeneMANIA</a></li>
-</ul></li>
-<li class="chapter" data-level="11.2" data-path="this-has-to-be-commented-out-in-epub-and-pdf-formats-because-the-dynamic-network-cannot-be-displayed.html"><a href="this-has-to-be-commented-out-in-epub-and-pdf-formats-because-the-dynamic-network-cannot-be-displayed.html#resources-for-functional-analysis"><i class="fa fa-check"></i><b>11.2</b> Resources for functional analysis</a></li>
-</ul></li>
-<li class="divider"></li>
-<li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
-
 </ul>
 
       </nav>
@@ -342,7 +300,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">08-GO_enrichment_analysis</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">RNA-seq-analysis</a>
           </h1>
         </div>
 
@@ -377,7 +335,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="principal-component-analysis-pca" class="section level3 hasAnchor" number="3.1.1">
 <h3><span class="header-section-number">3.1.1</span> <a href="https://hbctraining.github.io/DGE_workshop/lessons/principal_component_analysis.html">Principal Component Analysis (PCA)</a><a href="quality-control.html#principal-component-analysis-pca" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Principal Component Analysis (PCA) is a technique used to emphasize variation and bring out strong patterns in a dataset (dimensionality reduction). Details regarding PCA are given below, and if you would like a more thorough description, we encourage you to explore <a href="https://www.youtube.com/watch?v=_UVHneBUBW0">StatQuest's video</a>.</p>
+<p>Principal Component Analysis (PCA) is a technique used to emphasize variation and bring out strong patterns in a dataset (dimensionality reduction). Details regarding PCA are given below, and if you would like a more thorough description, we encourage you to explore <a href="https://www.youtube.com/watch?v=_UVHneBUBW0">StatQuest’s video</a>.</p>
 <p>Suppose we had a dataset with two samples and four genes. Based on this expression data we want to evaluate the relationship between these samples. We could plot the counts of one sample versus another, with Sample 1 on the x-axis and Sample 2 on the y-axis as shown below:</p>
 <div class="float">
 <img src="img/PCA_2sample_genes.png" width="600" alt="Alt text" />
@@ -395,7 +353,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <img src="img/zscore.png" width="200" alt="Alt text" />
 <div class="figcaption">Alt text</div>
 </div>
-<p>The z-score is a measure of variability. So it's easy to see how in our plot, the influence of the two endpoints will be greater than the other points because their z-scores are greater as they are farther away from the mean and therefore they will have a greater influence on PC1.</p>
+<p>The z-score is a measure of variability. So it’s easy to see how in our plot, the influence of the two endpoints will be greater than the other points because their z-scores are greater as they are farther away from the mean and therefore they will have a greater influence on PC1.</p>
 <div class="float">
 <img src="img/PCA_samples.png" width="600" alt="Alt text" />
 <div class="figcaption">Alt text</div>
@@ -415,7 +373,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <img src="img/example_metadata.png" width="600" alt="Alt text" />
 <div class="figcaption">Alt text</div>
 </div>
-<p>When visualizing on PC1 and PC2, we don't see the samples separate by <code>treatment</code>, so we decide to explore other sources of variation present in the data. We hope that we have included all possible known sources of variation in our metadata table, and we can use these factors to color the PCA plot.</p>
+<p>When visualizing on PC1 and PC2, we don’t see the samples separate by <code>treatment</code>, so we decide to explore other sources of variation present in the data. We hope that we have included all possible known sources of variation in our metadata table, and we can use these factors to color the PCA plot.</p>
 <div class="float">
 <img src="img/example_PCA_treatmentPC1.png" width="600" alt="Alt text" />
 <div class="figcaption">Alt text</div>
@@ -435,9 +393,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <img src="img/example_PCA_strain.png" width="600" alt="Alt text" />
 <div class="figcaption">Alt text</div>
 </div>
-<p>It's great that we have been able to identify the sources of variation for both PC1 and PC2. By accounting for it in our model, we should be able to detect more genes differentially expressed due to <code>treatment</code>.</p>
+<p>It’s great that we have been able to identify the sources of variation for both PC1 and PC2. By accounting for it in our model, we should be able to detect more genes differentially expressed due to <code>treatment</code>.</p>
 <p>Worrisome about this plot is that we see two samples that do not cluster with the correct strain. This would indicate a likely <strong>sample swap</strong> and should be investigated to determine whether these samples are indeed the labeled strains. If we found there was a switch, we could swap the samples in the metadata. However, if we think they are labeled correctly or are unsure, we could just remove the samples from the dataset.</p>
-<p>Still we haven't found if <code>treatment</code> is a major source of variation after <code>strain</code> and <code>sex</code>. So, we explore PC3 and PC4 to see if <code>treatment</code> is driving the variation represented by either of these PCs.</p>
+<p>Still we haven’t found if <code>treatment</code> is a major source of variation after <code>strain</code> and <code>sex</code>. So, we explore PC3 and PC4 to see if <code>treatment</code> is driving the variation represented by either of these PCs.</p>
 <div class="float">
 <img src="img/example_PCA_treatmentPC3.png" width="600" alt="Alt text" />
 <div class="figcaption">Alt text</div>
@@ -445,7 +403,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>We find that the samples separate by <code>treatment</code> on PC3, and are optimistic about our DE analysis since our condition of interest, <code>treatment</code>, is separating on PC3 and we can regress out the variation driving PC1 and PC2.</p>
 <hr />
 <p><strong>Exercise</strong></p>
-<p>The figure below was generated from a time course experiment with sample groups 'Ctrl' and 'Sci' and the following timepoints: 0h, 2h, 8h, and 16h.</p>
+<p>The figure below was generated from a time course experiment with sample groups ‘Ctrl’ and ‘Sci’ and the following timepoints: 0h, 2h, 8h, and 16h.</p>
 <ul>
 <li>Determine the sources explaining the variation represented by PC1 and PC2.</li>
 <li>Do the sample groups separate well?</li>
@@ -464,7 +422,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">3.1.2</span> Hierarchical Clustering Heatmap<a href="quality-control.html#hierarchical-clustering-heatmap" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Similar to PCA, hierarchical clustering is another, complementary method for identifying strong patterns in a dataset and potential outliers. The heatmap displays <strong>the correlation of gene expression for all pairwise combinations of samples</strong> in the dataset. Since the majority of genes are not differentially expressed, samples generally have high correlations with each other (values higher than 0.80). Samples below 0.80 may indicate an outlier in your data and/or sample contamination.</p>
 <p>The hierarchical tree can indicate which samples are more similar to each other based on the normalized gene expression values. The color blocks indicate substructure in the data, and you would expect to see your replicates cluster together as a block for each sample group. Additionally, we expect to see samples clustered similar to the groupings observed in a PCA plot.</p>
-<p><strong>In the plot below, we would be quite concerned about 'Wt_3' and 'KD_3' samples not clustering with the other replicates. We would want to explore the PCA to see if we see the same clustering of samples.</strong></p>
+<p><strong>In the plot below, we would be quite concerned about ‘Wt_3’ and ‘KD_3’ samples not clustering with the other replicates. We would want to explore the PCA to see if we see the same clustering of samples.</strong></p>
 <div class="float">
 <img src="img/heatmap_example.png" width="500" alt="Alt text" />
 <div class="figcaption">Alt text</div>
@@ -487,7 +445,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="mov10-quality-assessment-and-exploratory-analysis-using-deseq2" class="section level2 hasAnchor" number="3.3">
 <h2><span class="header-section-number">3.3</span> Mov10 quality assessment and exploratory analysis using DESeq2<a href="quality-control.html#mov10-quality-assessment-and-exploratory-analysis-using-deseq2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Now that we have a good understanding of the QC steps normally employed for RNA-seq, let's implement them for the Mov10 dataset we are going to be working with.</p>
+<p>Now that we have a good understanding of the QC steps normally employed for RNA-seq, let’s implement them for the Mov10 dataset we are going to be working with.</p>
 <div id="transform-normalized-counts-using-the-rlog-transformation" class="section level3 hasAnchor" number="3.3.1">
 <h3><span class="header-section-number">3.3.1</span> Transform normalized counts using the rlog transformation<a href="quality-control.html#transform-normalized-counts-using-the-rlog-transformation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><strong>To improve the distances/clustering for the PCA and heirarchical clustering visualization methods</strong>, we need to moderate the variance across the mean by applying the rlog transformation to the normalized counts.</p>
@@ -497,7 +455,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="quality-control.html#cb20-1" tabindex="-1"></a><span class="do">### Transform counts for data visualization</span></span>
 <span id="cb20-2"><a href="quality-control.html#cb20-2" tabindex="-1"></a>rld <span class="ot">&lt;-</span> <span class="fu">rlog</span>(dds, <span class="at">blind=</span><span class="cn">TRUE</span>)</span></code></pre></div>
 <p>The <code>blind=TRUE</code> argument results in a transformation unbiased to sample condition information. When performing quality assessment, it is important to include this option. The <a href="http://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#blind-dispersion-estimation">DESeq2 vignette</a> has more details.</p>
-<p>The <code>rlog</code> function returns a <code>DESeqTransform</code> object, another type of DESeq-specific object. The reason you don't just get a matrix of transformed values is because all of the parameters (i.e. size factors) that went into computing the rlog transform are stored in that object. We use this object to plot the PCA and heirarchical clustering figures for quality assessment.</p>
+<p>The <code>rlog</code> function returns a <code>DESeqTransform</code> object, another type of DESeq-specific object. The reason you don’t just get a matrix of transformed values is because all of the parameters (i.e. size factors) that went into computing the rlog transform are stored in that object. We use this object to plot the PCA and heirarchical clustering figures for quality assessment.</p>
 </div>
 <div id="principal-components-analysis-pca" class="section level3 hasAnchor" number="3.3.2">
 <h3><span class="header-section-number">3.3.2</span> Principal components analysis (PCA)<a href="quality-control.html#principal-components-analysis-pca" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -545,111 +503,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </div>
-<div class="intro-to-R_footer">
-  
-</div>
-<script>
-
-/* update total correct if #webex-total_correct exists */
-update_total_correct = function() {
-  if (t = document.getElementById("webex-total_correct")) {
-    t.innerHTML =
-      document.getElementsByClassName("webex-correct").length + " of " +
-      document.getElementsByClassName("webex-solveme").length + " correct";
-  }
-}
-
-/* webex-solution button toggling function */
-b_func = function() {
-  var cl = this.parentElement.classList;
-  if (cl.contains('open')) {
-    cl.remove("open");
-  } else {
-    cl.add("open");
-  }
-}
-
-/* function for checking solveme answers */
-solveme_func = function(e) {
-  var real_answers = JSON.parse(this.dataset.answer);
-  var my_answer = this.value;
-  var cl = this.classList;
-  if (cl.contains("ignorecase")) {
-    my_answer = my_answer.toLowerCase();
-  }
-  if (cl.contains("nospaces")) {
-    my_answer = my_answer.replace(/ /g, "")
-  }
-  
-  if (my_answer !== "" & real_answers.includes(my_answer)) {
-    cl.add("webex-correct");
-  } else {
-    cl.remove("webex-correct");
-  }
-
-  // match numeric answers within a specified tolerance
-  if(this.dataset.tol > 0){
-    var tol = JSON.parse(this.dataset.tol);  
-    var matches = real_answers.map(x => Math.abs(x - my_answer) < tol)
-    if (matches.reduce((a, b) => a + b, 0) > 0) {
-      cl.add("webex-correct");
-    } else {
-      cl.remove("webex-correct");
-    }  
-  }
-
-  // added regex bit
-  if (cl.contains("regex")){
-    answer_regex = RegExp(real_answers.join("|"))
-    if (answer_regex.test(my_answer)) {
-      cl.add("webex-correct");
-    }  
-  }
-  
-  update_total_correct();
-}
-
-window.onload = function() {
-  /* set up solution buttons */
-  var buttons = document.getElementsByTagName("button");
-
-  for (var i = 0; i < buttons.length; i++) {
-    if (buttons[i].parentElement.classList.contains('webex-solution')) {
-      buttons[i].onclick = b_func;
-    }
-  }
-  
-  /* set up webex-solveme inputs */
-  var solveme = document.getElementsByClassName("webex-solveme");
-
-  for (var i = 0; i < solveme.length; i++) {
-    /* make sure input boxes don't auto-anything */
-    solveme[i].setAttribute("autocomplete","off");
-    solveme[i].setAttribute("autocorrect", "off");
-    solveme[i].setAttribute("autocapitalize", "off"); 
-    solveme[i].setAttribute("spellcheck", "false");
-    solveme[i].value = "";
-    
-    /* adjust answer for ignorecase or nospaces */
-    var cl = solveme[i].classList;
-    var real_answer = solveme[i].dataset.answer;
-    if (cl.contains("ignorecase")) {
-      real_answer = real_answer.toLowerCase();
-    }
-    if (cl.contains("nospaces")) {
-      real_answer = real_answer.replace(/ /g, "");
-    }
-    solveme[i].dataset.answer = real_answer;
-    
-    /* attach checking function */
-    solveme[i].onkeyup = solveme_func;
-    solveme[i].onchange = solveme_func;
-  }
-  
-  update_total_correct();
-}
-
-</script>
             </section>
 
           </div>
@@ -671,8 +524,8 @@ window.onload = function() {
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
-"github": true,
-"facebook": false,
+"github": false,
+"facebook": true,
 "twitter": true,
 "linkedin": false,
 "weibo": false,
@@ -687,8 +540,8 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/rstudio/bookdown/edit/main/inst/examples/lessons/03-DGE_QC_analysis.md",
-"text": "Edit"
+"link": null,
+"text": null
 },
 "history": {
 "link": null,
@@ -705,9 +558,7 @@ gitbook.start({
 },
 "toc": {
 "collapse": "section"
-},
-"fig_height": 5.3,
-"fig_width": 8.5
+}
 });
 });
 </script>

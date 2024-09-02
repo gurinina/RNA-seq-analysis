@@ -4,25 +4,24 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 2 Count normalization | 08-GO_enrichment_analysis</title>
+  <title>Chapter 2 Count normalization | RNA-seq-analysis</title>
   <meta name="description" content="RNA-seq analysis workshop" />
   <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 2 Count normalization | 08-GO_enrichment_analysis" />
+  <meta property="og:title" content="Chapter 2 Count normalization | RNA-seq-analysis" />
   <meta property="og:type" content="book" />
-  <meta property="og:image" content="https://bookdown.org/ggiaever/RNA-seq-analysis/img/football22.png" />
+  <meta property="og:image" content="https://bookdown.org/ggiaever/RNA-seq-analysis/img/football22.png”" />
   <meta property="og:description" content="RNA-seq analysis workshop" />
   <meta name="github-repo" content="gurinina/RNA-seq-analysis" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 2 Count normalization | 08-GO_enrichment_analysis" />
+  <meta name="twitter:title" content="Chapter 2 Count normalization | RNA-seq-analysis" />
   
   <meta name="twitter:description" content="RNA-seq analysis workshop" />
-  <meta name="twitter:image" content="https://bookdown.org/ggiaever/RNA-seq-analysis/img/football22.png" />
+  <meta name="twitter:image" content="https://bookdown.org/ggiaever/RNA-seq-analysis/img/football22.png”" />
 
 
 
-<meta name="date" content="2024-08-31" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -55,16 +54,6 @@
 <link href="libs/vis-9.1.0/vis-network.min.css" rel="stylesheet" />
 <script src="libs/vis-9.1.0/vis-network.min.js"></script>
 <script src="libs/visNetwork-binding-2.1.2/visNetwork.js"></script>
-<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
-<<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-QV7GCCXQ4R"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-QV7GCCXQ4R');
-</script>
 
 
 <style type="text/css">
@@ -151,9 +140,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">Authoring Books with R Markdown</a></li>
-
-<li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>RNA-seq analysis workshop</a></li>
 <li class="chapter" data-level="1" data-path="differential-gene-expression-dge-analysis-overview.html"><a href="differential-gene-expression-dge-analysis-overview.html"><i class="fa fa-check"></i><b>1</b> Differential gene expression (DGE) analysis overview</a>
 <ul>
@@ -168,7 +154,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="1.3.1" data-path="differential-gene-expression-dge-analysis-overview.html"><a href="differential-gene-expression-dge-analysis-overview.html#rna-seq-count-distribution"><i class="fa fa-check"></i><b>1.3.1</b> RNA-seq count distribution</a></li>
 <li class="chapter" data-level="1.3.2" data-path="differential-gene-expression-dge-analysis-overview.html"><a href="differential-gene-expression-dge-analysis-overview.html#modeling-count-data"><i class="fa fa-check"></i><b>1.3.2</b> Modeling count data</a></li>
-<li class="chapter" data-level="1.3.3" data-path="differential-gene-expression-dge-analysis-overview.html"><a href="differential-gene-expression-dge-analysis-overview.html#improving-mean-estimates-i.e.-reducing-variance-with-biological-replicates"><i class="fa fa-check"></i><b>1.3.3</b> Improving mean estimates (i.e. reducing variance) with biological replicates</a></li>
+<li class="chapter" data-level="1.3.3" data-path="differential-gene-expression-dge-analysis-overview.html"><a href="differential-gene-expression-dge-analysis-overview.html#improving-mean-estimates-i.e.-reducing-variance-with-biological-replicates"><i class="fa fa-check"></i><b>1.3.3</b> Improving mean estimates (i.e. reducing variance) with biological replicates</a></li>
 <li class="chapter" data-level="1.3.4" data-path="differential-gene-expression-dge-analysis-overview.html"><a href="differential-gene-expression-dge-analysis-overview.html#differential-expression-analysis-workflow"><i class="fa fa-check"></i><b>1.3.4</b> Differential expression analysis workflow</a></li>
 </ul></li>
 </ul></li>
@@ -297,7 +283,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.7.7" data-path="codebook.html"><a href="codebook.html#visualize-results-volcano-plots-heatmaps-normalized-counts-plots-of-top-genes-etc."><i class="fa fa-check"></i><b>9.7.7</b> 7. Visualize results: volcano plots, heatmaps, normalized counts plots of top genes, etc.</a></li>
 <li class="chapter" data-level="9.7.8" data-path="codebook.html"><a href="codebook.html#make-sure-to-output-the-versions-of-all-tools-used-in-the-de-analysis"><i class="fa fa-check"></i><b>9.7.8</b> 8. Make sure to output the versions of all tools used in the DE analysis:</a></li>
 </ul></li>
-<li class="chapter" data-level="9.8" data-path="codebook.html"><a href="codebook.html#functional-analysis"><i class="fa fa-check"></i><b>9.8</b> Functional analysis</a>
+<li class="chapter" data-level="9.8" data-path="codebook.html"><a href="codebook.html#functional-analysis-of-rna-seq-data"><i class="fa fa-check"></i><b>9.8</b> Functional analysis of RNA-seq data</a>
 <ul>
 <li class="chapter" data-level="9.8.1" data-path="codebook.html"><a href="codebook.html#over-representation-analysis-1"><i class="fa fa-check"></i><b>9.8.1</b> Over-representation analysis</a></li>
 <li class="chapter" data-level="9.8.2" data-path="codebook.html"><a href="codebook.html#clusterprofiler-1"><i class="fa fa-check"></i><b>9.8.2</b> clusterProfiler</a></li>
@@ -305,34 +291,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.8.4" data-path="codebook.html"><a href="codebook.html#other-tools-and-resources-1"><i class="fa fa-check"></i><b>9.8.4</b> Other tools and resources</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="functional-analysis-1.html"><a href="functional-analysis-1.html"><i class="fa fa-check"></i><b>10</b> Functional analysis</a>
-<ul>
-<li class="chapter" data-level="10.1" data-path="functional-analysis-1.html"><a href="functional-analysis-1.html#over-representation-analysis-2"><i class="fa fa-check"></i><b>10.1</b> Over-representation analysis</a>
-<ul>
-<li class="chapter" data-level="10.1.1" data-path="functional-analysis-1.html"><a href="functional-analysis-1.html#gene-ontology-project"><i class="fa fa-check"></i><b>10.1.1</b> Gene Ontology project</a></li>
-<li class="chapter" data-level="10.1.2" data-path="functional-analysis-1.html"><a href="functional-analysis-1.html#hypergeometric-testing"><i class="fa fa-check"></i><b>10.1.2</b> Hypergeometric testing</a></li>
-</ul></li>
-<li class="chapter" data-level="10.2" data-path="functional-analysis-1.html"><a href="functional-analysis-1.html#clusterprofiler-2"><i class="fa fa-check"></i><b>10.2</b> clusterProfiler</a>
-<ul>
-<li class="chapter" data-level="10.2.1" data-path="functional-analysis-1.html"><a href="functional-analysis-1.html#running-clusterprofiler-2"><i class="fa fa-check"></i><b>10.2.1</b> Running clusterProfiler</a></li>
-<li class="chapter" data-level="10.2.2" data-path="functional-analysis-1.html"><a href="functional-analysis-1.html#visualizing-clusterprofiler-results-2"><i class="fa fa-check"></i><b>10.2.2</b> Visualizing clusterProfiler results</a></li>
-</ul></li>
-<li class="chapter" data-level="10.3" data-path="functional-analysis-1.html"><a href="functional-analysis-1.html#gene-set-enrichment-analysis-gsea-2"><i class="fa fa-check"></i><b>10.3</b> Gene set enrichment analysis (GSEA)</a>
-<ul>
-<li class="chapter" data-level="10.3.1" data-path="functional-analysis-1.html"><a href="functional-analysis-1.html#gsea-using-clusterprofiler-2"><i class="fa fa-check"></i><b>10.3.1</b> GSEA using clusterProfiler</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="11" data-path="this-has-to-be-commented-out-in-epub-and-pdf-formats-because-the-dynamic-network-cannot-be-displayed.html"><a href="this-has-to-be-commented-out-in-epub-and-pdf-formats-because-the-dynamic-network-cannot-be-displayed.html"><i class="fa fa-check"></i><b>11</b> this has to be commented out in epub and pdf formats because the dynamic network cannot be displayed</a>
-<ul>
-<li class="chapter" data-level="11.1" data-path="this-has-to-be-commented-out-in-epub-and-pdf-formats-because-the-dynamic-network-cannot-be-displayed.html"><a href="this-has-to-be-commented-out-in-epub-and-pdf-formats-because-the-dynamic-network-cannot-be-displayed.html#other-tools"><i class="fa fa-check"></i><b>11.1</b> Other Tools</a>
-<ul>
-<li class="chapter" data-level="11.1.1" data-path="this-has-to-be-commented-out-in-epub-and-pdf-formats-because-the-dynamic-network-cannot-be-displayed.html"><a href="this-has-to-be-commented-out-in-epub-and-pdf-formats-because-the-dynamic-network-cannot-be-displayed.html#genemania"><i class="fa fa-check"></i><b>11.1.1</b> GeneMANIA</a></li>
-</ul></li>
-<li class="chapter" data-level="11.2" data-path="this-has-to-be-commented-out-in-epub-and-pdf-formats-because-the-dynamic-network-cannot-be-displayed.html"><a href="this-has-to-be-commented-out-in-epub-and-pdf-formats-because-the-dynamic-network-cannot-be-displayed.html#resources-for-functional-analysis"><i class="fa fa-check"></i><b>11.2</b> Resources for functional analysis</a></li>
-</ul></li>
-<li class="divider"></li>
-<li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
-
 </ul>
 
       </nav>
@@ -342,7 +300,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">08-GO_enrichment_analysis</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">RNA-seq-analysis</a>
           </h1>
         </div>
 
@@ -359,7 +317,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <img src="img/deseq_workflow_normalization_2018.png" width="400" alt="Alt text" />
 <div class="figcaption">Alt text</div>
 </div>
-<p>The counts of mapped reads for each gene is proportional to the expression of RNA ("interesting") in addition to many other factors ("uninteresting"). Normalization is the process of scaling raw count values to account for the "uninteresting" factors. In this way the expression levels are more comparable between and/or within samples.</p>
+<p>The counts of mapped reads for each gene is proportional to the expression of RNA (“interesting”) in addition to many other factors (“uninteresting”). Normalization is the process of scaling raw count values to account for the “uninteresting” factors. In this way the expression levels are more comparable between and/or within samples.</p>
 <p>The main factors often considered during normalization are:</p>
 <ul>
 <li><p><strong>Sequencing depth:</strong> Accounting for sequencing depth is necessary for comparison of gene expression between samples. In the example below, each gene appears to have doubled in expression in <em>Sample A</em> relative to <em>Sample B</em>, however this is a consequence of <em>Sample A</em> having double the sequencing depth.</p>
@@ -412,13 +370,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <td>gene count comparisons between genes within a sample; <strong>NOT for between sample comparisons or DE analysis</strong></td>
 </tr>
 <tr class="odd">
-<td>DESeq2's <strong>median of ratios</strong> [<a href="https://genomebiology.biomedcentral.com/articles/10.1186/gb-2010-11-10-r106">1</a>]</td>
+<td>DESeq2’s <strong>median of ratios</strong> [<a href="https://genomebiology.biomedcentral.com/articles/10.1186/gb-2010-11-10-r106">1</a>]</td>
 <td>counts divided by sample-specific size factors determined by median ratio of gene counts relative to geometric mean per gene</td>
 <td>sequencing depth and RNA composition</td>
 <td>gene count comparisons between samples and for <strong>DE analysis</strong>; <strong>NOT for within sample comparisons</strong></td>
 </tr>
 <tr class="even">
-<td>EdgeR's <strong>trimmed mean of M values (TMM)</strong> [<a href="https://genomebiology.biomedcentral.com/articles/10.1186/gb-2010-11-3-r25">2</a>]</td>
+<td>EdgeR’s <strong>trimmed mean of M values (TMM)</strong> [<a href="https://genomebiology.biomedcentral.com/articles/10.1186/gb-2010-11-3-r25">2</a>]</td>
 <td>uses a weighted trimmed mean of the log expression ratios between samples</td>
 <td>sequencing depth, RNA composition</td>
 <td>gene count comparisons between samples and for <strong>DE analysis</strong>; <strong>NOT for within sample comparisons</strong></td>
@@ -451,9 +409,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <td align="center">21.8</td>
 </tr>
 <tr class="odd">
-<td>...</td>
-<td align="center">...</td>
-<td align="center">...</td>
+<td>…</td>
+<td align="center">…</td>
+<td align="center">…</td>
 </tr>
 <tr class="even">
 <td>Total RPKM-normalized counts</td>
@@ -507,10 +465,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <td align="center">sqrt(22 * 13) = <strong>17.7</strong></td>
 </tr>
 <tr class="odd">
-<td>...</td>
-<td align="center">...</td>
-<td align="center">...</td>
-<td align="center">...</td>
+<td>…</td>
+<td align="center">…</td>
+<td align="center">…</td>
+<td align="center">…</td>
 </tr>
 </tbody>
 </table>
@@ -577,10 +535,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <td align="center">1196/883.7 = <strong>1.35</strong></td>
 </tr>
 <tr class="even">
-<td>...</td>
-<td align="center">...</td>
-<td align="center">...</td>
-<td align="center">...</td>
+<td>…</td>
+<td align="center">…</td>
+<td align="center">…</td>
+<td align="center">…</td>
 <td align="center"></td>
 <td align="center"></td>
 </tr>
@@ -600,7 +558,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Usually these size factors are around 1, if you see large variations between samples it is important to take note since it might indicate the presence of extreme outliers.</p>
 </blockquote>
 <p><strong>Step 4: calculate the normalized count values using the normalization factor</strong></p>
-<p>This is performed by dividing each raw count value in a given sample by that sample's normalization factor to generate normalized count values. This is performed for all count values (every gene in every sample). For example, if the median ratio for SampleA was 1.3 and the median ratio for SampleB was 0.77, you could calculate normalized counts as follows:</p>
+<p>This is performed by dividing each raw count value in a given sample by that sample’s normalization factor to generate normalized count values. This is performed for all count values (every gene in every sample). For example, if the median ratio for SampleA was 1.3 and the median ratio for SampleB was 0.77, you could calculate normalized counts as follows:</p>
 <p>SampleA median ratio = 1.3</p>
 <p>SampleB median ratio = 0.77</p>
 <p><strong>Raw Counts</strong></p>
@@ -624,9 +582,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <td align="center">13</td>
 </tr>
 <tr class="odd">
-<td>...</td>
-<td align="center">...</td>
-<td align="center">...</td>
+<td>…</td>
+<td align="center">…</td>
+<td align="center">…</td>
 </tr>
 </tbody>
 </table>
@@ -651,9 +609,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <td align="center">13 / 0.77 = <strong>16.88</strong></td>
 </tr>
 <tr class="odd">
-<td>...</td>
-<td align="center">...</td>
-<td align="center">...</td>
+<td>…</td>
+<td align="center">…</td>
+<td align="center">…</td>
 </tr>
 </tbody>
 </table>
@@ -689,7 +647,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="count-normalization.html#cb10-1" tabindex="-1"></a><span class="do">### Check that sample names match in both files</span></span>
 <span id="cb10-2"><a href="count-normalization.html#cb10-2" tabindex="-1"></a><span class="fu">all</span>(<span class="fu">colnames</span>(data) <span class="sc">%in%</span> <span class="fu">rownames</span>(meta))</span>
 <span id="cb10-3"><a href="count-normalization.html#cb10-3" tabindex="-1"></a><span class="fu">all</span>(<span class="fu">colnames</span>(data) <span class="sc">==</span> <span class="fu">rownames</span>(meta))</span></code></pre></div>
-<p>The colnames of our data don't match the rownames of our metadata so we need to reorder them. We can use the <code>match</code> function:</p>
+<p>The colnames of our data don’t match the rownames of our metadata so we need to reorder them. We can use the <code>match</code> function:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="count-normalization.html#cb11-1" tabindex="-1"></a><span class="co"># write the code to match the colnames of data to the rownames of meta</span></span>
 <span id="cb11-2"><a href="count-normalization.html#cb11-2" tabindex="-1"></a></span>
 <span id="cb11-3"><a href="count-normalization.html#cb11-3" tabindex="-1"></a><span class="co"># check that the rownames of the metadata match the colnames of the data</span></span></code></pre></div>
@@ -698,7 +656,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="create-deseq2-object" class="section level3 hasAnchor" number="2.3.2">
 <h3><span class="header-section-number">2.3.2</span> 2. Create DESEq2 object<a href="count-normalization.html#create-deseq2-object" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Bioconductor software packages often define and use a custom class within R for storing data (input data, intermediate data and also result data). These custom data structures are similar to <code>lists</code> in that they can contain multiple different data types/structures within them. But, unlike lists they have pre-specified <code>data slots</code>, which hold specific types/classes of data. The data stored in these pre-specified slots can be accessed by using specific package-defined functions.</p>
-<p>Let's start by creating the <code>DESeqDataSet</code> object and then we can talk a bit more about what is stored inside it. To create the object we will need the <strong>count matrix</strong> and the <strong>metadata</strong> table as input. We will also need to specify a <strong>design formula</strong>. The design formula specifies the column(s) in the metadata table and how they should be used in the analysis. For our dataset we only have one column we are interested in, that is <code>~sampletype</code>. This column has three factor levels, which tells DESeq2 that for each gene we want to evaluate gene expression change with respect to these different levels.</p>
+<p>Let’s start by creating the <code>DESeqDataSet</code> object and then we can talk a bit more about what is stored inside it. To create the object we will need the <strong>count matrix</strong> and the <strong>metadata</strong> table as input. We will also need to specify a <strong>design formula</strong>. The design formula specifies the column(s) in the metadata table and how they should be used in the analysis. For our dataset we only have one column we are interested in, that is <code>~sampletype</code>. This column has three factor levels, which tells DESeq2 that for each gene we want to evaluate gene expression change with respect to these different levels.</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="count-normalization.html#cb12-1" tabindex="-1"></a><span class="do">## Create DESeq2Dataset object</span></span>
 <span id="cb12-2"><a href="count-normalization.html#cb12-2" tabindex="-1"></a>dds <span class="ot">&lt;-</span> <span class="fu">DESeqDataSetFromMatrix</span>(<span class="at">countData =</span> data, <span class="at">colData =</span> meta, <span class="at">design =</span> <span class="sc">~</span> sampletype)</span></code></pre></div>
 <div class="float">
@@ -729,111 +687,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </div>
-<div class="intro-to-R_footer">
-  
-</div>
-<script>
-
-/* update total correct if #webex-total_correct exists */
-update_total_correct = function() {
-  if (t = document.getElementById("webex-total_correct")) {
-    t.innerHTML =
-      document.getElementsByClassName("webex-correct").length + " of " +
-      document.getElementsByClassName("webex-solveme").length + " correct";
-  }
-}
-
-/* webex-solution button toggling function */
-b_func = function() {
-  var cl = this.parentElement.classList;
-  if (cl.contains('open')) {
-    cl.remove("open");
-  } else {
-    cl.add("open");
-  }
-}
-
-/* function for checking solveme answers */
-solveme_func = function(e) {
-  var real_answers = JSON.parse(this.dataset.answer);
-  var my_answer = this.value;
-  var cl = this.classList;
-  if (cl.contains("ignorecase")) {
-    my_answer = my_answer.toLowerCase();
-  }
-  if (cl.contains("nospaces")) {
-    my_answer = my_answer.replace(/ /g, "")
-  }
-  
-  if (my_answer !== "" & real_answers.includes(my_answer)) {
-    cl.add("webex-correct");
-  } else {
-    cl.remove("webex-correct");
-  }
-
-  // match numeric answers within a specified tolerance
-  if(this.dataset.tol > 0){
-    var tol = JSON.parse(this.dataset.tol);  
-    var matches = real_answers.map(x => Math.abs(x - my_answer) < tol)
-    if (matches.reduce((a, b) => a + b, 0) > 0) {
-      cl.add("webex-correct");
-    } else {
-      cl.remove("webex-correct");
-    }  
-  }
-
-  // added regex bit
-  if (cl.contains("regex")){
-    answer_regex = RegExp(real_answers.join("|"))
-    if (answer_regex.test(my_answer)) {
-      cl.add("webex-correct");
-    }  
-  }
-  
-  update_total_correct();
-}
-
-window.onload = function() {
-  /* set up solution buttons */
-  var buttons = document.getElementsByTagName("button");
-
-  for (var i = 0; i < buttons.length; i++) {
-    if (buttons[i].parentElement.classList.contains('webex-solution')) {
-      buttons[i].onclick = b_func;
-    }
-  }
-  
-  /* set up webex-solveme inputs */
-  var solveme = document.getElementsByClassName("webex-solveme");
-
-  for (var i = 0; i < solveme.length; i++) {
-    /* make sure input boxes don't auto-anything */
-    solveme[i].setAttribute("autocomplete","off");
-    solveme[i].setAttribute("autocorrect", "off");
-    solveme[i].setAttribute("autocapitalize", "off"); 
-    solveme[i].setAttribute("spellcheck", "false");
-    solveme[i].value = "";
-    
-    /* adjust answer for ignorecase or nospaces */
-    var cl = solveme[i].classList;
-    var real_answer = solveme[i].dataset.answer;
-    if (cl.contains("ignorecase")) {
-      real_answer = real_answer.toLowerCase();
-    }
-    if (cl.contains("nospaces")) {
-      real_answer = real_answer.replace(/ /g, "");
-    }
-    solveme[i].dataset.answer = real_answer;
-    
-    /* attach checking function */
-    solveme[i].onkeyup = solveme_func;
-    solveme[i].onchange = solveme_func;
-  }
-  
-  update_total_correct();
-}
-
-</script>
             </section>
 
           </div>
@@ -855,8 +708,8 @@ window.onload = function() {
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
-"github": true,
-"facebook": false,
+"github": false,
+"facebook": true,
 "twitter": true,
 "linkedin": false,
 "weibo": false,
@@ -871,8 +724,8 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/rstudio/bookdown/edit/main/inst/examples/lessons/02-DGE_count_normalization.md",
-"text": "Edit"
+"link": null,
+"text": null
 },
 "history": {
 "link": null,
@@ -889,9 +742,7 @@ gitbook.start({
 },
 "toc": {
 "collapse": "section"
-},
-"fig_height": 5.3,
-"fig_width": 8.5
+}
 });
 });
 </script>
