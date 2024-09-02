@@ -1,3 +1,10 @@
+.book .book-summary .summary .chapter a {
+  white-space: normal; /* Allows the text to wrap normally */
+  word-wrap: break-word; /* Breaks long words to ensure wrapping */
+  display: block;
+  padding-left: 1.5em; /* Adjust padding to align the second line */
+  text-indent: -1em; /* Aligns the first line with the list number */
+}
 
 th, td {
         font-size: 12px;

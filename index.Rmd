@@ -2,7 +2,6 @@
 title: "RNA-seq-analysis"
 output:
   bookdown::gitbook:
-    df_print: kable
     css: [css/git.css, css/toc.css]
     config:
       toc:
@@ -13,8 +12,7 @@ url: "https://bookdown.org/ggiaever/RNA-seq-analysis"
 description: "RNA-seq analysis workshop"
 site: bookdown::bookdown_site
 documentclass: book
-favicon: "img/icons8-biotech-64.png"
-cover-image: img/football22.png"
+cover-image: "img/football.png"
 always_allow_html: true
 link-citations: true
 ---

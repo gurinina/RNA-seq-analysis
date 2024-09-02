@@ -1,6 +1,12 @@
 /* psyTeachR default styles. Do not edit this !! */
 /* (edit style.css for your own book styles) */
 
+/* Prevent page breaks after title and heading in EPUB */
+h1, h2, h3, p {
+    page-break-after: avoid;
+}
+
+
 :root {
   --pink: #983E82;   /* hsl(315, 42%, 42%) */
   --orange: #E2A458; /* hsl( 33, 70%, 62%) */
