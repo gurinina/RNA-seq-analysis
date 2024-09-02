@@ -11,27 +11,10 @@ rmd_files:
   - lessons/07-DGE_summarizing_workflow.md
   - lessons/08-GO_enrichment_analysis.Rmd
   - lessons/09-DGE_codebook.Rmd
-
 delete_merged_file: no
 chapter_name: "Chapter "
 language:
   label:
     fig: "Figure "
     tab: "Table "
-
-output:
-  bookdown::gitbook:
-    output_dir: "_book"
-    css: [css/git.css, css/toc.css]
-
-  bookdown::epub_book:
-    output_dir: "_epub"
-    epub_version: "3"
-
-  bookdown::pdf_book:
-    output_dir: "_pdf"
-    latex_engine: xelatex
-    includes:
-      in_header: preamble.tex
-
 rmd_subdir: ["lessons"]

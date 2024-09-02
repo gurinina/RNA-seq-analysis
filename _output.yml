@@ -1,29 +1,14 @@
 bookdown::gitbook:
-  includes:
-    in_header: includes/header.html
-    after_body: [includes/footer.html, includes/webex.js]
-  md_extensions: -smart
-  df_print: kable
-  css: [css/git.css, css/toc.css]
-  config:
-    toc:
-      collapse: section
-      before: |
-        <li><a href="./">Authoring Books with R Markdown</a></li>
-      after: |
-        <li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
-    edit: https://github.com/rstudio/bookdown/edit/main/inst/examples/%s
-    sharing:
-      github: yes
-      facebook: no
-    search:
-      engine: fuse
-    download: ["pdf", "epub"]
-    fig_height: 5.3
-    fig_width: 8.5
+    df_print: kable
+    css: [css/git.css, css/toc.css]
+    config:
+      toc:
+        collapse: section
+      download: ["pdf", "epub"]
+
 bookdown::pdf_book:
   includes:
-    in_header: lessons/preamble.tex
+   in_header: lessons/preamble.tex
   keep_tex: yes
   dev: "cairo_pdf"
   latex_engine: xelatex
@@ -34,6 +19,6 @@ bookdown::pdf_book:
   toc_unnumbered: no
   toc_appendix: yes
   quote_footer: ["\\VA{", "}{}"]
+
 bookdown::epub_book:
-  dev: svglite
-  stylesheet: css/epub.css
+  epub_version: "epub3"

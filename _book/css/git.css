@@ -1,0 +1,590 @@
+
+th, td {
+        font-size: 12px;
+        border-collapse: collapse;
+        border-width:3px;
+    }
+
+/* ordered and unordered list styles */
+.reveal ul,
+.reveal ol {
+    font-size: 12px;
+    color: black;
+}
+
+/*
+.book.font-size-2 .book-body .page-inner section {
+  font-size: 12px;
+}
+*/
+
+/*____Code Chunks____*/
+/*this is the the box part of the. code */
+.pre.sourceCode r Code {
+  margin: 0 !important;
+  background:white:!important;
+  color: black!important;
+  border: 3px solid black;
+}
+
+/*this is the meat of the. code */
+.sourceCode r {
+  background: #E7E1FB;!important;
+  color: black!important;
+  border: 3px solid black
+  margin-bottom: 12px !important;
+
+}
+.showopt {
+  background-color: #000080;
+  color: #FFFFFF;
+  width: 100px;
+  height: 20px;
+  text-align: center;
+  vertical-align: middle !important;
+  float: right;
+  font-family: sans-serif;
+  border-radius: 8px;
+}
+details {
+  border: 3px solid #aaa;
+  width: 672px;
+  border-color: black;
+  color: #FFFFFF;
+  background-color: #000080;
+  border-radius: 4px;
+  padding: 0.5em 0.5em 0;
+}
+
+summary {
+background-color: Orange;
+font-weight: bold;
+  color: #000080;
+  font-weight: bold;
+  margin: -0.5em -0.5em 0;
+  padding: 0.5em;
+}
+
+details[open] {
+  padding: 0.5em;
+  border: 3px solid black;
+  width: 672px;
+  background-color: #E8D6FF;
+  color: #000080;
+  border-radius: 4px;
+  border-color: black;
+  padding: 0.5em 0.5em 0;
+}
+
+details summary {
+background-color: #000080;
+
+  font-size: 12px!important;
+  color: #FFFFFF;
+  border-bottom: 1px solid black;
+  margin-bottom: 0.5em;
+}
+details[open] summary {
+
+  font-size: 12px!important;
+  background-color: #E8D6FF;
+  color: #000080;
+  border-bottom: 1px solid black;
+  margin-bottom: 0.5em;
+}
+
+.book .book-body .page-wrapper .page-inner section.normal *{
+
+  font-size: 12px!important;
+
+}
+
+code span.do {
+    color: black!important;
+    font-style: italic;
+}
+p code {
+  white-space: inherit;
+  color: darkred!important;
+  background: #FFFFFF!important;
+}
+
+.book .book-body .page-wrapper .page-inner section.normal pre {
+  word-break: normal;
+  /* word-wrap: normal;*/
+  font-size: 12px!important;
+  border: 2px solid black!important;
+  white-space: pre-wrap;
+  background: #E7E1FB!important;
+}
+
+pre code {
+  white-space: pre-wrap;
+  font-size: 12px;
+  background-color: #E7E1FB!important;
+}
+
+.main-container {
+  max-width: 800px!important;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/*.book .book-body .page-wrapper .page-inner {
+    max-width: 2500px !important;
+    margin: 0 !important;
+    padding: 5px 0 5px !important;
+}*/
+
+.book .book-body .page-wrapper .page-inner {
+  max-width: 95%;
+}
+/* for multi cols
+.cols {display: flex; } uncomment for flex column size
+.cols {display: grid; grid-template-columns: 30% 50% 20%;} for fixed column size */
+
+h1, h2, h3, h4 {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #000080;
+}
+
+.title {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.3em !important;
+
+  color: #000080;
+ }
+
+.subtitle {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #000080;
+  font-size: 12px !important;
+}
+
+
+
+dt {
+  color:  #000080;
+}
+
+.book.font-family-0 {
+  font-family: Georgia, serif;
+}
+.book.font-family-1 {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+/* this is paragraph text */
+.book .book-body .page-wrapper .page-inner section.normal p {
+
+    font-size: 12px;
+}
+
+
+/* The next two rules make the horizontal line go straight across in top navbar */
+/*
+.summary > li:first-child {
+    height: 0px;
+    padding-top: 10px;
+    border-bottom: 1px solid rgba(0,0,0,.07);
+}
+*/
+/*
+.header-section-number {
+  padding-right: .2em;
+  font-weight: bold!important;
+}
+*/
+/*
+.level1 .header-section-number {
+  display: inline-block;
+  border-bottom: 3px solid;
+}
+.level1 h1 {
+  border-bottom: 1px solid;
+}
+h1, h2, h3, h4, h5, h6 {
+   font-weight: bold!important;
+}
+*/
+/*
+h1.title {
+  .header-section-number {
+  padding-right: .2em;
+   font-weight: bold!important;;
+}
+*/
+
+/*
+.level1 .header-section-number {
+  display: inline-block;
+
+}
+*/
+/*
+h1.title {
+   font-weight: bold!important
+}
+.book .book-body .page-wrapper .page-inner section.normal strong {
+   font-weight: bold!important;
+}
+*/
+
+.book .book-body .page-wrapper .page-inner section.normal h1{
+    font-size: 12px;
+    margin-top: 12px }
+
+.book .book-body .page-wrapper .page-inner section.normal h2 {
+    font-size: 12px!important;
+}
+
+.book .book-body .page-wrapper .page-inner section.normal h3 {
+    font-size: 12px!important;
+}
+.book .book-body .page-wrapper .page-inner section.normal h4 {
+    font-size: 12px!important
+}
+
+.book .book-body .page-wrapper .page-inner section.normal h5 {
+    font-size: 12px!important;
+}
+/*@media (min-width: 600px) {
+  .book.with-summary .book-header.fixed {
+    left: 300px!important;
+    background-color: #000080!important;
+    color: #FFFFFF!important;
+  }
+*/
+/*
+@media (max-width: 1240px) {
+  .book .book-body.fixed {
+   top: 0px!important;
+  }
+  */
+  /*
+   /*straight from gitbook.css*/
+    /*
+.book .book-header.fixed { position: fixed; right: 0px; top: 0px; left: 0px; border-bottom: 1px solid rgba(0, 0, 0, 0.07); }
+
+span.search-highlight {
+background-color: rgb(255, 255, 136); }
+@media (min-width: 600px) {
+  .book.with-summary .book-header.fixed { left: 300px; }
+}
+@media (max-width: 1240px) {
+  .book .book-body.fixed { top: 50px; }
+  .book .book-body.fixed .body-inner { top: auto; }
+}
+@media (max-width: 600px) {
+  .book.with-summary .book-header.fixed { left: calc(100% - 60px); min-width: 300px; }
+  .book.with-summary .book-body { transform: none; left: calc(100% - 60px); min-width: 300px; }
+  .book .book-body.fixed { top: 0px; }
+}
+*/
+  /*straight from gitbook.css*/
+/*
+.book .book-header.fixed {
+    width: 1240px !important;
+    padding: 5px;
+    background-color: #000080!important;
+    color: #FFFFFF!important;
+}*/
+/*
+.book .book-header.fixed {
+  width: 600px!important;
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 600px!important;
+  border-bottom: 1px solid rgba(0,0,0,.07);
+}
+*/
+
+/*
+span.search-highlight {
+  background-color: #ffff88;
+}
+*/
+/*
+@media (min-width: 600px) {
+  .book.with-summary .book-header.fixed {
+    left: 250px:!important
+  }
+}
+*/
+/*
+@media (max-width: 1240px) {
+  .book .book-body.fixed {
+    top: 50px;
+  }
+  */
+/*
+.book .book-header.fixed {
+    left: 0px!important;
+    height: 50px!important;
+     color: #FFFFFF!important;
+background-color: #000080:!important;
+}
+*/
+
+/*
+.book .book-header.fixed {
+  left: 250px!important;
+   color: #FFFFFF!important;
+background-color: #000080:!important;
+}
+*/
+
+/*
+.book .book-header {
+  font-size: 12px!important;
+  color: #FFFFFF;
+  background: #000080!important;
+}*/
+
+/*
+.book .book-header {
+
+  font-size: 0.85em;
+    left: 250px!important;
+  color: #FFFFFF!important;
+   background: #000080!important;
+
+}
+
+
+.book .book-header .btn {
+  display: block;
+  height: 50px;
+  padding: 0px 15px;
+  border: 3px solid #000080!important;
+  color: #FFFFFF!important;
+  text-transform: uppercase;
+  line-height: 50px;
+  position: relative;
+  font-size: 14px;
+  box-shadow: none!important;
+
+}
+
+
+.book .book-header .btn:hover {
+  position: relative;
+  text-decoration: none;
+  color: rgb(68, 68, 68);
+  background: #000080!important;
+
+}
+
+*/
+/*
+.book .book-header h1 {          margin: 0px;
+    font-size: 20px;
+    font-weight: 200;
+    text-align: center;
+    line-height: 50px;
+    opacity: 0;
+    padding-left: 200px;         padding-right: 200px;        transition: opacity 0.2s ease 0s;
+    overflow: hidden;
+    text-overflow: ellipsis;      white-space: nowrap;
+
+}
+
+.book .book-header h1 a, .book .book-header h1 a:hover {
+    color: inherit;
+    text-decoration: none; }
+
+@media (max-width: 1000px) {
+  .book .book-header h1 { display: none; }
+}
+.book .book-header h1 i { display: none;
+
+}
+
+
+/*this is the sidebar hover */
+/*
+.book .book-summary ul.summary {
+  background-color: #ffffff;
+  color: #A3CBF8!important;
+  background: #000080!important;
+}
+*/
+.book .book-summary ul.summary li.active>a {
+  color: #000080!important;
+  background: #FFFFFF!important;
+}
+/*
+.book .book-summary ul.summary li a {
+  color: #FFFFFF!important;
+}
+*/
+
+.book .book-summary ul.summary li a:hover, .book .book-summary ul.summary li.active>a{
+  color: #000080!important;
+  background: #FFFFFF!important;
+
+}
+/* this is the sidebar hover */
+.book .book-summary ul.summary li a:hover {
+  color: #000080!important;
+  background: #FFFFFF!important;
+}
+/*
+.book .book-body {
+    color: #FFFFFF!important;
+    background: 000080!important;
+}
+*/
+
+body {
+
+    font-family: Arial, Helvetica, sans-serif!important;
+    top: 0!important;
+    color: #FFFFFF!important;
+    /*background: #000080!important;*/
+    font-size: 12px!important;
+}
+
+/*
+@media (min-width: 600px) {
+    .book.with-summary .book-body {
+        left:400px
+    }
+}*/
+
+/* this is the sidebar width and TEXT COLOR */
+.book .book-summary ul.summary li a, .book .book-summary ul.summary li span{
+    font-size: 12px!important;
+     color: #FFFFFF!important;
+  background-color: #000080!important;
+    display: block;
+    padding: 10px 15px;
+    font-size: 12px!important;
+    border-bottom: none;
+
+    text-overflow: ellipsis;
+    white-space: wrap;
+    position: relative;
+    font-weight: bold!important;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif !important;
+}
+
+/* this is the sidebar width and font family */
+.book .book-summary {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px:!important;
+  height: 100%;
+  width: 250px!important;
+  position:absolute;
+  font-weight: bold!important;
+  top:0px!important;
+  color: #FFFFFF!important;
+  background-color: #000080!important;
+}
+
+/*
+.book .book-summary {
+  position: absolute;
+top: 0px;
+left: -250x;
+bottom: 0px;
+z-index: 1;
+width: 250px;
+ color: #FFFFFF!important;
+    background: #000080!important;
+border: 1px solid #000080!important;
+transition: left 250ms ease 0s;
+
+}
+*/
+
+/*
+.book .book-header, .book .book-summary { font-family: "Helvetica Neue"
+
+.book .book-summary ul.summary {
+  position: absolute; inset: 0px;
+   color: #FFFFFF!important;
+    background: #000080!important;
+  overflow-y: auto;
+  list-style: none; margin: 0px;
+
+  padding: 0px; transition: top 0.5s ease 0s;
+
+}
+*/
+
+/* this is the sidebar width and font family */
+
+/*
+.book .book-summary {
+
+    position:absolute;
+
+    font-size: 12px:!important;
+    font-weight: bold!important;
+
+    top: 0;
+    bottom: 0;
+    z-index: 1;
+    color: #FFFFFF!important;
+    background #000080!important;
+}
+*/
+
+/*
+  .book .book-summary .book-search input
+.book .book-summary .book-search input:focus,
+.book .book-summary .book-search input{
+  width: 900px!important;
+   border: 1px solid #ccc;
+  color: #000080!important;
+  background: #ffffff!important;
+  border: 1px solid #ccc;
+  box-shadow: none;
+  outline: none;
+  line-height: 22px;
+  padding: 7px 4px;
+  box-sizing: border-box;
+}
+/*
+
+
+.book .book-summary .book-search {
+    padding: 6px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    transition: top 0.5s ease 0s;
+
+    width: 900px!important;
+    border: 1px solid #000080!important;
+    background-color: #000080!important;
+    color:#ffffff!important
+}
+
+
+/*.book.with-summary .book-body {
+    left: 300px;
+}*/
+
+
+/*____Code Chunks____*/
+
+
+
+/* The next two rules make the horizontal line go straight across in top navbar */
+
+/*
+.summary > li:first-child {
+    height: 50px;
+    padding-top: 10px;
+    border-bottom: 1px solid rgba(0,0,0,.07);
+}
+
+
+.divider {
+    height: 0px !important;
+}
+*/

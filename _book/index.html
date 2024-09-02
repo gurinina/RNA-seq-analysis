@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>RNA-seq-analysis</title>
+  <meta name="description" content="RNA-seq analysis workshop" />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="RNA-seq-analysis" />
+  <meta property="og:type" content="book" />
+  <meta property="og:image" content="https://bookdown.org/ggiaever/RNA-seq-analysis/img/football22.png" />
+  <meta property="og:description" content="RNA-seq analysis workshop" />
+  <meta name="github-repo" content="gurinina/RNA-seq-analysis" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="RNA-seq-analysis" />
+  
+  <meta name="twitter:description" content="RNA-seq analysis workshop" />
+  <meta name="twitter:image" content="https://bookdown.org/ggiaever/RNA-seq-analysis/img/football22.png" />
+
+
+
+<meta name="date" content="2024-08-31" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  <link rel="shortcut icon" href="img/icons8-biotech-64.png" type="image/x-icon" />
+
+<link rel="next" href="differential-gene-expression-dge-analysis-overview.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QV7GCCXQ4R"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QV7GCCXQ4R');
+</script>
+
+
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="css/git.css" type="text/css" />
+<link rel="stylesheet" href="css/toc.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Authoring Books with R Markdown</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>RNA-seq analysis workshop</a></li>
+<li class="chapter" data-level="1" data-path="differential-gene-expression-dge-analysis-overview.html"><a href="differential-gene-expression-dge-analysis-overview.html"><i class="fa fa-check"></i><b>1</b> Differential gene expression (DGE) analysis overview</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="differential-gene-expression-dge-analysis-overview.html"><a href="differential-gene-expression-dge-analysis-overview.html#review-of-the-dataset"><i class="fa fa-check"></i><b>1.1</b> Review of the dataset</a></li>
+<li class="chapter" data-level="1.2" data-path="differential-gene-expression-dge-analysis-overview.html"><a href="differential-gene-expression-dge-analysis-overview.html#setting-up"><i class="fa fa-check"></i><b>1.2</b> Setting up</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="differential-gene-expression-dge-analysis-overview.html"><a href="differential-gene-expression-dge-analysis-overview.html#loading-libraries"><i class="fa fa-check"></i><b>1.2.1</b> Loading libraries</a></li>
+<li class="chapter" data-level="1.2.2" data-path="differential-gene-expression-dge-analysis-overview.html"><a href="differential-gene-expression-dge-analysis-overview.html#loading-data"><i class="fa fa-check"></i><b>1.2.2</b> Loading data</a></li>
+<li class="chapter" data-level="1.2.3" data-path="differential-gene-expression-dge-analysis-overview.html"><a href="differential-gene-expression-dge-analysis-overview.html#viewing-data"><i class="fa fa-check"></i><b>1.2.3</b> Viewing data</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="differential-gene-expression-dge-analysis-overview.html"><a href="differential-gene-expression-dge-analysis-overview.html#differential-gene-expression-analysis-overview"><i class="fa fa-check"></i><b>1.3</b> Differential gene expression analysis overview</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="differential-gene-expression-dge-analysis-overview.html"><a href="differential-gene-expression-dge-analysis-overview.html#rna-seq-count-distribution"><i class="fa fa-check"></i><b>1.3.1</b> RNA-seq count distribution</a></li>
+<li class="chapter" data-level="1.3.2" data-path="differential-gene-expression-dge-analysis-overview.html"><a href="differential-gene-expression-dge-analysis-overview.html#modeling-count-data"><i class="fa fa-check"></i><b>1.3.2</b> Modeling count data</a></li>
+<li class="chapter" data-level="1.3.3" data-path="differential-gene-expression-dge-analysis-overview.html"><a href="differential-gene-expression-dge-analysis-overview.html#improving-mean-estimates-i.e.-reducing-variance-with-biological-replicates"><i class="fa fa-check"></i><b>1.3.3</b> Improving mean estimates (i.e. reducing variance) with biological replicates</a></li>
+<li class="chapter" data-level="1.3.4" data-path="differential-gene-expression-dge-analysis-overview.html"><a href="differential-gene-expression-dge-analysis-overview.html#differential-expression-analysis-workflow"><i class="fa fa-check"></i><b>1.3.4</b> Differential expression analysis workflow</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="count-normalization.html"><a href="count-normalization.html"><i class="fa fa-check"></i><b>2</b> Count normalization</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="count-normalization.html"><a href="count-normalization.html#normalization"><i class="fa fa-check"></i><b>2.1</b> Normalization</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="count-normalization.html"><a href="count-normalization.html#common-normalization-methods"><i class="fa fa-check"></i><b>2.1.1</b> Common normalization methods</a></li>
+<li class="chapter" data-level="2.1.2" data-path="count-normalization.html"><a href="count-normalization.html#rpkmfpkm-not-recommended"><i class="fa fa-check"></i><b>2.1.2</b> RPKM/FPKM (not recommended)</a></li>
+<li class="chapter" data-level="2.1.3" data-path="count-normalization.html"><a href="count-normalization.html#deseq2-normalized-counts-median-of-ratios-method"><i class="fa fa-check"></i><b>2.1.3</b> DESeq2-normalized counts: Median of ratios method</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="count-normalization.html"><a href="count-normalization.html#geometric-mean"><i class="fa fa-check"></i><b>2.2</b> Geometric Mean</a></li>
+<li class="chapter" data-level="2.3" data-path="count-normalization.html"><a href="count-normalization.html#count-normalization-of-mov10-dataset"><i class="fa fa-check"></i><b>2.3</b> Count normalization of Mov10 dataset</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="count-normalization.html"><a href="count-normalization.html#match-the-metadata-and-counts-data"><i class="fa fa-check"></i><b>2.3.1</b> 1. Match the metadata and counts data</a></li>
+<li class="chapter" data-level="2.3.2" data-path="count-normalization.html"><a href="count-normalization.html#create-deseq2-object"><i class="fa fa-check"></i><b>2.3.2</b> 2. Create DESEq2 object</a></li>
+<li class="chapter" data-level="2.3.3" data-path="count-normalization.html"><a href="count-normalization.html#generate-the-mov10-normalized-counts"><i class="fa fa-check"></i><b>2.3.3</b> 3. Generate the Mov10 normalized counts</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="quality-control.html"><a href="quality-control.html"><i class="fa fa-check"></i><b>3</b> Quality Control</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="quality-control.html"><a href="quality-control.html#sample-level-qc"><i class="fa fa-check"></i><b>3.1</b> Sample-level QC</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="quality-control.html"><a href="quality-control.html#principal-component-analysis-pca"><i class="fa fa-check"></i><b>3.1.1</b> Principal Component Analysis (PCA)</a></li>
+<li class="chapter" data-level="3.1.2" data-path="quality-control.html"><a href="quality-control.html#hierarchical-clustering-heatmap"><i class="fa fa-check"></i><b>3.1.2</b> Hierarchical Clustering Heatmap</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="quality-control.html"><a href="quality-control.html#gene-level-qc"><i class="fa fa-check"></i><b>3.2</b> Gene-level QC</a></li>
+<li class="chapter" data-level="3.3" data-path="quality-control.html"><a href="quality-control.html#mov10-quality-assessment-and-exploratory-analysis-using-deseq2"><i class="fa fa-check"></i><b>3.3</b> Mov10 quality assessment and exploratory analysis using DESeq2</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="quality-control.html"><a href="quality-control.html#transform-normalized-counts-using-the-rlog-transformation"><i class="fa fa-check"></i><b>3.3.1</b> Transform normalized counts using the rlog transformation</a></li>
+<li class="chapter" data-level="3.3.2" data-path="quality-control.html"><a href="quality-control.html#principal-components-analysis-pca"><i class="fa fa-check"></i><b>3.3.2</b> Principal components analysis (PCA)</a></li>
+<li class="chapter" data-level="3.3.3" data-path="quality-control.html"><a href="quality-control.html#hierarchical-clustering"><i class="fa fa-check"></i><b>3.3.3</b> Hierarchical Clustering</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="dge-analysis-workflow.html"><a href="dge-analysis-workflow.html"><i class="fa fa-check"></i><b>4</b> DGE analysis workflow</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="dge-analysis-workflow.html"><a href="dge-analysis-workflow.html#running-deseq2"><i class="fa fa-check"></i><b>4.1</b> Running DESeq2</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="dge-analysis-workflow.html"><a href="dge-analysis-workflow.html#design-formula"><i class="fa fa-check"></i><b>4.1.1</b> Design formula</a></li>
+<li class="chapter" data-level="4.1.2" data-path="dge-analysis-workflow.html"><a href="dge-analysis-workflow.html#mov10-de-analysis"><i class="fa fa-check"></i><b>4.1.2</b> MOV10 DE analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="dge-analysis-workflow.html"><a href="dge-analysis-workflow.html#deseq2-differential-gene-expression-analysis-workflow"><i class="fa fa-check"></i><b>4.2</b> DESeq2 differential gene expression analysis workflow</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="dge-analysis-workflow.html"><a href="dge-analysis-workflow.html#step-1-estimate-size-factors"><i class="fa fa-check"></i><b>4.2.1</b> Step 1: Estimate size factors</a></li>
+<li class="chapter" data-level="4.2.2" data-path="dge-analysis-workflow.html"><a href="dge-analysis-workflow.html#step-2-estimate-gene-wise-dispersion"><i class="fa fa-check"></i><b>4.2.2</b> Step 2: Estimate gene-wise dispersion</a></li>
+<li class="chapter" data-level="4.2.3" data-path="dge-analysis-workflow.html"><a href="dge-analysis-workflow.html#step-3-fit-curve-to-gene-wise-dispersion-estimates"><i class="fa fa-check"></i><b>4.2.3</b> Step 3: Fit curve to gene-wise dispersion estimates</a></li>
+<li class="chapter" data-level="4.2.4" data-path="dge-analysis-workflow.html"><a href="dge-analysis-workflow.html#step-4-shrink-gene-wise-dispersion-estimates-toward-the-values-predicted-by-the-curve"><i class="fa fa-check"></i><b>4.2.4</b> Step 4: Shrink gene-wise dispersion estimates toward the values predicted by the curve</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="model-and-hypothesis-testing.html"><a href="model-and-hypothesis-testing.html"><i class="fa fa-check"></i><b>5</b> Model and hypothesis testing</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="model-and-hypothesis-testing.html"><a href="model-and-hypothesis-testing.html#generalized-linear-model-fit-for-each-gene"><i class="fa fa-check"></i><b>5.1</b> Generalized Linear Model fit for each gene</a></li>
+<li class="chapter" data-level="5.2" data-path="model-and-hypothesis-testing.html"><a href="model-and-hypothesis-testing.html#shrunken-log2-foldchanges-lfc"><i class="fa fa-check"></i><b>5.2</b> Shrunken log2 foldchanges (LFC)</a></li>
+<li class="chapter" data-level="5.3" data-path="model-and-hypothesis-testing.html"><a href="model-and-hypothesis-testing.html#statistical-test-for-lfc-estimates-wald-test"><i class="fa fa-check"></i><b>5.3</b> Statistical test for LFC estimates: Wald test</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="model-and-hypothesis-testing.html"><a href="model-and-hypothesis-testing.html#overall-deseq2-workflow"><i class="fa fa-check"></i><b>5.3.1</b> Overall DESeq2 workflow:</a></li>
+<li class="chapter" data-level="5.3.2" data-path="model-and-hypothesis-testing.html"><a href="model-and-hypothesis-testing.html#creating-contrasts"><i class="fa fa-check"></i><b>5.3.2</b> Creating contrasts</a></li>
+<li class="chapter" data-level="5.3.3" data-path="model-and-hypothesis-testing.html"><a href="model-and-hypothesis-testing.html#building-the-results-table"><i class="fa fa-check"></i><b>5.3.3</b> Building the results table</a></li>
+<li class="chapter" data-level="5.3.4" data-path="model-and-hypothesis-testing.html"><a href="model-and-hypothesis-testing.html#ma-plot"><i class="fa fa-check"></i><b>5.3.4</b> MA Plot</a></li>
+<li class="chapter" data-level="5.3.5" data-path="model-and-hypothesis-testing.html"><a href="model-and-hypothesis-testing.html#mov10-de-analysis-results-exploration"><i class="fa fa-check"></i><b>5.3.5</b> MOV10 DE analysis: results exploration</a></li>
+<li class="chapter" data-level="5.3.6" data-path="model-and-hypothesis-testing.html"><a href="model-and-hypothesis-testing.html#multiple-test-correction"><i class="fa fa-check"></i><b>5.3.6</b> Multiple test correction</a></li>
+<li class="chapter" data-level="5.3.7" data-path="model-and-hypothesis-testing.html"><a href="model-and-hypothesis-testing.html#mov10-de-analysis-control-versus-knockdown"><i class="fa fa-check"></i><b>5.3.7</b> MOV10 DE analysis: Control versus Knockdown</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="model-and-hypothesis-testing.html"><a href="model-and-hypothesis-testing.html#summarizing-results"><i class="fa fa-check"></i><b>5.4</b> Summarizing results</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="model-and-hypothesis-testing.html"><a href="model-and-hypothesis-testing.html#extracting-significant-differentially-expressed-genes"><i class="fa fa-check"></i><b>5.4.1</b> Extracting significant differentially expressed genes</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="visualizing-rna-seq-results.html"><a href="visualizing-rna-seq-results.html"><i class="fa fa-check"></i><b>6</b> Visualizing RNA-seq results</a>
+<ul>
+<li class="chapter" data-level="6.0.1" data-path="visualizing-rna-seq-results.html"><a href="visualizing-rna-seq-results.html#plotting-signicant-de-genes"><i class="fa fa-check"></i><b>6.0.1</b> Plotting signicant DE genes</a></li>
+<li class="chapter" data-level="6.0.2" data-path="visualizing-rna-seq-results.html"><a href="visualizing-rna-seq-results.html#heatmap"><i class="fa fa-check"></i><b>6.0.2</b> Heatmap</a></li>
+<li class="chapter" data-level="6.0.3" data-path="visualizing-rna-seq-results.html"><a href="visualizing-rna-seq-results.html#volcano-plot"><i class="fa fa-check"></i><b>6.0.3</b> Volcano plot</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="summary-of-dge-workflow.html"><a href="summary-of-dge-workflow.html"><i class="fa fa-check"></i><b>7</b> Summary of DGE workflow</a></li>
+<li class="chapter" data-level="8" data-path="functional-analysis-of-rnaseq-data.html"><a href="functional-analysis-of-rnaseq-data.html"><i class="fa fa-check"></i><b>8</b> Functional analysis of RNAseq data</a>
+<ul>
+<li class="chapter" data-level="8.0.1" data-path="functional-analysis-of-rnaseq-data.html"><a href="functional-analysis-of-rnaseq-data.html#over-representation-analysis"><i class="fa fa-check"></i><b>8.0.1</b> Over-representation analysis</a></li>
+<li class="chapter" data-level="8.0.2" data-path="functional-analysis-of-rnaseq-data.html"><a href="functional-analysis-of-rnaseq-data.html#clusterprofiler"><i class="fa fa-check"></i><b>8.0.2</b> clusterProfiler</a></li>
+<li class="chapter" data-level="8.0.3" data-path="functional-analysis-of-rnaseq-data.html"><a href="functional-analysis-of-rnaseq-data.html#gene-set-enrichment-analysis-gsea"><i class="fa fa-check"></i><b>8.0.3</b> Gene set enrichment analysis (GSEA)</a></li>
+<li class="chapter" data-level="8.0.4" data-path="functional-analysis-of-rnaseq-data.html"><a href="functional-analysis-of-rnaseq-data.html#other-tools-and-resources"><i class="fa fa-check"></i><b>8.0.4</b> Other tools and resources</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="codebook.html"><a href="codebook.html"><i class="fa fa-check"></i><b>9</b> Codebook</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="codebook.html"><a href="codebook.html#dge-analysis-overview"><i class="fa fa-check"></i><b>9.1</b> DGE analysis overview</a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="codebook.html"><a href="codebook.html#review-of-the-dataset-1"><i class="fa fa-check"></i><b>9.1.1</b> Review of the dataset</a></li>
+<li class="chapter" data-level="9.1.2" data-path="codebook.html"><a href="codebook.html#setting-up-1"><i class="fa fa-check"></i><b>9.1.2</b> Setting up</a></li>
+<li class="chapter" data-level="9.1.3" data-path="codebook.html"><a href="codebook.html#dge-analysis-workflow-1"><i class="fa fa-check"></i><b>9.1.3</b> DGE analysis workflow</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="codebook.html"><a href="codebook.html#count-normalization-1"><i class="fa fa-check"></i><b>9.2</b> Count normalization</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="codebook.html"><a href="codebook.html#normalization-1"><i class="fa fa-check"></i><b>9.2.1</b> Normalization</a></li>
+<li class="chapter" data-level="9.2.2" data-path="codebook.html"><a href="codebook.html#count-normalization-of-mov10-dataset-1"><i class="fa fa-check"></i><b>9.2.2</b> Count normalization of Mov10 dataset</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="codebook.html"><a href="codebook.html#dge-qc-analysis"><i class="fa fa-check"></i><b>9.3</b> DGE QC analysis</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="codebook.html"><a href="codebook.html#sample-level-qc-1"><i class="fa fa-check"></i><b>9.3.1</b> Sample-level QC</a></li>
+<li class="chapter" data-level="9.3.2" data-path="codebook.html"><a href="codebook.html#mov10-quality-assessment-and-exploratory-analysis"><i class="fa fa-check"></i><b>9.3.2</b> Mov10 quality assessment and exploratory analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="codebook.html"><a href="codebook.html#deg-analysis-workflow"><i class="fa fa-check"></i><b>9.4</b> DEG analysis workflow</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="codebook.html"><a href="codebook.html#running-deseq2-1"><i class="fa fa-check"></i><b>9.4.1</b> Running DESeq2</a></li>
+<li class="chapter" data-level="9.4.2" data-path="codebook.html"><a href="codebook.html#deseq2-differential-gene-expression-analysis-workflow-1"><i class="fa fa-check"></i><b>9.4.2</b> DESeq2 differential gene expression analysis workflow</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="codebook.html"><a href="codebook.html#model-fitting"><i class="fa fa-check"></i><b>9.5</b> Model fitting</a>
+<ul>
+<li class="chapter" data-level="9.5.1" data-path="codebook.html"><a href="codebook.html#generalized-linear-model-fit-for-each-gene-1"><i class="fa fa-check"></i><b>9.5.1</b> Generalized Linear Model fit for each gene</a></li>
+<li class="chapter" data-level="9.5.2" data-path="codebook.html"><a href="codebook.html#shrunken-log2-foldchanges-lfc-1"><i class="fa fa-check"></i><b>9.5.2</b> Shrunken log2 foldchanges (LFC)</a></li>
+<li class="chapter" data-level="9.5.3" data-path="codebook.html"><a href="codebook.html#hypothesis-testing-using-the-wald-test"><i class="fa fa-check"></i><b>9.5.3</b> Hypothesis testing using the Wald test</a></li>
+<li class="chapter" data-level="9.5.4" data-path="codebook.html"><a href="codebook.html#summarizing-results-1"><i class="fa fa-check"></i><b>9.5.4</b> Summarizing results</a></li>
+</ul></li>
+<li class="chapter" data-level="9.6" data-path="codebook.html"><a href="codebook.html#visualizing-rna-seq-results-1"><i class="fa fa-check"></i><b>9.6</b> Visualizing rna-seq results</a>
+<ul>
+<li class="chapter" data-level="9.6.1" data-path="codebook.html"><a href="codebook.html#plotting-signicant-de-genes-1"><i class="fa fa-check"></i><b>9.6.1</b> Plotting signicant DE genes</a></li>
+<li class="chapter" data-level="9.6.2" data-path="codebook.html"><a href="codebook.html#heatmap-1"><i class="fa fa-check"></i><b>9.6.2</b> Heatmap</a></li>
+</ul></li>
+<li class="chapter" data-level="9.7" data-path="codebook.html"><a href="codebook.html#summary-of-differential-expression-analysis-workflow"><i class="fa fa-check"></i><b>9.7</b> Summary of differential expression analysis workflow</a>
+<ul>
+<li class="chapter" data-level="9.7.1" data-path="codebook.html"><a href="codebook.html#import-data-into-dds-object"><i class="fa fa-check"></i><b>9.7.1</b> 1. Import data into dds object:</a></li>
+<li class="chapter" data-level="9.7.2" data-path="codebook.html"><a href="codebook.html#exploratory-data-analysis-pca-heirarchical-clustering---identifying-outliers-and-sources-of-variation-in-the-data"><i class="fa fa-check"></i><b>9.7.2</b> 2. Exploratory data analysis (PCA &amp; heirarchical clustering) - identifying outliers and sources of variation in the data:</a></li>
+<li class="chapter" data-level="9.7.3" data-path="codebook.html"><a href="codebook.html#run-deseq2"><i class="fa fa-check"></i><b>9.7.3</b> 3. Run DESeq2:</a></li>
+<li class="chapter" data-level="9.7.4" data-path="codebook.html"><a href="codebook.html#check-the-fit-of-the-dispersion-estimates"><i class="fa fa-check"></i><b>9.7.4</b> 4. Check the fit of the dispersion estimates:</a></li>
+<li class="chapter" data-level="9.7.5" data-path="codebook.html"><a href="codebook.html#create-contrasts-to-perform-wald-testing-on-the-shrunken-log2-foldchanges-between-specific-conditions"><i class="fa fa-check"></i><b>9.7.5</b> 5. Create contrasts to perform Wald testing on the shrunken log2 foldchanges between specific conditions:</a></li>
+<li class="chapter" data-level="9.7.6" data-path="codebook.html"><a href="codebook.html#output-significant-results"><i class="fa fa-check"></i><b>9.7.6</b> 6. Output significant results:</a></li>
+<li class="chapter" data-level="9.7.7" data-path="codebook.html"><a href="codebook.html#visualize-results-volcano-plots-heatmaps-normalized-counts-plots-of-top-genes-etc."><i class="fa fa-check"></i><b>9.7.7</b> 7. Visualize results: volcano plots, heatmaps, normalized counts plots of top genes, etc.</a></li>
+<li class="chapter" data-level="9.7.8" data-path="codebook.html"><a href="codebook.html#make-sure-to-output-the-versions-of-all-tools-used-in-the-de-analysis"><i class="fa fa-check"></i><b>9.7.8</b> 8. Make sure to output the versions of all tools used in the DE analysis:</a></li>
+</ul></li>
+<li class="chapter" data-level="9.8" data-path="codebook.html"><a href="codebook.html#functional-analysis"><i class="fa fa-check"></i><b>9.8</b> Functional analysis</a>
+<ul>
+<li class="chapter" data-level="9.8.1" data-path="codebook.html"><a href="codebook.html#over-representation-analysis-1"><i class="fa fa-check"></i><b>9.8.1</b> Over-representation analysis</a></li>
+<li class="chapter" data-level="9.8.2" data-path="codebook.html"><a href="codebook.html#clusterprofiler-1"><i class="fa fa-check"></i><b>9.8.2</b> clusterProfiler</a></li>
+<li class="chapter" data-level="9.8.3" data-path="codebook.html"><a href="codebook.html#gene-set-enrichment-analysis-gsea-1"><i class="fa fa-check"></i><b>9.8.3</b> Gene set enrichment analysis (GSEA)</a></li>
+<li class="chapter" data-level="9.8.4" data-path="codebook.html"><a href="codebook.html#other-tools-and-resources-1"><i class="fa fa-check"></i><b>9.8.4</b> Other tools and resources</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="functional-analysis-1.html"><a href="functional-analysis-1.html"><i class="fa fa-check"></i><b>10</b> Functional analysis</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="functional-analysis-1.html"><a href="functional-analysis-1.html#over-representation-analysis-2"><i class="fa fa-check"></i><b>10.1</b> Over-representation analysis</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="functional-analysis-1.html"><a href="functional-analysis-1.html#gene-ontology-project"><i class="fa fa-check"></i><b>10.1.1</b> Gene Ontology project</a></li>
+<li class="chapter" data-level="10.1.2" data-path="functional-analysis-1.html"><a href="functional-analysis-1.html#hypergeometric-testing"><i class="fa fa-check"></i><b>10.1.2</b> Hypergeometric testing</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="functional-analysis-1.html"><a href="functional-analysis-1.html#clusterprofiler-2"><i class="fa fa-check"></i><b>10.2</b> clusterProfiler</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="functional-analysis-1.html"><a href="functional-analysis-1.html#running-clusterprofiler-2"><i class="fa fa-check"></i><b>10.2.1</b> Running clusterProfiler</a></li>
+<li class="chapter" data-level="10.2.2" data-path="functional-analysis-1.html"><a href="functional-analysis-1.html#visualizing-clusterprofiler-results-2"><i class="fa fa-check"></i><b>10.2.2</b> Visualizing clusterProfiler results</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="functional-analysis-1.html"><a href="functional-analysis-1.html#gene-set-enrichment-analysis-gsea-2"><i class="fa fa-check"></i><b>10.3</b> Gene set enrichment analysis (GSEA)</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="functional-analysis-1.html"><a href="functional-analysis-1.html#gsea-using-clusterprofiler-2"><i class="fa fa-check"></i><b>10.3.1</b> GSEA using clusterProfiler</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="functional-analysis-1.html"><a href="functional-analysis-1.html#other-tools"><i class="fa fa-check"></i><b>10.4</b> Other Tools</a>
+<ul>
+<li class="chapter" data-level="10.4.1" data-path="functional-analysis-1.html"><a href="functional-analysis-1.html#genemania"><i class="fa fa-check"></i><b>10.4.1</b> GeneMANIA</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="functional-analysis-1.html"><a href="functional-analysis-1.html#resources-for-functional-analysis"><i class="fa fa-check"></i><b>10.5</b> Resources for functional analysis</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">RNA-seq-analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="header">
+<h1 class="title">RNA-seq-analysis</h1>
+<p class="date"><em>2024-08-31</em></p>
+</div>
+<div id="rna-seq-analysis-workshop" class="section level1 unnumbered hasAnchor">
+<h1>RNA-seq analysis workshop<a href="index.html#rna-seq-analysis-workshop" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p align="center">
+<img src="img/football333.png" alt="Welcome to Omics Science!" width="600" />
+</p>
+<p>The published version for this module can be found on my bookdown site <a href="https://bookdown.org/ggiaever/RNA-seq-analysis/">RNA-seq-analysis</a>.</p>
+
+</div>
+<div class="intro-to-R_footer">
+  
+</div>
+<script>
+
+/* update total correct if #webex-total_correct exists */
+update_total_correct = function() {
+  if (t = document.getElementById("webex-total_correct")) {
+    t.innerHTML =
+      document.getElementsByClassName("webex-correct").length + " of " +
+      document.getElementsByClassName("webex-solveme").length + " correct";
+  }
+}
+
+/* webex-solution button toggling function */
+b_func = function() {
+  var cl = this.parentElement.classList;
+  if (cl.contains('open')) {
+    cl.remove("open");
+  } else {
+    cl.add("open");
+  }
+}
+
+/* function for checking solveme answers */
+solveme_func = function(e) {
+  var real_answers = JSON.parse(this.dataset.answer);
+  var my_answer = this.value;
+  var cl = this.classList;
+  if (cl.contains("ignorecase")) {
+    my_answer = my_answer.toLowerCase();
+  }
+  if (cl.contains("nospaces")) {
+    my_answer = my_answer.replace(/ /g, "")
+  }
+  
+  if (my_answer !== "" & real_answers.includes(my_answer)) {
+    cl.add("webex-correct");
+  } else {
+    cl.remove("webex-correct");
+  }
+
+  // match numeric answers within a specified tolerance
+  if(this.dataset.tol > 0){
+    var tol = JSON.parse(this.dataset.tol);  
+    var matches = real_answers.map(x => Math.abs(x - my_answer) < tol)
+    if (matches.reduce((a, b) => a + b, 0) > 0) {
+      cl.add("webex-correct");
+    } else {
+      cl.remove("webex-correct");
+    }  
+  }
+
+  // added regex bit
+  if (cl.contains("regex")){
+    answer_regex = RegExp(real_answers.join("|"))
+    if (answer_regex.test(my_answer)) {
+      cl.add("webex-correct");
+    }  
+  }
+  
+  update_total_correct();
+}
+
+window.onload = function() {
+  /* set up solution buttons */
+  var buttons = document.getElementsByTagName("button");
+
+  for (var i = 0; i < buttons.length; i++) {
+    if (buttons[i].parentElement.classList.contains('webex-solution')) {
+      buttons[i].onclick = b_func;
+    }
+  }
+  
+  /* set up webex-solveme inputs */
+  var solveme = document.getElementsByClassName("webex-solveme");
+
+  for (var i = 0; i < solveme.length; i++) {
+    /* make sure input boxes don't auto-anything */
+    solveme[i].setAttribute("autocomplete","off");
+    solveme[i].setAttribute("autocorrect", "off");
+    solveme[i].setAttribute("autocapitalize", "off"); 
+    solveme[i].setAttribute("spellcheck", "false");
+    solveme[i].value = "";
+    
+    /* adjust answer for ignorecase or nospaces */
+    var cl = solveme[i].classList;
+    var real_answer = solveme[i].dataset.answer;
+    if (cl.contains("ignorecase")) {
+      real_answer = real_answer.toLowerCase();
+    }
+    if (cl.contains("nospaces")) {
+      real_answer = real_answer.replace(/ /g, "");
+    }
+    solveme[i].dataset.answer = real_answer;
+    
+    /* attach checking function */
+    solveme[i].onkeyup = solveme_func;
+    solveme[i].onchange = solveme_func;
+  }
+  
+  update_total_correct();
+}
+
+</script>
+            </section>
+
+          </div>
+        </div>
+      </div>
+
+<a href="differential-gene-expression-dge-analysis-overview.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown/edit/main/inst/examples/index.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["RNA-seq-analysis.pdf", "RNA-seq-analysis.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section"
+},
+"fig_height": 5.3,
+"fig_width": 8.5
+});
+});
+</script>
+
+</body>
+
+</html>
