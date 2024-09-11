@@ -1,3 +1,17 @@
+# bookdown
+_book
+_bookdown_files
+_pdf
+_epub
+epub
+render_all.R
+09-DGE1_codebook.Rmd
+data/res_tableKD.rds
+data/res_tableOE.rds
+data/sigKD.rds
+RNA-seq-analysis.Rmd
+
+
 # History files
 .Rhistory
 .Rapp.history

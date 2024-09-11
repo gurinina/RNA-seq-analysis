@@ -21,7 +21,7 @@ link-citations: true
 # RNA-seq analysis workshop {-}
 
 <p align="center">
-  <img src="img/football333.png" alt="Welcome to Omics Science!" width="600" />
+  <img src="img/football333.png" alt="Welcome to Omics Science!" width="300" />
 </p>
 
 
