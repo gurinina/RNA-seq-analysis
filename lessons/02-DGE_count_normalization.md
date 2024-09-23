@@ -180,9 +180,33 @@ all(colnames(data) == rownames(meta))
 
 The colnames of our data don't match the rownames of our metadata so we need to reorder them. We can use the `match` function:
 ```r
-# write the code to match the colnames of data to the rownames of meta
+
+
+idx <- match(rownames(meta),colnames(data))
+data <- data[,idx]
+
+all(colnames(data) == rownames(meta))
+```
+
+**Exercise** points = +2
+
+Suppose we had sample names matching in the counts matrix and metadata file, but they were out of order. Write the line(s) of code required to create a new matrix with columns ordered such that they were identical to the row names of the metadata.
+```{r, eval=FALSE}
+
+# write the code to reorder the columns of the data matrix to match the rownames of the metadata
 
 # check that the rownames of the metadata match the colnames of the data
+
+
+```
+
+```{r, eval=FALSE}
+
+solutions(
+  'idx <- match(rownames(metadata), colnames(data))\n
+   data <- data[, idx]\n
+   all(colnames(data) == rownames(metadata))'
+)
 
 ```
 

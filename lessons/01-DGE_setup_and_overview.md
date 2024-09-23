@@ -82,8 +82,8 @@ class(data)
 Make sure your datasets contain the expected samples / information before proceeding to perfom any type of analysis. 
 
 ```r
-View(meta)
-View(data)
+head(meta)
+head(data)
 ```
 ## Differential gene expression analysis overview
 
@@ -149,29 +149,28 @@ When **the number of cases is very large (i.e. people who buy lottery tickets), 
 
 **With RNA-seq data, for each sample we have millions of reads being sequenced and the probability of a read mapping to a gene is extremely low.** Thus, it would be an appropriate situation to use the Poisson distribution. However, a unique property of this distribution is that the mean == variance given by the single parameter $\lambda$.
 
-For us to apply a poisson distribution to our data, we first need to find out
+For or us to apply a poisson distribution to our data, we first need to find out
 whether our data fulfills the criteria to use the poisson distribution. To do that we can plot the *mean versus variance* for the 'Mov10 overexpression' replicates:
 
-```r
-# apply applies a function to the margins of a matrix
-# apply(X, MARGIN, FUN)
-# where X is a matrix
-# to apply a function to each row of a matrix, use MARGIN = 1
-# to apply a function to each column of a matrix, use MARGIN = 2
-# FUN can be any function that takes a vector as input and returns a single value
+To calculate the mean and variance of our data, we will use the `apply` function. The `apply` function allows you to apply a function to the margins (rows or columns) of a matrix. The syntax for `apply` is as follows: `apply(X, MARGIN, FUN)`, where `X` is a matrix, `MARGIN` is the margin of the matrix to apply the function to (1 = rows, 2 = columns), and `FUN` is the function to apply. 
 
+We will use `MARGIN = 1` to apply the mean and variance of the counts for each row (gene) across the 'Mov10 overexpression' replicates. We will then create a data frame with the mean and variance of the counts for each gene.
+```r
 mean_counts <- apply(data[, 3:5], 1, mean)
+
 variance_counts <- apply(data[, 3:5], 1, var)
+
 # for ggplot we need the data to be in a data.frame
 df <- data.frame(mean_counts, variance_counts)
-
+```
+Run the following code to plot the *mean versus variance* for the 'Mov10 overexpression' replicates:
+```r
 ggplot(df) +
         geom_point(aes(x=mean_counts, y=variance_counts)) + 
         geom_line(aes(x=mean_counts, y=mean_counts, color="red")) +
         scale_y_log10() +
         scale_x_log10()
 ```
-
 ![Alt text](img/deseq_mean_vs_variance.png){ width=600 }
 
 

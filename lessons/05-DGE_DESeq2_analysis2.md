@@ -119,7 +119,11 @@ res_tableOE_unshrunken <- results(dds, contrast=contrast_oe, alpha = 0.05)
 
 resultsNames(dds)
 
-res_tableOE <- lfcShrink(dds = dds,coef="sampletype_MOV10_overexpression_vs_control",res=res_tableOE_unshrunken)
+res_tableOE <- lfcShrink(dds, coef = "sampletype_MOV10_overexpression_vs_control", res = res_tableOE_unshrunken, type = "apeglm")
+
+# We will save these results for later use in the data directory using the following command:
+
+saveRDS(res_tableOE, file = "data/res_tableOE.rds")
 ```
 
 **The order of the names determines the direction of fold change that is reported.** The name provided in the second element is the level that is used as baseline. So for example, if we observe a log2 fold change of -2 this would mean the gene expression is lower in Mov10_oe relative to the control. 
@@ -272,6 +276,10 @@ Now we can subset that table to only keep the significant genes using our pre-de
 ```r
 sigOE <- res_tableOE_tb %>%
         filter(padj < padj.cutoff & abs(log2FoldChange) > lfc.cutoff)
+        
+
+# We'll save this object for use in the homework
+saveRDS(sigOE,"data/sigOE.rds")
 ```
 
 **How many genes are differentially expressed in the Overexpression compared to Control, given our criteria specified above? Does this reduce our results?**

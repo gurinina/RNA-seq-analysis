@@ -152,12 +152,12 @@ head(pivoted_top20_sigOE)
 
 Now, if we want our counts colored by sample group, then we need to combine the metadata information with the melted normalized counts data into the same data frame for input to `ggplot()`:
 
+`inner_join(x,y)` will merge 2 data frames by the colname in x that matches a column name in y. 
+it is similar to doing a match(pivoted_top20_sigOE$samplename, mov10_meta$samplename) and then adding sampletype andn MOV10exr to pivoted_top20_sigOE$samplename, but it is more efficient because the columns from mov10_meta are added in a single command.
 ```r
 
-# `inner_join(x,y)` will merge 2 data frames by the colname in x that matches a column name in y. 
-it is similar to doing a match(pivoted_top20_sigOE$samplename, mov10_meta$samplename) and then adding sampletype andn MOV10exr to pivoted_top20_sigOE$samplename, but it is more efficient because the columns from mov10_meta are added in a single command.
-
 pivoted_top20_sigOE <- inner_join(mov10_meta, pivoted_top20_sigOE)
+
 ```
 
 
@@ -183,12 +183,15 @@ ggplot(pivoted_top20_sigOE) +
 In addition to plotting subsets, we could also extract the normalized values of *all* the significant genes and plot a heatmap of their expression using `pheatmap()`.
 
 ```r
+
+sigOE <- readRDS("data/sigOE.rds")
+
 ### Extract normalized expression for significant genes from the OE and control samples c(2:4,7:9), and set the gene column (1) to row names
 
 norm_OEsig <- normalized_counts[,c(1,2:4,7:9)] %>% 
               filter(gene %in% sigOE$gene) %>% 
-	      data.frame() %>%
-	      column_to_rownames(var = "gene") 
+      	      data.frame() %>%
+      	      column_to_rownames(var = "gene") 
 ```
 
 Now let's draw the heatmap using `pheatmap`:
@@ -279,7 +282,7 @@ ggplot(res_tableOE_tb, aes(x = log2FoldChange,
         xlab("log2 fold change") + 
         ylab("-log10 adjusted p-value") +
         theme(legend.position = "none",
-        plot.title = element_text(size = rel(1.5),             hjust = 0.5),
+        plot.title = element_text(size = rel(1.5), hjust = 0.5),
         axis.title = element_text(size = rel(1.25))) 
 ```
 
